@@ -3,3 +3,4 @@ venv/
 cartography/__pycache__/
 cartography/cartography/__pycache__/
 cartography/tests/__pycache__/
+cartography/tg_bot/__pycache__/

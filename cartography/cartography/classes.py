@@ -12,7 +12,7 @@ class Alphabet:
 
 class Degrees:
 
-    def __init__(self, degree: int = 0, minute: int = 0, second: float | int = 0) -> None:
+    def __init__(self, degree: int | float = 0, minute: int | float = 0, second: float | int = 0) -> None:
         self.degree = degree
         self.minute = minute
         if second == int(second):
@@ -103,7 +103,8 @@ class Numenculat(NamedTuple):
 
     def __repr__(self) -> str:
         headers = ('φ', 'λ')
-        content = ((str(self.lower_bound.latitude), str(self.lower_bound.longitude)), (str(self.upper_bound.latitude), str(self.upper_bound.longitude)))
+        content = ((str(self.lower_bound.latitude), str(self.lower_bound.longitude)), (str(self.upper_bound.latitude),
+                                                                                       str(self.upper_bound.longitude)))
         tab = tabulate(content, headers, tablefmt='simple_outline')
         summarize = f'<pre>{self.numenculat: ^20}\n{tab}</pre>'
         return summarize

@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Telegram bot to solve cartography issues"
 authors = ["likeinlife <likeinlife48@yandex.ru>"]
 readme = "README.md"
+packages = [{include = "cartography"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -20,3 +21,6 @@ mypy = "^1.0.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+bot = "cartography.__main__:main"
