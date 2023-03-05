@@ -16,7 +16,6 @@ def get_numenculat_by_coordinates(coordinate: CoordinatePair, operations: int):
     for operation_number in range(1, operations + 1):
         if operation_number == 1:
             saved_values = get_first(coordinate)
-            print(saved_values)
         if operation_number == 2:
             saved_values = get_numenculat_by_parts(coordinate, 12, saved_values)  # type: ignore
             m_100_values = Numenculat(saved_values.lower_bound, saved_values.upper_bound, saved_values.numenculat)
@@ -194,7 +193,6 @@ def main(coordinates: CoordinatePair, operations: int):
     CoordinatePair(Degrees(15, 30), Degrees(165), CoordinatePair(Degrees(15, 40), Degrees(165, 15), 'D-58-19-А-г'
     CoordinatePair(Degrees(50, 54, 35), Degrees(67, 19, 22.5), CoordinatePair(Degrees(50, 55), Degrees(67, 20, 37.5), 'M-42-39-(75)-(б)'
     """
-    print(coordinates)
     return get_numenculat_by_coordinates(coordinates, operations)
 
 

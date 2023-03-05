@@ -55,7 +55,7 @@ def find_coordinate_bounds_by_numenculature(part: str):
             yield saved_bounds
 
     if saved_bounds == ():
-        raise IncorrectData('Список со значениями пусть, где-то произошла ошибка')
+        yield 'Список со значениями пусть, где-то произошла ошибка'
     return saved_bounds
 
 

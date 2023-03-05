@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher
 from .config import config
-from . import handlers
+from .tg_bot import handlers, middlewares
 import asyncio
 
 
@@ -9,6 +9,7 @@ async def start():
     dp = Dispatcher()
 
     dp.include_router(handlers.router)
+    dp.message.middleware(middlewares.IsAdminMiddleWare())
 
     try:
         await dp.start_polling(bot)
@@ -16,5 +17,9 @@ async def start():
         await bot.session.close()
 
 
-if __name__ == '__main__':
+def main():
     asyncio.run(start())
+
+
+if __name__ == '__main__':
+    main()
