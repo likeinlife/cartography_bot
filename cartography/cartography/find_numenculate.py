@@ -145,53 +145,15 @@ def main(coordinates: CoordinatePair, operations: int):
         operations: Number of scaling. 1 - 1:1_000_000, 2 - 1:100_000, 3 - 1:50_000, 4 - 1:25_000, 5 - 10_000, 6 - 5000, 7 - 2000
 
     >>> main(CoordinatePair(Degrees(15, 34, 21), Degrees(165, 9, 17)), 5)
-    lower: φ =  12°  0'    0" ;λ = 162°  0'    0"
-    upper: φ =  16°  0'    0" ;λ = 168°  0'    0"
-    numenculatura: D-58
-    lower: φ =  15° 20'  0.0" ;λ = 165°  0'  0.0"
-    upper: φ =  15° 40'  0.0" ;λ = 165° 30'  0.0"
-    numenculatura: D-58-19
-    lower: φ =  15° 30'  0.0" ;λ = 165°  0'  0.0"
-    upper: φ =  15° 40'  0.0" ;λ = 165° 15'  0.0"
-    numenculatura: D-58-19-А
-    lower: φ =  15° 30'  0.0" ;λ = 165°  7' 30.0"
-    upper: φ =  15° 35'  0.0" ;λ = 165° 15'  0.0"
-    numenculatura: D-58-19-А-г
-    lower: φ =  15° 32' 30.0" ;λ = 165°  7' 30.0"
-    upper: φ =  15° 35'  0.0" ;λ = 165° 11' 15.0"
-    numenculatura: D-58-19-А-г-1
     lower: φ =  15° 32' 30.0" ;λ = 165°  7' 30.0"
     upper: φ =  15° 35'  0.0" ;λ = 165° 11' 15.0"
     numenculatura: D-58-19-А-г-1
 
     >>> main(CoordinatePair(Degrees(50, 54, 55), Degrees(67, 19, 48)), 7)
-    lower: φ =  48°  0'    0" ;λ =  66°  0'    0"
-    upper: φ =  52°  0'    0" ;λ =  72°  0'    0"
-    numenculatura: M-42
-    lower: φ =  50° 40'  0.0" ;λ =  67°  0'  0.0"
-    upper: φ =  51°  0'  0.0" ;λ =  67° 30'  0.0"
-    numenculatura: M-42-39
-    lower: φ =  50° 50'  0.0" ;λ =  67° 15'  0.0"
-    upper: φ =  51°  0'  0.0" ;λ =  67° 30'  0.0"
-    numenculatura: M-42-39-Б
-    lower: φ =  50° 50'  0.0" ;λ =  67° 15'  0.0"
-    upper: φ =  50° 55'  0.0" ;λ =  67° 22' 30.0"
-    numenculatura: M-42-39-Б-в
-    lower: φ =  50° 52' 30.0" ;λ =  67° 18' 45.0"
-    upper: φ =  50° 55'  0.0" ;λ =  67° 22' 30.0"
-    numenculatura: M-42-39-Б-в-2
-    lower: φ =  50° 53' 45.0" ;λ =  67° 18' 45.0"
-    upper: φ =  50° 55'  0.0" ;λ =  67° 20' 37.5"
-    numenculatura: M-42-39-(75)
-    lower: φ =  50° 54' 35.0" ;λ =  67° 19' 22.5"
-    upper: φ =  50° 55'  0.0" ;λ =  67° 20'  0.0"
-    numenculatura: M-42-39-(75)-(б)
     lower: φ =  50° 54' 35.0" ;λ =  67° 19' 22.5"
     upper: φ =  50° 55'  0.0" ;λ =  67° 20'  0.0"
     numenculatura: M-42-39-(75)-(б)
 
-    CoordinatePair(Degrees(15, 30), Degrees(165), CoordinatePair(Degrees(15, 40), Degrees(165, 15), 'D-58-19-А-г'
-    CoordinatePair(Degrees(50, 54, 35), Degrees(67, 19, 22.5), CoordinatePair(Degrees(50, 55), Degrees(67, 20, 37.5), 'M-42-39-(75)-(б)'
     """
     return get_numenculat_by_coordinates(coordinates, operations)
 

@@ -65,7 +65,6 @@ def get_first(first_part: Tuple[str, str]) -> Numenculat:
     Args:
         first_part (tuple): (R, 41), (D, 58)
 
-    Returns (Tuple[float, float, float, float]): latitude1, latitude2, longitude1, longitude2
     """
     alphabet = string.ascii_uppercase
     lower_latitude = Degrees()
