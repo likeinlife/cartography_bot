@@ -18,7 +18,7 @@ async def function_name(message: Message, state: FSMContext):
 
 @router.message(Command("by_numenclature"))
 async def numenclature_by(message: Message, state: FSMContext):
-    await message.answer("Введи нуменклатуру. Например: B-29-34-А-г-1 или B-29-34-(128-и)")
+    await message.answer("Введи нуменклатуру. Например: U-32-4-Г-а или U-32-4-(128-и)")
     await state.set_state(ByNumenclature.enter_numenclature)
 
 
