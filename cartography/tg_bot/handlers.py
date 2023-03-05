@@ -1,5 +1,5 @@
 from aiogram import Router
-from aiogram.filters import Command
+from aiogram.filters import Command, Text, or_f
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
@@ -8,6 +8,12 @@ from .states import ByCoordinates, GetMiddle, ByNumenclature
 from cartography.cartography import find_geograph, find_numenculate, classes, re_compilated, get_middle
 
 router = Router()
+
+
+@router.message(or_f(Command('stop', 'стоп'), Text(text='стоп'), Text(text='stop')))
+async def function_name(message: Message, state: FSMContext):
+    await message.answer('Остановлено')
+    await state.clear()
 
 
 @router.message(Command("by_numenclature"))
@@ -30,18 +36,20 @@ async def numenclature_results(message: Message, state: FSMContext):
 
 @router.message(Command("by_coordinates"))
 async def cordinates_by(message: Message, state: FSMContext):
-    await message.reply('Введи координату(широту). Например: "10 20 30"')
     await state.set_state(ByCoordinates.enter_first_coordinates)
+    await message.reply('Введи координату(широту). Например: "10 20 30"')
 
 
 @router.message(ByCoordinates.enter_first_coordinates)
+@utils.validate_coordinate
 async def coordinates_enter_first(message: Message, state: FSMContext):
-    await message.reply('Введи координаты(долготу). Например: "10 20 30"')
     await state.update_data(first=message.text)
     await state.set_state(ByCoordinates.enter_second_coordinates)
+    await message.reply('Введи координаты(долготу). Например: "10 20 30"')
 
 
 @router.message(ByCoordinates.enter_second_coordinates)
+@utils.validate_coordinate
 async def coordinates_enter_second(message: Message, state: FSMContext):
     await state.update_data(second=message.text)
     await state.set_state(ByCoordinates.enter_operations_number)
@@ -72,6 +80,7 @@ async def middle_get(message: Message, state: FSMContext):
 
 
 @router.message(GetMiddle.enter_first_coordinates)
+@utils.validate_coordinate
 async def middle_first_coordinate(message: Message, state: FSMContext):
     await state.update_data(first=message.text)
     await message.answer('Напиши вторую координату')
@@ -79,6 +88,7 @@ async def middle_first_coordinate(message: Message, state: FSMContext):
 
 
 @router.message(GetMiddle.enter_second_coordinates)
+@utils.validate_coordinate
 async def middle_second_coordinate(message: Message, state: FSMContext):
     await state.update_data(second=message.text)
     await message.answer('Напиши количество частей')
