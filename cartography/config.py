@@ -18,6 +18,14 @@ class Config:
         return int(admin_id)
 
     @property
+    def debug(self) -> bool:
+        debug = os.getenv('DEBUG')
+        if debug:
+            print('DEBUG MODE')
+            return True
+        return False
+
+    @property
     def static_path(self) -> Path:
         return Path(__file__).parent / 'static'
 
