@@ -16,6 +16,7 @@ async def start():
     dp.include_router(cartography.router)
     dp.include_router(tmogi.router)
     dp.message.middleware(middlewares.IsAdminMiddleWare())
+    dp.message.middleware(middlewares.ChatActionMiddleware())
 
     if config.debug:
         from .tg_bot.handlers import devs
