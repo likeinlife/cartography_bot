@@ -12,11 +12,13 @@ router = Router()
 
 @router.message(Command(commands=['laplas']))
 async def get_laplas_table(message: Message):
-    laplas_photo = FSInputFile(STATIC_PATH / 'Laplas.png', filename='laplas_table.png')
-    await message.answer_document(laplas_photo)
+    laplas_photo_id = 'BQACAgIAAxkBAAICEmQLXgW7HHbqMqhWvU-x7nNbiuZUAAIiKAACLvFgSDmDMr8NT5KvLwQ'
+    # laplas_photo = FSInputFile(STATIC_PATH / 'Laplas.png', filename='laplas_table.png')
+    await message.answer_document(laplas_photo_id)
 
 
 @router.message(Command(commands=['student']))
 async def get_student_table(message: Message):
-    student_photo = FSInputFile(STATIC_PATH / 'Student.png')
-    await message.answer_document(student_photo)
+    student_photo_id = 'BQACAgIAAxkBAAICDmQLXYpSeTmOHDwkvvCWbzLGVA85AAIVKAACLvFgSFjQMXEVeWoDLwQ'
+    # student_photo = FSInputFile(STATIC_PATH / 'Student.png')
+    await message.answer_document(student_photo_id)

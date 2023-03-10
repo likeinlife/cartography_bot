@@ -17,6 +17,10 @@ async def start():
     dp.include_router(tmogi.router)
     dp.message.middleware(middlewares.IsAdminMiddleWare())
 
+    if config.debug:
+        from .tg_bot.handlers import devs
+        dp.include_router(devs.router)
+
     try:
         await dp.start_polling(bot)
     finally:
