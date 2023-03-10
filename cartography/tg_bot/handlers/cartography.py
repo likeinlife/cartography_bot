@@ -3,8 +3,7 @@ from aiogram.filters import Command, Text, or_f
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from cartography.cartography import (classes, find_geograph, find_numenculate,
-                                     get_middle, re_compilated)
+from cartography.cartography import (classes, find_geograph, find_numenculate, get_middle, re_compilated)
 
 from .. import utils
 from ..states import ByCoordinates, ByNumenclature, GetMiddle
@@ -24,7 +23,7 @@ async def numenclature_by(message: Message, state: FSMContext):
     await state.set_state(ByNumenclature.enter_numenclature)
 
 
-@router.message(ByNumenclature.enter_numenclature)
+@router.message(ByNumenclature.enter_numenclature, flags={'chat_action': 'typing'})
 async def numenclature_results(message: Message, state: FSMContext):
     if not message.text or not re_compilated.re_string.match(message.text):
         await message.answer('Неверные данные. Проверьте, является ли первая буква английской')
