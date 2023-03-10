@@ -1,3 +1,4 @@
+from pathlib import Path
 from dotenv import load_dotenv
 import os
 
@@ -14,6 +15,10 @@ class Config:
     def admin_id(self) -> int:
         admin_id = os.environ['ADMIN-ID']
         return int(admin_id)
+
+    @property
+    def static_path(self) -> Path:
+        return Path(__file__).parent / 'static'
 
 
 config = Config()
