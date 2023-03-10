@@ -1,8 +1,8 @@
-from typing import Tuple
 import string
+from typing import Tuple
 
+from .classes import Alphabet, Numenculat
 from .find_geograph import CoordinatePair, Degrees
-from .classes import Numenculat, Alphabet
 
 
 def get_numenculat_by_coordinates(coordinate: CoordinatePair, operations: int):

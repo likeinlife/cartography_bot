@@ -1,5 +1,6 @@
 from .classes import Degrees
 
+
 def get_middle(first: Degrees, second: Degrees, number_of_parts: int):
     delta = (second - first) / number_of_parts
     text = ''
