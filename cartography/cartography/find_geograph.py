@@ -1,7 +1,8 @@
-from typing import Optional, Tuple
-from .classes import Degrees, CoordinatePair, Alphabet, Numenculat
-from .re_compilated import re_string
 import string
+from typing import Optional, Tuple
+
+from .classes import Alphabet, CoordinatePair, Degrees, Numenculat
+from .re_compilated import re_string
 
 
 def find_coordinate_bounds_by_numenculature(part: str):

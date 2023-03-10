@@ -1,11 +1,13 @@
 from aiogram import Router
 from aiogram.filters import Command, Text, or_f
-from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
+from aiogram.types import Message
+
+from cartography.cartography import (classes, find_geograph, find_numenculate,
+                                     get_middle, re_compilated)
 
 from .. import utils
-from ..states import ByCoordinates, GetMiddle, ByNumenclature
-from cartography.cartography import find_geograph, find_numenculate, classes, re_compilated, get_middle
+from ..states import ByCoordinates, ByNumenclature, GetMiddle
 
 router = Router()
 

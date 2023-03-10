@@ -1,7 +1,7 @@
 import re
 from typing import Callable
-from aiogram.fsm.context import FSMContext
 
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 

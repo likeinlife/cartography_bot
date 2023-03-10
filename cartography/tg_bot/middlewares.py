@@ -1,6 +1,8 @@
 from typing import Any, Awaitable, Callable, Dict
+
 from aiogram.dispatcher.middlewares.base import BaseMiddleware
 from aiogram.types import TelegramObject
+
 from cartography.config import config
 
 
