@@ -33,8 +33,11 @@ def get_numenculat_by_coordinates(coordinate: CoordinatePair, operations: int):
             saved_values = get_numenculat_by_parts(coordinate, 16, m_100_values)  # type: ignore
             yield saved_values
         if operation_number == 7:
-            saved_values = get_numenculat_by_parts(coordinate, 3, saved_values,
-                                                   Alphabet.LOWER_ALPHA_EXTENDENT)  # type: ignore
+            saved_values = get_numenculat_by_parts(
+                coordinate,
+                3,
+                saved_values,  # type: ignore
+                Alphabet.LOWER_ALPHA_EXTENDENT)  # type: ignore
             yield saved_values
     return saved_values
 
