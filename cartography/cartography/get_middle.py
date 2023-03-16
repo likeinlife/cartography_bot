@@ -1,11 +1,11 @@
-from .classes import Degrees
+from ..utils.classes import Degrees
 
 
 def get_middle(first: Degrees, second: Degrees, number_of_parts: int):
     delta = (second - first) / number_of_parts
     text = ''
     for i in range(number_of_parts + 1):
-        text += str(delta*i + first) + '\n'
+        text += str(delta * i + first) + '\n'
     return text
 
 

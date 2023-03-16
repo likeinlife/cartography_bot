@@ -3,9 +3,10 @@ from aiogram.filters import Command, Text, or_f
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from cartography.cartography import (classes, find_geograph, find_numenculate, get_middle, re_compilated)
+from cartography.cartography import (find_geograph, find_numenculate, get_middle, re_compilated)
+from cartography.utils import classes
 
-from .. import utils
+from ...utils import utils
 from ..states import ByCoordinates, ByNumenclature, GetMiddle
 
 router = Router()

@@ -1,7 +1,7 @@
 import string
 from typing import Tuple
 
-from .classes import Alphabet, Numenculat
+from ..utils.classes import Alphabet, Numenculat
 from .find_geograph import CoordinatePair, Degrees
 
 
