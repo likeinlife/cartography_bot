@@ -1,7 +1,7 @@
 import string
 from typing import Optional, Tuple
 
-from .classes import Alphabet, CoordinatePair, Degrees, Numenculat
+from ..utils.classes import Alphabet, CoordinatePair, Degrees, Numenculat
 from .re_compilated import re_string
 
 

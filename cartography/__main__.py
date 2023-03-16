@@ -5,7 +5,7 @@ from aiogram.types import BotCommand, BotCommandScopeChat
 
 from .config import config
 from .tg_bot import middlewares
-from .tg_bot.handlers import cartography, tmogi
+from .tg_bot.handlers import cartography, tmogi, geodezia
 
 
 async def start():
@@ -15,6 +15,7 @@ async def start():
 
     dp.include_router(cartography.router)
     dp.include_router(tmogi.router)
+    dp.include_router(geodezia.router)
     dp.message.middleware(middlewares.IsAdminMiddleWare())
     dp.message.middleware(middlewares.ChatActionMiddleware())
 
@@ -37,6 +38,7 @@ async def set_commands(bot: Bot):
         ('stop', 'Остановить ввод значений'),
         ('laplas', 'Отправить таблицу функции Лапласа'),
         ('student', 'Отправить таблицу функции Стьюдента'),
+        ('micro', 'Посчитать отсчеты по микрометру'),
     )
     my_commands = [BotCommand(command=command, description=description) for (command, description) in commands]
     await bot.set_my_commands(my_commands, BotCommandScopeChat(chat_id=config.admin_id, type='chat'))

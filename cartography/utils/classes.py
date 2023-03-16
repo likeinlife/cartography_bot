@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import NamedTuple
 
-from tabulate import tabulate
+from tabulate import tabulate  # type: ignore
 
 
 class Alphabet:
@@ -18,7 +18,7 @@ class Degrees:
         self.degree = degree
         self.minute = minute
         if second == int(second):
-            self.second = int(second)
+            self.second: int | float = int(second)
         else:
             self.second = round(second, 2)
 
