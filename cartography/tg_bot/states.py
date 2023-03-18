@@ -11,6 +11,12 @@ class ByCoordinates(StatesGroup):
     enter_operations_number = State()
 
 
+class ByCoordinatesImages(StatesGroup):
+    enter_first_coordinates = State()
+    enter_second_coordinates = State()
+    enter_operations_number = State()
+
+
 class GetMiddle(StatesGroup):
     enter_first_coordinates = State()
     enter_second_coordinates = State()

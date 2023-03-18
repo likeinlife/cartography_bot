@@ -9,6 +9,14 @@ def get_middle(first: Degrees, second: Degrees, number_of_parts: int):
     return text
 
 
+def get_middle_list(first: Degrees, second: Degrees, number_of_parts: int):
+    delta = (second - first) / number_of_parts
+    text = []
+    for i in range(number_of_parts + 1):
+        text.append(str(delta * i + first))
+    return text
+
+
 if __name__ == "__main__":
     first = Degrees(*list(map(float, input('first >> ').split(' '))))
     second = Degrees(*list(map(float, input('second >> ').split(' '))))
