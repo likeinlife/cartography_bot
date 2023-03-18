@@ -1,4 +1,6 @@
 from __future__ import annotations
+from decimal import Decimal
+from math import floor
 
 from typing import NamedTuple
 
@@ -7,20 +9,20 @@ from tabulate import tabulate  # type: ignore
 
 class Alphabet:
     LOWER_ALPHA = ['а', 'б', 'в', 'г']
-    LOWER_ALPHA_EXTENDENT = ['а', 'б', 'в', 'г', 'е', 'ж', 'з', 'и']
+    LOWER_ALPHA_EXTENDENT = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и']
     UPPER_ALPHA = ['А', 'Б', 'В', 'Г']
     NUMBERS = ['1', '2', '3', '4']
 
 
 class Degrees:
 
-    def __init__(self, degree: int | float = 0, minute: int | float = 0, second: float | int = 0) -> None:
+    def __init__(self, degree: int | Decimal = 0, minute: int | Decimal = 0, second: Decimal | int = 0) -> None:
         self.degree = degree
         self.minute = minute
         if second == int(second):
-            self.second: int | float = int(second)
+            self.second: int | Decimal = int(second)
         else:
-            self.second = round(second, 2)
+            self.second = Decimal(str(second))
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Degrees):
@@ -40,16 +42,16 @@ class Degrees:
         return self.getAllInSeconds() > __o.getAllInSeconds()
 
     def __truediv__(self, divider: int):
-        return self.collectFromSeconds(self.getAllInSeconds() / divider)
+        return self.collectFromSeconds(Decimal(self.getAllInSeconds()) / Decimal(divider))
 
     def __mul__(self, multiplyer: int):
         return self.collectFromSeconds(self.getAllInSeconds() * multiplyer)
 
     @staticmethod
-    def collectFromSeconds(all_seconds: float) -> Degrees:
-        degree = round(all_seconds // 3600)
+    def collectFromSeconds(all_seconds: Decimal) -> Degrees:
+        degree = floor(all_seconds // 3600)
         all_seconds -= degree * 3600
-        minute = round(all_seconds // 60)
+        minute = floor(all_seconds // 60)
         all_seconds -= minute * 60
         second = all_seconds
         return Degrees(degree, minute, second)
@@ -58,13 +60,13 @@ class Degrees:
     def findCenter(first: Degrees, second: Degrees) -> Degrees:
         return Degrees.collectFromSeconds((first.getAllInSeconds() + second.getAllInSeconds()) // 2)
 
-    def getAllInSeconds(self) -> float:
-        return self.degree * 3600 + self.minute * 60 + self.second
+    def getAllInSeconds(self) -> Decimal:
+        return Decimal(self.degree) * 3600 + Decimal(self.minute) * 60 + Decimal(self.second)
 
     def __repr__(self) -> str:
         degree = (f'{f"{self.degree}°" if self.degree else " "}').rjust(4, ' ')
         minute = (f'{f"{self.minute}′" if self.minute else " "}').rjust(4, ' ')
-        second = (f'{f"{self.second}″" if self.second else " "}').rjust(6, ' ')
+        second = (f'{f"{round(self.second, 2)}″" if self.second else " "}').rjust(6, ' ')
         return f'{degree}{minute}{second}'
 
 

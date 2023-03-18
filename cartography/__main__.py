@@ -5,7 +5,7 @@ from aiogram.types import BotCommand, BotCommandScopeChat
 
 from .config import config
 from .tg_bot import middlewares
-from .tg_bot.handlers import cartography, tmogi, geodezia
+from .tg_bot.handlers import cartography, tmogi, geodezia, cartography_images
 
 
 async def start():
@@ -16,6 +16,7 @@ async def start():
     dp.include_router(cartography.router)
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
+    dp.include_router(cartography_images.router)
     dp.message.middleware(middlewares.IsAdminMiddleWare())
     dp.message.middleware(middlewares.ChatActionMiddleware())
 
@@ -34,6 +35,7 @@ async def set_commands(bot: Bot):
         ('start', 'Начало работы'),
         ('by_numenclature', 'Определить координаты рамки'),
         ('by_coordinates', 'Определить нуменклатуру'),
+        ('by_coordinates_images', 'Определить нуменклатуру, но с изображениями'),
         ('get_middle', 'Получить промежуточные значения между границами рамки'),
         ('stop', 'Остановить ввод значений'),
         ('laplas', 'Отправить таблицу функции Лапласа'),
