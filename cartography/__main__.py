@@ -17,8 +17,9 @@ async def start():
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
     dp.include_router(cartography_images.router)
-    dp.message.middleware(middlewares.IsAdminMiddleWare())
     dp.message.middleware(middlewares.ChatActionMiddleware())
+    if not config.public:
+        dp.message.middleware(middlewares.IsAdminMiddleWare())
 
     if config.debug:
         from .tg_bot.handlers import devs
