@@ -7,6 +7,14 @@ load_dotenv()
 
 
 class Config:
+    """ENV variables:
+        API-TOKEN - bot token
+        ADMIN-ID - admin telegram id
+        DEBUG - enable debug mode
+        PUBLIC - enable public use
+
+
+    """
 
     @property
     def bot_token(self) -> str:
@@ -28,6 +36,13 @@ class Config:
     @property
     def static_path(self) -> Path:
         return Path(__file__).parent / 'static'
+
+    @property
+    def public(self) -> bool:
+        public = os.getenv('PUBLIC')
+        if public:
+            return True
+        return False
 
 
 config = Config()

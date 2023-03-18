@@ -54,6 +54,9 @@ def draw_table(img: Image, parts: int, pad: int, name: str = "Numenclature", alp
         box = img_draw.textbbox((middle_x, middle_y), str(number), pil_font, 'mm')
         img_draw.text(box, str(number), Color.BLACK, pil_font)
 
+        if parts == 1:
+            return delta_x, delta_y
+
         if column % (parts - 1) == 0 and column != 0:
             row += 1
             column = 0

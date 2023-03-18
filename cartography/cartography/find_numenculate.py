@@ -64,12 +64,13 @@ def get_numenculat_by_coordinates_yield_images(coordinate: CoordinatePair, opera
             saved_values = get_numenculat_by_parts(coordinate, 16, m_100_values)  # type: ignore
             yield get_image(m_100_values, 16)  # type: ignore
         if operation_number == 7:
-            # saved_values = get_numenculat_by_parts(
-            #     coordinate,
-            #     3,
-            #     saved_values,  # type: ignore
-            #     Alphabet.LOWER_ALPHA_EXTENDENT)
-            yield get_image(saved_values, 3, Alphabet.LOWER_ALPHA_EXTENDENT)
+            yield get_image(saved_values, 3, Alphabet.LOWER_ALPHA_EXTENDENT)  # type: ignore
+            saved_values = get_numenculat_by_parts(
+                coordinate,
+                3,
+                saved_values,  # type: ignore
+                Alphabet.LOWER_ALPHA_EXTENDENT)
+    yield get_image(saved_values, 1, [' '])  # type: ignore
 
 
 def get_numenculat_by_coordinates(coordinate: CoordinatePair, operations: int):
