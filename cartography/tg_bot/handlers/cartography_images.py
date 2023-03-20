@@ -2,8 +2,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, Message
-from cartography.cartography import find_numenculate
-from io import BytesIO
+from cartography.cartography import find_numenclature_images
 
 from cartography.utils import utils, classes
 from cartography.tg_bot.states import ByCoordinatesImages
@@ -33,7 +32,7 @@ async def coordinates_enter_second(message: Message, state: FSMContext):
     await message.answer('Введите количество операций. 1 - 1/1_000_000, 2 - 1/100_000, 3 - 1/50_000...')
 
 
-@router.message(ByCoordinatesImages.enter_operations_number)
+@router.message(ByCoordinatesImages.enter_operations_number, flags={'chat_action': 'upload_document'})
 async def coordinates_enter_operations_number(message: Message, state: FSMContext):
     data = await state.update_data(operations_number=message.text)
     await state.clear()
@@ -46,7 +45,6 @@ async def coordinates_results(message: Message, data: dict[str, str]):
     first = utils.make_float_list_from_str(data['first'])
     second = utils.make_float_list_from_str(data['second'])
     coordinate_pair = classes.CoordinatePair(classes.Degrees(*first), classes.Degrees(*second))
-    for answer in find_numenculate.get_numenculat_by_coordinates_yield_images(coordinate_pair, operations_number):
+    for answer in find_numenclature_images.get_numenculat_yield_images(coordinate_pair, operations_number):
         document = BufferedInputFile(answer, 'jpeg')
         await message.answer_photo(document)
-        # await message.answer(str(answer))

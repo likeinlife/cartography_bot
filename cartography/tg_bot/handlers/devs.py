@@ -5,5 +5,5 @@ router = Router()
 
 
 @router.message(F.document)
-async def function_name(message: Message):
+async def get_document_id(message: Message):
     print(message.document.file_id)

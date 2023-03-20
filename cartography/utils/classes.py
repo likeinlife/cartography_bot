@@ -112,3 +112,8 @@ class Numenculat(NamedTuple):
         tab = tabulate(content, headers, tablefmt='simple_outline')
         summarize = f'<pre>{self.numenculat: ^20}\n{tab}</pre>'
         return summarize
+
+
+class Color:
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
