@@ -7,7 +7,7 @@ from aiogram.types import FSInputFile, Message
 
 from cartography.config import config
 
-STATIC_PATH: Path = config.static_path
+STATIC_PATH: Path = config.STATIC_PATH
 router = Router()
 
 
