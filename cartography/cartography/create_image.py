@@ -1,5 +1,6 @@
 from itertools import repeat
 from PIL import Image, ImageDraw, ImageFont
+from cartography.config import config
 
 
 class Color:
@@ -25,7 +26,7 @@ def draw_table(img: Image, parts: int, pad: int, name: str = "Numenclature", alp
     img_draw = ImageDraw.Draw(img)
     delta_x = (img.size[0] - pad * 2) // parts
     delta_y = (img.size[1] - pad * 2) // parts
-    font_name, font_size = r'C:\WINDOWS\FONTS\MONTSERRAT-MEDIUM.otf', delta_x // 4
+    font_name, font_size = config.path_to_font, delta_x // 4
     name_size = pad // 4
     width = 2
 
@@ -87,7 +88,7 @@ def draw_values_on_table(
         pad (int): padding from image borders
     """
     img_draw = ImageDraw.Draw(table_image)
-    font_name, font_size = r'C:\WINDOWS\FONTS\MONTSERRAT-MEDIUM.otf', pad // 7
+    font_name, font_size = config.path_to_font, pad // 7
 
     pil_font = ImageFont.truetype(font_name, font_size)
 

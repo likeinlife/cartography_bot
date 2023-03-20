@@ -3,7 +3,7 @@ from typing import Tuple
 from PIL import Image
 from io import BytesIO
 
-from cartography.cartography.get_middle import get_middle, get_middle_list
+from cartography.cartography.get_middle import get_middle_list
 
 from ..utils.classes import Alphabet, Numenculat
 from .find_geograph import CoordinatePair, Degrees
@@ -40,6 +40,8 @@ def get_numenculat_by_coordinates_yield_images(coordinate: CoordinatePair, opera
     Args:
         coordinate: coordinate pair
         operations: number of operations.
+
+    Yields bytes images
     """
     saved_values = None
     m_100_values = None

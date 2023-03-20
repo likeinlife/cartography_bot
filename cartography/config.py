@@ -12,9 +12,11 @@ class Config:
         ADMIN-ID - admin telegram id
         DEBUG - enable debug mode
         PUBLIC - enable public use
-
-
     """
+
+    @property
+    def path_to_font(self) -> str:
+        return str(Path(os.getcwd()) / Path('static', 'font.otf'))
 
     @property
     def bot_token(self) -> str:
