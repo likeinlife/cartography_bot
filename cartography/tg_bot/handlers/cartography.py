@@ -13,7 +13,7 @@ router = Router()
 
 
 @router.message(or_f(Command('stop', 'стоп'), Text(text='стоп'), Text(text='stop')))
-async def function_name(message: Message, state: FSMContext):
+async def stop(message: Message, state: FSMContext):
     await message.answer('Остановлено')
     await state.clear()
 
