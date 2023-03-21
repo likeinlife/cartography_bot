@@ -51,6 +51,5 @@ class LoggingChatActions(BaseMiddleware):
 
     async def __call__(self, handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]], event: TelegramObject,
                        data: Dict[str, Any]) -> Any:
-        handler_name = handler.__wrapped__.__self__.callback.__name__
-        logger.info(f'{event.chat.username}({event.chat.id}) -> {handler_name} <- "{event.text}"')
+        logger.info(f'{event.chat.username}({event.chat.id}) <- "{event.text}"')
         return await handler(event, data)
