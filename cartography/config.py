@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
-from cartography.utils.classes import Color
 
 from dotenv import load_dotenv
+
+from cartography.utils.classes import Color
 
 load_dotenv()
 

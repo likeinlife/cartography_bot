@@ -2,10 +2,10 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, Message
-from cartography.cartography import find_numenclature_images
 
-from cartography.utils import utils, classes
+from cartography.cartography import find_numenclature_images
 from cartography.tg_bot.states import ByCoordinatesImages
+from cartography.utils import classes, utils
 
 router = Router()
 

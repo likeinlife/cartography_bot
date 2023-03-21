@@ -1,7 +1,7 @@
 from __future__ import annotations
+
 from decimal import Decimal
 from math import floor
-
 from typing import NamedTuple
 
 from tabulate import tabulate  # type: ignore
