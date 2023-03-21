@@ -36,7 +36,7 @@ async def cordinates_by(message: Message, state: FSMContext):
 
 
 @router.message(ByCoordinates.enter_first_coordinates)
-@utils.validate_coordinate
+@utils.validate_degrees_min_sec
 async def coordinates_enter_first(message: Message, state: FSMContext):
     await state.update_data(first=message.text)
     await state.set_state(ByCoordinates.enter_second_coordinates)
@@ -44,7 +44,7 @@ async def coordinates_enter_first(message: Message, state: FSMContext):
 
 
 @router.message(ByCoordinates.enter_second_coordinates)
-@utils.validate_coordinate
+@utils.validate_degrees_min_sec
 async def coordinates_enter_second(message: Message, state: FSMContext):
     await state.update_data(second=message.text)
     await state.set_state(ByCoordinates.enter_operations_number)
@@ -66,42 +66,3 @@ async def coordinates_results(message: Message, data: dict[str, str]):
     coordinate_pair = classes.CoordinatePair(classes.Degrees(*first), classes.Degrees(*second))
     for answer in find_numenculate.get_numenculat_by_coordinates(coordinate_pair, operations_number):
         await message.answer(str(answer))
-
-
-@router.message(Command("get_middle"))
-async def middle_get(message: Message, state: FSMContext):
-    await message.answer('Напиши первую координату')
-    await state.set_state(GetMiddle.enter_first_coordinates)
-
-
-@router.message(GetMiddle.enter_first_coordinates)
-@utils.validate_coordinate
-async def middle_first_coordinate(message: Message, state: FSMContext):
-    await state.update_data(first=message.text)
-    await message.answer('Напиши вторую координату')
-    await state.set_state(GetMiddle.enter_second_coordinates)
-
-
-@router.message(GetMiddle.enter_second_coordinates)
-@utils.validate_coordinate
-async def middle_second_coordinate(message: Message, state: FSMContext):
-    await state.update_data(second=message.text)
-    await message.answer('Напиши количество частей')
-    await state.set_state(GetMiddle.enter_parts_number)
-
-
-@router.message(GetMiddle.enter_parts_number)
-async def middle_parts_coordinate(message: Message, state: FSMContext):
-    data = await state.update_data(parts_number=message.text)
-    await message.answer('Генерирую ответ...')
-    await state.set_state(GetMiddle.enter_parts_number)
-    await middle_results(message, data)
-
-
-async def middle_results(message: Message, data: dict[str, str]):
-    number_of_parts = int(data['parts_number'])
-    first = utils.make_float_list_from_str(data['first'])
-    second = utils.make_float_list_from_str(data['second'])
-    coordinate_pair = (classes.Degrees(*first), classes.Degrees(*second))
-    answer = get_middle.get_middle(*coordinate_pair, number_of_parts)
-    await message.answer(str(answer))
