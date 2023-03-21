@@ -15,11 +15,11 @@ async def start():
     await set_dev_commands(bot)
     dp = Dispatcher()
 
+    dp.include_router(util_handlers.router)
     dp.include_router(cartography.router)
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
     dp.include_router(cartography_images.router)
-    dp.include_router(util_handlers.router)
     dp.include_router(middle_values.router)
     dp.include_router(ban.router)
     dp.message.middleware(middlewares.ChatActionMiddleware())
