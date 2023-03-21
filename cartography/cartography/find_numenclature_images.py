@@ -1,9 +1,12 @@
-from cartography.config import ImageConfig
-from .create_image import draw_table, draw_values_on_table
-from cartography.cartography.get_middle import get_middle_list
-from PIL import Image
 from io import BytesIO
-from ..utils.classes import Alphabet, Numenculat, CoordinatePair
+
+from PIL import Image
+
+from cartography.cartography.get_middle import get_middle_list
+from cartography.config import ImageConfig
+
+from ..utils.classes import Alphabet, CoordinatePair, Numenculat
+from .create_image import draw_table, draw_values_on_table
 from .find_numenculate import get_first, get_numenculat_by_parts
 
 
