@@ -50,5 +50,5 @@ def find_coordinate_bounds_by_numenculature(part: str):
     if saved_bounds == ():
         yield 'Список со значениями пусть, где-то произошла ошибка'
         return
-    yield create_image(saved_bounds, 1)
+    yield create_image(saved_bounds, 1, [' '])
     return saved_bounds
