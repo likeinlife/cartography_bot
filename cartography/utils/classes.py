@@ -117,3 +117,11 @@ class Numenculat(NamedTuple):
 class Color:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    GRAY = (128, 128, 128)
+    LIGHT_GRAY = (180, 180, 180)
+    BLUE = (0, 0, 255)
+    LIGHT_BLUE = (70, 70, 255)
+    GREEN = (0, 255, 0)
+    LIGHT_GREEN = (70, 255, 70)
+    RED = (255, 0, 0)
+    LIGHT_RED = (255, 70, 70)

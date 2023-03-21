@@ -19,8 +19,8 @@ def check_option(option_name: str) -> bool:
 class Config:
 
     STATIC_PATH: Path = Path(os.getcwd()) / Path('static')
-    DISABLE_STREAM_HANDLER = check_option('DISABLE-STREAM-HANDLER')
-    PUBLIC = check_option('PUBLIC')
+    DISABLE_STREAM_HANDLER = check_option('DISABLE-STREAM-HANDLER')  # disable logging output in console
+    PUBLIC = check_option('PUBLIC')  # open bot for public use(not admin only)
     LOGS_MAX_SIZE = 256  # in kilobytes
 
     @property
@@ -47,11 +47,11 @@ class Config:
 
 
 class ImageConfig:
-    HEIGHT = 1000  # pixels
-    WIDTH = 1000  # pixels
+    HEIGHT = 800  # pixels
+    WIDTH = 800  # pixels
     RESOLUTION = (WIDTH, HEIGHT)
-    PADDING = 10  # pixels
-    COLUMN_LABEL_ANGLE = 300  # degrees
+    PADDING = 15  # pixels
+    COLUMN_LABEL_ANGLE = 310  # degrees - column labels rotate angle
     BACKGROUND_COLOR = Color.WHITE
     TEXT_COLOR = Color.BLACK
     PATH_TO_FONT: str = str(Config.STATIC_PATH / Path('font.otf'))
