@@ -11,6 +11,14 @@ from cartography.logger_setup import get_chat_actions_logger
 logger = get_chat_actions_logger(__name__)
 
 
+class BanListCheck(BaseMiddleware):
+
+    async def __call__(self, handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]], event: TelegramObject,
+                       data: Dict[str, Any]) -> Any:
+        if event.from_user.id not in config.BAN_LIST:
+            return await handler(event, data)
+
+
 class IsAdminMiddleWare(BaseMiddleware):
 
     async def __call__(
