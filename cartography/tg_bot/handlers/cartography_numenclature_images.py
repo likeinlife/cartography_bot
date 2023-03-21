@@ -1,7 +1,7 @@
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import BufferedInputFile, Message
+from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 
 from cartography.cartography import find_numenclature_images
 from cartography.tg_bot.states import ByCoordinatesImages
@@ -45,6 +45,8 @@ async def send_numenclature_photo_by_coordinates(message: Message, data: dict[st
     first = utils.make_float_list_from_str(data['first'])
     second = utils.make_float_list_from_str(data['second'])
     coordinate_pair = classes.CoordinatePair(classes.Degrees(*first), classes.Degrees(*second))
+    media_group: list[InputMediaPhoto] = []
     for answer in find_numenclature_images.get_numenculat_yield_images(coordinate_pair, operations_number):
         document = BufferedInputFile(answer, 'jpeg')
-        await message.answer_photo(document)
+        media_group.append(InputMediaPhoto(media=document))
+    await message.answer_media_group(media_group)
