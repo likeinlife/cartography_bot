@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 
@@ -19,9 +20,14 @@ def check_option(option_name: str) -> bool:
 class Config:
 
     STATIC_PATH: Path = Path(os.getcwd()) / Path('static')
+    BAN_LIST_PATH: Path = STATIC_PATH / Path('banned_users.json')
     DISABLE_STREAM_HANDLER = check_option('DISABLE-STREAM-HANDLER')  # disable logging output in console
     PUBLIC = check_option('PUBLIC')  # open bot for public use(not admin only)
     LOGS_MAX_SIZE = 256  # in kilobytes
+
+    def __init__(self) -> None:
+        self.BAN_LIST: list[str]
+        self.updateBannedUsers()
 
     @property
     def DEV_MODE(self) -> bool:
@@ -44,6 +50,12 @@ class Config:
         if not logging_level:
             return 'WARNING'
         return logging_level
+
+    def updateBannedUsers(self):
+        print('update')
+        with open(self.BAN_LIST_PATH, 'r') as file_obj:
+            ban_list = json.load(file_obj)
+        self.BAN_LIST = ban_list
 
 
 class ImageConfig:
