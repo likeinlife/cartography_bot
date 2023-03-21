@@ -22,22 +22,30 @@ dev_commands = [
     ('not_working_dev', 'Неработающая команда разработчика'),
 ]
 
-BotCommand_my_commands = [BotCommand(command=command, description=description) for (command, description) in commands]
-BotCommand_dev_commands = [
-    BotCommand(command=command, description=description) for (command, description) in dev_commands
+admin_commands = [
+    ('ban', 'Забанить'),
+    ('unban', 'Разбанить'),
+    ('banlist', 'Список забаненых'),
 ]
-BotCommand_all_commands = BotCommand_my_commands + BotCommand_dev_commands
+
+BotCommand_default = [BotCommand(command=command, description=description) for (command, description) in commands]
+BotCommand_dev = [BotCommand(command=command, description=description) for (command, description) in dev_commands]
+BotCommand_admin = [BotCommand(command=command, description=description) for (command, description) in admin_commands]
+
+BotCommand_all = BotCommand_default + BotCommand_dev + BotCommand_admin
+
+
+async def set_admin_commands(bot: Bot):
+    await bot.set_my_commands(BotCommand_admin + BotCommand_default,
+                              BotCommandScopeChat(chat_id=config.ADMIN_ID, type='chat'))
 
 
 async def set_dev_commands(bot: Bot):
     if config.DEV_MODE:
-        await bot.set_my_commands(BotCommand_all_commands, BotCommandScopeChat(chat_id=config.ADMIN_ID, type='chat'))
-    else:
-        return await bot.set_my_commands(BotCommand_my_commands,
-                                         BotCommandScopeChat(chat_id=config.ADMIN_ID, type='chat'))
+        await bot.set_my_commands(BotCommand_all, BotCommandScopeChat(chat_id=config.ADMIN_ID, type='chat'))
 
 
 async def set_default_commands(bot: Bot):
 
     if config.PUBLIC:
-        await bot.set_my_commands(BotCommand_my_commands, BotCommandScopeDefault())
+        await bot.set_my_commands(BotCommand_default, BotCommandScopeDefault())

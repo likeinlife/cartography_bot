@@ -1,9 +1,10 @@
-from aiogram import F, Router
+from aiogram import Router
 from aiogram.filters import Command, Text, or_f
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove
 
 from ..keyboards import reply
+from cartography.config import config
 
 router = Router()
 
