@@ -1,5 +1,5 @@
-def micrometr_actions(first_value: tuple[float, float],
-                      second_value: tuple[float, float]) -> tuple[float, float, float, float]:
+def micrometr_actions(first_value: tuple[float, ...], second_value: tuple[float,
+                                                                          ...]) -> tuple[float, float, float, float]:
     """Считает значения по отсчетам по микрометру
 
     Args:
