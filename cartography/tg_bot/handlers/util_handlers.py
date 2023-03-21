@@ -3,6 +3,8 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardRemove
 
+from cartography.config import config
+
 from ..keyboards import reply
 
 router = Router()
