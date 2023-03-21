@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-from PIL.ImageFont import FreeTypeFont
+
 from cartography.config import ImageConfig
 
 

@@ -1,21 +1,14 @@
 from aiogram import Router
-from aiogram.filters import Command, Text, or_f
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from cartography.cartography import (find_geograph, find_numenculate, get_middle, re_compilated)
-from cartography.utils import classes
+from cartography.utils import classes, utils
 
-from cartography.utils import utils
 from ..states import ByCoordinates, ByNumenclature, GetMiddle
 
 router = Router()
-
-
-@router.message(or_f(Command('stop', 'стоп'), Text(text='стоп'), Text(text='stop')))
-async def stop(message: Message, state: FSMContext):
-    await message.answer('Остановлено')
-    await state.clear()
 
 
 @router.message(Command("by_numenclature"))

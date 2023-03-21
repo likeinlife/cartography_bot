@@ -1,7 +1,8 @@
 import string
 from typing import Optional, Tuple
 
-from cartography.utils.classes import Alphabet, CoordinatePair, Degrees, Numenculat
+from cartography.utils.classes import (Alphabet, CoordinatePair, Degrees, Numenculat)
+
 from .re_compilated import re_string
 
 
