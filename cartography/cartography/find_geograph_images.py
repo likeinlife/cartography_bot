@@ -34,17 +34,17 @@ def find_coordinate_bounds_by_numenculature(part: str):
     for size, part in list_of_parts.items():  # type: ignore
         if size == 'mil':
             saved_bounds = get_first(part)  # type: ignore
-            yield create_image(saved_bounds, 12)
         if size == '100':
+            yield create_image(saved_bounds, 12)
             saved_bounds = get_part(part, saved_bounds, 12)  # type: ignore
-            yield create_image(saved_bounds, 2, Alphabet.UPPER_ALPHA)
         if size == '50' and part:
+            yield create_image(saved_bounds, 2, Alphabet.UPPER_ALPHA)
             saved_bounds = get_part(part, saved_bounds, 2, Alphabet.UPPER_ALPHA)  # type: ignore
-            yield create_image(saved_bounds, 2, Alphabet.LOWER_ALPHA)
         if size == '25' and part:
+            yield create_image(saved_bounds, 2, Alphabet.LOWER_ALPHA)
             saved_bounds = get_part(part, saved_bounds, 2, Alphabet.LOWER_ALPHA)  # type: ignore
-            yield create_image(saved_bounds, 2, Alphabet.NUMBERS)
         if size == '10' and part:
+            yield create_image(saved_bounds, 2, Alphabet.NUMBERS)
             saved_bounds = get_part(part, saved_bounds, 2, Alphabet.NUMBERS)  # type: ignore
 
     if saved_bounds == ():
