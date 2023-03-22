@@ -15,7 +15,7 @@ async def numenclature_by(message: Message, state: FSMContext):
     await state.set_state(ByNumenclatureImages.enter_numenclature)
 
 
-@router.message(ByNumenclatureImages.enter_numenclature, flags={'chat_action': 'typing'})
+@router.message(ByNumenclatureImages.enter_numenclature, flags={'chat_action': 'upload_document'})
 async def numenclature_results(message: Message, state: FSMContext):
     if not message.text or not re_compilated.re_string.match(message.text):
         await message.answer('Неверные данные. Проверьте, является ли первая буква английской')
