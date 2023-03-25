@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from cartography.cartography import (find_geograph, find_numenculate, get_middle, re_compilated)
+from cartography.cartography import (find_geograph, find_numenclate_functions, get_middle, re_compilated)
 from cartography.utils import classes, utils
 
 from ..states import ByCoordinates, ByNumenclature, GetMiddle
@@ -64,5 +64,5 @@ async def coordinates_results(message: Message, data: dict[str, str]):
     first = utils.make_float_list_from_str(data['first'])
     second = utils.make_float_list_from_str(data['second'])
     coordinate_pair = classes.CoordinatePair(classes.Degrees(*first), classes.Degrees(*second))
-    for answer in find_numenculate.get_numenculat_by_coordinates(coordinate_pair, operations_number):
+    for answer in find_numenclate_functions.get_numenculat_by_coordinates(coordinate_pair, operations_number):
         await message.answer(str(answer))

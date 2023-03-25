@@ -12,6 +12,7 @@ class Alphabet:
     LOWER_ALPHA_EXTENDENT = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и']
     UPPER_ALPHA = ['А', 'Б', 'В', 'Г']
     NUMBERS = ['1', '2', '3', '4']
+    ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VII', 'VIII', 'IX']
 
 
 class Degrees:
@@ -91,14 +92,14 @@ class CoordinatePair:
         return False
 
 
-class Numenculat(NamedTuple):
+class Numenclat(NamedTuple):
     lower_bound: CoordinatePair
     upper_bound: CoordinatePair
     numenculat: str
     delta: CoordinatePair = CoordinatePair(0, 0)
 
     def __eq__(self, __o: object) -> bool:
-        if isinstance(__o, Numenculat):
+        if isinstance(__o, Numenclat):
             return all([
                 self.lower_bound == __o.lower_bound, self.upper_bound == __o.upper_bound,
                 self.numenculat == __o.numenculat
@@ -106,12 +107,10 @@ class Numenculat(NamedTuple):
         return False
 
     def __repr__(self) -> str:
-        headers = ('φ', 'λ')
-        content = ((str(self.lower_bound.latitude), str(self.lower_bound.longitude)), (str(self.upper_bound.latitude),
-                                                                                       str(self.upper_bound.longitude)))
-        tab = tabulate(content, headers, tablefmt='simple_outline')
-        summarize = f'<pre>{self.numenculat: ^20}\n{tab}</pre>'
-        return summarize
+        content = (f'{self.numenculat}\n'
+                   f'φ: {self.lower_bound.latitude} - {self.upper_bound.latitude}\n'
+                   f'λ: {self.lower_bound.longitude} - {self.upper_bound.longitude}')
+        return content
 
 
 class Color:

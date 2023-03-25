@@ -2,11 +2,11 @@ from io import BytesIO
 from cartography.cartography.draw_image import draw_table, draw_values_on_table
 from cartography.cartography.get_middle import get_middle_list
 from cartography.config import ImageConfig
-from cartography.utils.classes import Numenculat
+from cartography.utils.classes import Numenclat
 from PIL import Image
 
 
-def create_image(bounds: Numenculat, parts_number: int, alphabet: list[str] | None = None) -> bytes:
+def create_image(bounds: Numenclat, parts_number: int, alphabet: list[str] | None = None) -> bytes:
     """Делает изображение, вызывает все необходимые функции
 
     Args:
