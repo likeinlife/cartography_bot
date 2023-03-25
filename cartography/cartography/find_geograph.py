@@ -1,7 +1,7 @@
 import string
 from typing import Optional, Tuple
 
-from cartography.utils.classes import (Alphabet, CoordinatePair, Degrees, Numenculat)
+from cartography.utils.classes import (Alphabet, CoordinatePair, Degrees, Numenclat)
 
 from .re_compilated import re_string
 
@@ -61,7 +61,7 @@ def find_coordinate_bounds_by_numenculature(part: str):
     return saved_bounds
 
 
-def get_first(first_part: Tuple[str, str]) -> Numenculat:
+def get_first(first_part: Tuple[str, str]) -> Numenclat:
     """Finds geographic coordinates of edges by first part name
 
     Args:
@@ -90,13 +90,10 @@ def get_first(first_part: Tuple[str, str]) -> Numenculat:
 
     lower_bound = CoordinatePair(lower_latitude, lower_longitude)
     upper_bound = CoordinatePair(upper_latitude, upper_longitude)
-    return Numenculat(lower_bound, upper_bound, '-'.join(first_part))
+    return Numenclat(lower_bound, upper_bound, '-'.join(first_part))
 
 
-def get_part(needed_part: str,
-             numenculat: Numenculat,
-             parts_number: int,
-             alphabet: Optional[list] = None) -> Numenculat:
+def get_part(needed_part: str, numenculat: Numenclat, parts_number: int, alphabet: Optional[list] = None) -> Numenclat:
     """
     Figure divided by :parts_number: parts, finds coordinated of :needed_part:
     Args:
@@ -126,7 +123,7 @@ def get_part(needed_part: str,
             upper_bound = CoordinatePair(upper_latitude, upper_longitude)
             lower_bound = CoordinatePair(lower_latitude, lower_longitude)
             delta = CoordinatePair(latitude_delta, longitude_delta)
-            return Numenculat(lower_bound, upper_bound, new_name, delta)
+            return Numenclat(lower_bound, upper_bound, new_name, delta)
 
         if iteration % (parts_number) == 0:
             upper_latitude = upper_latitude - latitude_delta
