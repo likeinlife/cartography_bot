@@ -13,7 +13,24 @@ def make_float_list_from_str(data: str):
 def validate_degrees_min_sec(func: Callable):
 
     async def wrapper(message: Message, state: FSMContext):
-        if re.fullmatch(r'([0-9]{1,3}) ?([0-9]{1,2})? ?([0-9]{1,2})?', str(message.text)):
+        if message.text and re.fullmatch(r'([0-9]{1,3}) ?([0-9]{1,2})? ?([0-9]{1,2})?', str(message.text)):
+            text = message.text.split(' ')
+            if len(text) > 1:
+                if int(text[1]) > 60:
+                    return await message.answer('Некорректные минуты')
+            if len(text) > 2:
+                if int(text[2]) > 60:
+                    return await message.answer('Некорректные секунды')
+                return await func(message, state)
+            return await message.answer('Некорректные координаты')
+
+    return wrapper
+
+
+def validate_operation_number(func: Callable):
+
+    async def wrapper(message: Message, state: FSMContext):
+        if message.text and message.text.isdigit() and int(message.text) <= 10:
             return await func(message, state)
         await message.answer('Некорректные данные')
 

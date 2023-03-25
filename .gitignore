@@ -2,3 +2,6 @@ __pycache__/
 venv/
 .vscode/launch.json
 logs/
+tests/__init__.py
+tests/testFindNumenclat.py
+.vscode/settings.json

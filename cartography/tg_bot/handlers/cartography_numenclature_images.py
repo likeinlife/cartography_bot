@@ -1,9 +1,10 @@
+from itertools import islice
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 
-from cartography.cartography import find_numenclature_images
+from cartography.cartography.get_scale_class import get_scale
 from cartography.tg_bot.states import ByCoordinatesImages
 from cartography.utils import classes, utils
 
@@ -33,6 +34,7 @@ async def coordinates_enter_second(message: Message, state: FSMContext):
 
 
 @router.message(ByCoordinatesImages.enter_operations_number, flags={'chat_action': 'upload_document'})
+@utils.validate_operation_number
 async def coordinates_enter_operations_number(message: Message, state: FSMContext):
     data = await state.update_data(operations_number=message.text)
     await state.clear()
@@ -46,7 +48,13 @@ async def send_numenclature_photo_by_coordinates(message: Message, data: dict[st
     second = utils.make_float_list_from_str(data['second'])
     coordinate_pair = classes.CoordinatePair(classes.Degrees(*first), classes.Degrees(*second))
     media_group: list[InputMediaPhoto] = []
-    for answer in find_numenclature_images.get_numenculat_yield_images(coordinate_pair, operations_number):
+
+    def divide_to_chunks(arr_range, arr_size):
+        arr_range = iter(arr_range)
+        return iter(lambda: tuple(islice(arr_range, arr_size)), ())
+
+    for answer in get_scale(operations_number)(coordinate_pair).get_images():
         document = BufferedInputFile(answer, 'jpeg')
         media_group.append(InputMediaPhoto(media=document))
-    await message.answer_media_group(media_group)
+    for chunk in divide_to_chunks(media_group, 10):
+        await message.answer_media_group(chunk)
