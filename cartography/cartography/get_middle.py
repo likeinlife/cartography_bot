@@ -1,3 +1,4 @@
+from decimal import Decimal
 from ..utils.classes import Degrees
 
 
@@ -18,7 +19,7 @@ def get_middle_list(first: Degrees, second: Degrees, number_of_parts: int):
 
 
 if __name__ == "__main__":
-    first = Degrees(*list(map(float, input('first >> ').split(' '))))
-    second = Degrees(*list(map(float, input('second >> ').split(' '))))
+    first = Degrees(*list(map(Decimal, input('first >> ').split(' '))))
+    second = Degrees(*list(map(Decimal, input('second >> ').split(' '))))
     delta = int(input('Parts >> '))
     get_middle(first, second, delta)
