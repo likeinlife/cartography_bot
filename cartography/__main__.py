@@ -33,7 +33,6 @@ async def start():
     dp.include_router(ban.router)
     dp.include_router(help.router)
     dp.include_router(util_handlers.router)
-
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
     dp.include_router(cartography_numenclature_images.router)
