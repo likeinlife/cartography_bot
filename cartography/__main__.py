@@ -24,6 +24,8 @@ async def start():
     dp.include_router(middle_values.router)
     dp.include_router(ban.router)
     dp.include_router(help.router)
+
+    dp.message.middleware(middlewares.BanListCheck())
     dp.message.middleware(middlewares.ChatActionMiddleware())
     dp.message.middleware(middlewares.LoggingChatActions())
     if not config.PUBLIC:
