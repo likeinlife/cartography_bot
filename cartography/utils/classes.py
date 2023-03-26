@@ -4,8 +4,6 @@ from decimal import Decimal
 from math import floor
 from typing import NamedTuple
 
-from tabulate import tabulate  # type: ignore
-
 
 class Alphabet:
     LOWER_ALPHA = ['а', 'б', 'в', 'г']

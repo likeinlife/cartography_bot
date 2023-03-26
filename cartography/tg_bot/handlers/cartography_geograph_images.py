@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from cartography.cartography import find_geograph_images, re_compilated
+from cartography.cartography import numenclature_parse
 
 from cartography.tg_bot.states import ByNumenclatureImages
 
@@ -17,13 +17,15 @@ async def numenclature_by(message: Message, state: FSMContext):
 
 @router.message(ByNumenclatureImages.enter_numenclature, flags={'chat_action': 'upload_document'})
 async def numenclature_results(message: Message, state: FSMContext):
-    if not message.text or not re_compilated.re_string.match(message.text):
-        await message.answer('Неверные данные. Проверьте, является ли первая буква английской')
-        return
+    if not message.text:
+        return await message.answer('Вы не ввели значение нуменклатуры.')
+    parsed = numenclature_parse.NumenclatureParser(message.text)
+    if parsed is None:
+        return await message.answer('Некорректная нуменклатура. Посмотрите примеры в /help')
 
     media_group: list[InputMediaPhoto] = []
-    for answer in find_geograph_images.find_coordinate_bounds_by_numenculature(message.text):
-        document = BufferedInputFile(answer, 'jpeg')
+    for images in parsed.get_parts().get_images():
+        document = BufferedInputFile(images, 'jpeg')
         media_group.append(InputMediaPhoto(media=document))
-    await message.answer_media_group(media_group)
+    await message.answer_media_group(media_group)  # type: ignore
     await state.clear()

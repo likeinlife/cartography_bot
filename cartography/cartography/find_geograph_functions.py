@@ -1,73 +1,17 @@
 import string
-from typing import Optional, Tuple
+from typing import Optional
 
-from cartography.utils.classes import (Alphabet, CoordinatePair, Degrees, Numenclat)
-
-from .re_compilated import re_string
+from cartography.utils.classes import (CoordinatePair, Degrees, Numenclat)
 
 
-def find_coordinate_bounds_by_numenculature(part: str):
-    """Finds geographic coordinates of edges by part name
-
-    Args:
-        part (str): R-41-112, D-58-19-A-г, D-58-17-(200-и)
-                   ^^^       ^^^
-                 English letters
-
-    Returns (Tuple[float, float, float, float]): latitude1, longitude1, latitude2, longitude2
-    latitude - широта
-    longitude - долгота
-    """
-    if not (parts := re_string.match(part)):
-        exit('Incorrect data')
-    short = parts.group
-
-    list_of_parts = {
-        'mil': (short('one_mil'), short('one_mil2')),
-        '100': short('one_100'),
-        '5': short('one_5'),
-        '2': short('one_2'),
-        '50': short('one_50'),
-        '25': short('one_25'),
-        '10': short('one_10')
-    }
-
-    saved_bounds = ()
-    for size, part in list_of_parts.items():
-        if size == 'mil':
-            saved_bounds = get_first(part)  # type: ignore
-            yield saved_bounds
-        if size == '100':
-            saved_bounds = get_part(part, saved_bounds, 12)  # type: ignore
-            yield saved_bounds
-        if size == '5' and part:
-            saved_bounds = get_part(part, saved_bounds, 16)  # type: ignore
-            yield saved_bounds
-        if size == '2' and part:
-            saved_bounds = get_part(part, saved_bounds, 3, Alphabet.LOWER_ALPHA_EXTENDENT)  # type: ignore
-            yield saved_bounds
-        if size == '50' and part:
-            saved_bounds = get_part(part, saved_bounds, 2, Alphabet.UPPER_ALPHA)  # type: ignore
-            yield saved_bounds
-        if size == '25' and part:
-            saved_bounds = get_part(part, saved_bounds, 2, Alphabet.LOWER_ALPHA)  # type: ignore
-            yield saved_bounds
-        if size == '10' and part:
-            saved_bounds = get_part(part, saved_bounds, 2, Alphabet.NUMBERS)  # type: ignore
-            yield saved_bounds
-
-    if saved_bounds == ():
-        yield 'Список со значениями пусть, где-то произошла ошибка'
-    return saved_bounds
-
-
-def get_first(first_part: Tuple[str, str]) -> Numenclat:
+def get_first(first_part_name: str) -> Numenclat:
     """Finds geographic coordinates of edges by first part name
 
     Args:
-        first_part (tuple): (R, 41), (D, 58)
+        first_part (str): R-41, D-58
 
     """
+    first_part = first_part_name.split('-')
     alphabet = string.ascii_uppercase
     lower_latitude = Degrees()
     upper_latitude = Degrees()
@@ -131,10 +75,4 @@ def get_part(needed_part: str, numenculat: Numenclat, parts_number: int, alphabe
         else:
             lower_longitude = lower_longitude + longitude_delta
 
-    raise Exception('Неизвестная ошибка')
-
-
-if __name__ == "__main__":
-    find_coordinate_bounds_by_numenculature('N-50-78-Г-в-1')
-    # find_coordinate_bounds('U-32-4-Г-а')
-    # find_coordinate_bounds('K-39-37-А')
+    raise Exception(f'Неизвестная ошибка. Часть {needed_part} не найдена')
