@@ -6,8 +6,8 @@ from cartography.tg_bot.commands import set_default_commands, set_dev_commands
 
 from .config import config
 from .tg_bot import middlewares
-from .tg_bot.handlers import (cartography, cartography_numenclature_images, cartography_geograph_images, geodezia,
-                              tmogi, util_handlers, middle_values, ban, help)
+from .tg_bot.handlers import (cartography_numenclature_images, cartography_geograph_images, geodezia, tmogi,
+                              util_handlers, middle_values, ban, help)
 
 
 async def start():
@@ -17,7 +17,6 @@ async def start():
     dp = Dispatcher()
 
     dp.include_router(util_handlers.router)
-    dp.include_router(cartography.router)
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
     dp.include_router(cartography_numenclature_images.router)

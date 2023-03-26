@@ -30,7 +30,7 @@ async def coordinates_enter_first(message: Message, state: FSMContext):
 async def coordinates_enter_second(message: Message, state: FSMContext):
     await state.update_data(second=message.text)
     await state.set_state(ByCoordinatesImages.enter_operations_number)
-    await message.answer('Введите количество операций. 1 - 1/1_000_000, 2 - 1/100_000, 3 - 1/50_000...')
+    await message.answer('Введите количество операций. /help -> Масштабы')
 
 
 @router.message(ByCoordinatesImages.enter_operations_number, flags={'chat_action': 'upload_document'})

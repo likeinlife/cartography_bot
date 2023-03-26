@@ -2,7 +2,7 @@ import string
 from typing import Callable, Tuple
 
 from ..utils.classes import Numenclat
-from .find_geograph import CoordinatePair, Degrees
+from .find_geograph_functions import CoordinatePair, Degrees
 
 
 def get_delta(bounds: Numenclat, parts_number) -> Tuple[Degrees, Degrees]:
