@@ -27,7 +27,6 @@ class AbstractFindNumenclature(ABC):
 class FindNumenclat_1M(AbstractFindNumenclature):
 
     def get_numenculat_values(self) -> NumenclatList:
-        print('1m')
         self.values = [get_first(self.numenclature['m1'])]
         return self.values
 
