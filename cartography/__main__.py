@@ -2,7 +2,7 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 
-from cartography.tg_bot.commands import set_default_commands, set_dev_commands
+from cartography.tg_bot.commands import set_default_commands, set_dev_commands, set_admin_commands
 
 from .config import config
 from .tg_bot import middlewares
@@ -13,21 +13,26 @@ from .tg_bot.handlers import (cartography_numenclature_images, cartography_geogr
 async def start():
     bot = Bot(config.BOT_TOKEN, parse_mode='HTML')
     await set_default_commands(bot)
+    await set_admin_commands(bot)
     await set_dev_commands(bot)
     dp = Dispatcher()
 
+    #  Useful commands
+    dp.include_router(ban.router)
+    dp.include_router(help.router)
     dp.include_router(util_handlers.router)
+
+    #  Buisness-logic
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
     dp.include_router(cartography_numenclature_images.router)
     dp.include_router(cartography_geograph_images.router)
     dp.include_router(middle_values.router)
-    dp.include_router(ban.router)
-    dp.include_router(help.router)
 
     dp.message.middleware(middlewares.BanListCheck())
-    dp.message.middleware(middlewares.ChatActionMiddleware())
     dp.message.middleware(middlewares.LoggingChatActions())
+    dp.message.middleware(middlewares.ChatActionMiddleware())
+
     if not config.PUBLIC:
         dp.message.middleware(middlewares.IsAdminMiddleWare())
 
