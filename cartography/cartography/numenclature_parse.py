@@ -7,7 +7,7 @@ class NumenclatureParser:
     def __init__(self, numenclature: str) -> None:
         self.numenclature = numenclature
 
-    def get_parts(self):
+    def parse(self):
         if re_match := re.fullmatch(r'(?P<m1>[A-Z]-[0-9]{1,2})', self.numenclature):  # 1m
             return FindNumenclat_1M(re_match.groupdict())
         elif re_match := re.fullmatch(r'(?P<m1>[A-Z]-[0-9]{1,2})-(?P<k500>[А-Г])', self.numenclature):  # 500k
@@ -35,6 +35,8 @@ class NumenclatureParser:
                 r'(?P<m1>[A-Z]-[0-9]{1,2})-(?P<k100>[0-9]{1,3})-\((?P<k5>[0-9]{1,3})-(?P<k2>[а-и])\)',
                 self.numenclature):  # 2k
             return FindNumenclat_2k(re_match.groupdict())
+        else:
+            return None
 
 
 # U-32
