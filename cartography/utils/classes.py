@@ -11,6 +11,11 @@ class Alphabet:
     UPPER_ALPHA = ['А', 'Б', 'В', 'Г']
     NUMBERS = ['1', '2', '3', '4']
     ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VII', 'VIII', 'IX']
+    ROMAN_EXTENDED = [
+        "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII",
+        "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI",
+        "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI"
+    ]
 
 
 class Degrees:

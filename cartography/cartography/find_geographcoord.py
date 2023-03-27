@@ -1,11 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Generator, TypeAlias
-from cartography.utils.classes import Alphabet, Numenclat
+from cartography.utils.classes import Alphabet
+from cartography.utils.types import NumenclatList, ImageGenerator
 from .find_geograph_functions import get_first, get_part
 from .create_image import create_image
-
-NumenclatList: TypeAlias = list[Numenclat]
-ImageGenerator: TypeAlias = Generator[bytes, None, None]
 
 
 class AbstractFindNumenclature(ABC):
@@ -16,6 +13,7 @@ class AbstractFindNumenclature(ABC):
             numenclature (dict): {'m1': 'N-44', 'k500': 'А'}
         """
         self.numenclature: dict = numenclature
+        self.values: NumenclatList = []
 
     @abstractmethod
     def get_numenculat_values(self) -> NumenclatList:
@@ -54,7 +52,8 @@ class FindNumenclat_300k(FindNumenclat_1M):
 
     def get_numenculat_values(self) -> NumenclatList:
         previous = super().get_numenculat_values()
-        this = get_part(self.numenclature['k300'], previous[0], 3, Alphabet.ROMAN)
+        numenclature_format = lambda x, y: f'{y}-{x}'
+        this = get_part(self.numenclature['k300'], previous[0], 3, Alphabet.ROMAN, numenclature_format)
         return previous + [this]
 
     def get_images(self) -> ImageGenerator:
@@ -76,7 +75,7 @@ class FindNumenclat_200k(FindNumenclat_1M):
         for previous_images in FindNumenclat_1M(self.numenclature).get_images():
             yield previous_images
         values = self.get_numenculat_values()
-        yield create_image(values[0], 6)
+        yield create_image(values[0], 6, Alphabet.ROMAN_EXTENDED)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -144,7 +143,8 @@ class FindNumenclat_5k(FindNumenclat_100k):
 
     def get_numenculat_values(self) -> NumenclatList:
         previous = super().get_numenculat_values()
-        this = get_part(self.numenclature['k5'], previous[-1], 16)
+        numenclature_format = lambda x, y: f'{x}-({y})'
+        this = get_part(self.numenclature['k5'], previous[-1], 16, numenclature_format=numenclature_format)
         return previous + [this]
 
     def get_images(self) -> ImageGenerator:
@@ -159,7 +159,8 @@ class FindNumenclat_2k(FindNumenclat_5k):
 
     def get_numenculat_values(self) -> NumenclatList:
         previous = super().get_numenculat_values()
-        this = get_part(self.numenclature['k2'], previous[-1], 3, Alphabet.LOWER_ALPHA_EXTENDENT)
+        numenclature_format = lambda x, y: f'{x}-({y})'
+        this = get_part(self.numenclature['k2'], previous[-1], 3, Alphabet.LOWER_ALPHA_EXTENDENT, numenclature_format)
         return previous + [this]
 
     def get_images(self) -> ImageGenerator:
