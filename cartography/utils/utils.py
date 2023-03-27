@@ -20,8 +20,8 @@ def validate_degrees_min_sec(func: Callable):
             if len(text) > 2:
                 if int(text[2]) > 60:
                     return await message.answer('Некорректные секунды')
-                return await func(message, state)
-            return await message.answer('Некорректные координаты. Пример ввода: 10 0 0')
+            return await func(message, state)
+        return await message.answer('Некорректные координаты. Пример ввода: 10 0 0')
 
     return wrapper
 
