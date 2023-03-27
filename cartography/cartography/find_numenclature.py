@@ -1,11 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Generator, TypeAlias
-from cartography.utils.classes import Alphabet, CoordinatePair, Numenclat
+from cartography.utils.classes import Alphabet, CoordinatePair
+from cartography.utils.types import NumenclatList, ImageGenerator
 from .find_numenclate_functions import get_first, get_numenculat_by_parts
 from .create_image import create_image
-
-NumenclatList: TypeAlias = list[Numenclat]
-ImageGenerator: TypeAlias = Generator[bytes, None, None]
 
 
 class AbstractFindNumenclature(ABC):
@@ -74,7 +71,7 @@ class FindNumenclat_200k(FindNumenclat_300k):
         for previous_values in FindNumenclat_300k(self.coordinates).get_images():
             yield previous_values
         values = self.get_numenculat_values()
-        yield create_image(values[0], 6)
+        yield create_image(values[0], 6, Alphabet.ROMAN_EXTENDED)
         yield create_image(values[-1], 1, [' '])
 
 

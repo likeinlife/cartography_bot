@@ -1,4 +1,3 @@
-import json
 import re
 from typing import Callable
 
@@ -35,3 +34,12 @@ def validate_operation_number(func: Callable):
         await message.answer('Некорректные данные')
 
     return wrapper
+
+
+def make_roman_number(number: int) -> str:
+    """Works for number 1-98 including"""
+    variants = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
+    ten, ten_left = divmod(number, 10)
+    if ten_left:
+        return f'{"X"*ten}{variants[ten_left-1]}'
+    return f'{"X"*ten}'
