@@ -8,6 +8,7 @@ router = Router()
 
 
 @router.message(Command(commands='help'))
+@router.message(F.text == 'Помощь')
 @router.callback_query(F.data == 'help_menu')
 async def help_menu(message: Message | CallbackQuery):
     help_menu_text = 'Выберите пункт'
