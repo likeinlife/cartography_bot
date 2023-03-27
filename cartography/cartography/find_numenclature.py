@@ -6,9 +6,6 @@ from cartography.utils.types import ImageGenerator, NumenclatList
 from .create_image import create_image
 from .find_numenclate_functions import get_first, get_numenculat_by_parts
 
-NumenclatList: TypeAlias = list[Numenclat]
-ImageGenerator: TypeAlias = Generator[bytes, None, None]
-
 
 class AbstractFindNumenclature(ABC):
     def __init__(self, coordinates: CoordinatePair) -> None:
