@@ -74,7 +74,7 @@ class FindNumenclat_200k(FindNumenclat_300k):
 
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
-        this = get_numenculat_by_parts(self.coordinates, 6, previous[0])
+        this = get_numenculat_by_parts(self.coordinates, 6, previous[0], Alphabet.ROMAN_EXTENDED)
         self.values = previous + [this]
         return self.values
 
