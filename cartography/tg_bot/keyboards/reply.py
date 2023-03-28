@@ -1,7 +1,7 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 
-def get_buttons():
+def get_reply_showButtons():
     keyboard_builder = ReplyKeyboardBuilder()
 
     keyboard_builder.button(text='Стоп')
