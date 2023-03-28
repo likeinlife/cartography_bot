@@ -31,7 +31,6 @@ async def banlist(message: Message):
     if config.BAN_LIST:
         return await message.answer(';\n'.join(config.BAN_LIST))
     await message.answer('Черный список пуст')
-    print(config.BAN_LIST)
 
 
 @router.message(Command(commands=['unban']), F.from_user.id == config.ADMIN_ID)

@@ -8,7 +8,12 @@ from cartography.config import ImageConfig
 from cartography.utils.classes import Numenclat
 
 
-def create_image(bounds: Numenclat, parts_number: int, alphabet: list[str] | None = None) -> bytes:
+def create_image(
+    bounds: Numenclat,
+    parts_number: int,
+    alphabet: list[str] | None = None,
+    cell_to_fill: str = "",
+) -> bytes:
     """Делает изображение, вызывает все необходимые функции
 
     Args:
@@ -21,7 +26,7 @@ def create_image(bounds: Numenclat, parts_number: int, alphabet: list[str] | Non
     imaginary_doc = BytesIO()
     img = Image.new('RGB', ImageConfig.RESOLUTION, ImageConfig.BACKGROUND_COLOR)
     pad = 100
-    draw_table(img, parts_number, pad, bounds.numenculat, alphabet)
+    draw_table(img, parts_number, pad, bounds.numenculat, alphabet, cell_to_fill)
     x_values = get_middle_list(bounds.lower_bound.longitude, bounds.upper_bound.longitude, parts_number)
     y_values = get_middle_list(bounds.lower_bound.latitude, bounds.upper_bound.latitude, parts_number)
     y_values.reverse()

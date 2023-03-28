@@ -65,6 +65,7 @@ class ImageConfig:
     PADDING = 15  # pixels
     COLUMN_LABEL_ANGLE = 310  # degrees - column labels rotate angle
     BACKGROUND_COLOR = Color.WHITE
+    FILLED_CELL_COLOR = Color.GRAY
     TEXT_COLOR = Color.BLACK
     PATH_TO_FONT: str = str(Config.STATIC_PATH / Path('font.otf'))
 
