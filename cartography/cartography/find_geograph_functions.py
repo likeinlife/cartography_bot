@@ -1,7 +1,7 @@
 import string
 from typing import Callable, Optional
 
-from cartography.utils.classes import (CoordinatePair, Degrees, Numenclat)
+from cartography.utils.classes import CoordinatePair, Degrees, Numenclat
 
 
 def get_first(first_part_name: str) -> Numenclat:

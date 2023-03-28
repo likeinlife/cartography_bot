@@ -2,10 +2,10 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from cartography.cartography import get_middle
 
+from cartography.cartography import get_middle
 from cartography.tg_bot.states import GetMiddle
-from cartography.utils import utils, classes
+from cartography.utils import classes, utils
 
 router = Router()
 
