@@ -2,12 +2,15 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 
-from cartography.tg_bot.commands import set_default_commands, set_dev_commands, set_admin_commands
+from cartography.tg_bot.commands import (set_admin_commands,
+                                         set_default_commands,
+                                         set_dev_commands)
 
 from .config import config
 from .tg_bot import middlewares
-from .tg_bot.handlers import (cartography_numenclature_images, cartography_geograph_images, geodezia, tmogi,
-                              util_handlers, middle_values, ban, help)
+from .tg_bot.handlers import (ban, cartography_geograph_images,
+                              cartography_numenclature_images, geodezia, help,
+                              middle_values, tmogi, util_handlers)
 
 
 async def start():
