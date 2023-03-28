@@ -47,7 +47,7 @@ class FindNumenclat_500k(FindNumenclat_1M):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[0], 2, Alphabet.UPPER_ALPHA)
+        yield create_image(values[0], 2, Alphabet.UPPER_ALPHA, values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -66,7 +66,7 @@ class FindNumenclat_300k(FindNumenclat_500k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[0], 3, Alphabet.ROMAN)
+        yield create_image(values[0], 3, Alphabet.ROMAN, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -84,7 +84,7 @@ class FindNumenclat_200k(FindNumenclat_300k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[0], 6, Alphabet.ROMAN_EXTENDED)
+        yield create_image(values[0], 6, Alphabet.ROMAN_EXTENDED, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -102,7 +102,7 @@ class FindNumenclat_100k(FindNumenclat_200k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[0], 12)
+        yield create_image(values[0], 12, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -120,7 +120,7 @@ class FindNumenclat_50k(FindNumenclat_100k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[-2], 2, Alphabet.UPPER_ALPHA)
+        yield create_image(values[-2], 2, Alphabet.UPPER_ALPHA, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -138,7 +138,7 @@ class FindNumenclat_25k(FindNumenclat_50k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[-2], 2, Alphabet.LOWER_ALPHA)
+        yield create_image(values[-2], 2, Alphabet.LOWER_ALPHA, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -156,7 +156,7 @@ class FindNumenclat_10k(FindNumenclat_25k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[-2], 2)
+        yield create_image(values[-2], 2, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -175,7 +175,7 @@ class FindNumenclat_5k(FindNumenclat_10k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[-5], 16)
+        yield create_image(values[-5], 16, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])
 
 
@@ -195,5 +195,5 @@ class FindNumenclat_2k(FindNumenclat_5k):
             yield previous_values
         self.values = lower_scale.values
         values = self.get_numenculat_values()
-        yield create_image(values[-2], 3, Alphabet.LOWER_ALPHA_EXTENDENT)
+        yield create_image(values[-2], 3, Alphabet.LOWER_ALPHA_EXTENDENT, cell_to_fill=values[-1].part)
         yield create_image(values[-1], 1, [' '])

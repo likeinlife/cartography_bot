@@ -60,7 +60,7 @@ def get_numenculat_by_parts(
     coordinate: CoordinatePair,
     parts_number: int,
     bounds: Numenclat,
-    alphabet: list | None = None,
+    alphabet: list[str] | None = None,
     numenclature_format: Callable[[str, str], str] = lambda x, y: f'{x}-{y}',
 ) -> Numenclat:
     """
@@ -86,12 +86,12 @@ def get_numenculat_by_parts(
         longitude_if = lower_longitude < coordinate.longitude < upper_longitude
 
         if latitude_if and longitude_if:
-            current_part_name = alphabet[this_part - 1] if alphabet else this_part
+            current_part_name = alphabet[this_part - 1] if alphabet else str(this_part)
             full_numenclature_name = numenclature_format(bounds.numenculat, current_part_name)
             lower_bound = CoordinatePair(lower_latitude, lower_longitude)
             upper_bound = CoordinatePair(upper_latitude, upper_longitude)
             delta = CoordinatePair(latitude_delta, longitude_delta)
-            values = Numenclat(lower_bound, upper_bound, full_numenclature_name, delta=delta)
+            values = Numenclat(lower_bound, upper_bound, full_numenclature_name, delta=delta, part=current_part_name)
             return values
 
         if this_part % parts_number == 0:

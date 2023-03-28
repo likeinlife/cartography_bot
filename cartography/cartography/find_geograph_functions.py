@@ -73,7 +73,7 @@ def get_part(
             upper_bound = CoordinatePair(upper_latitude, upper_longitude)
             lower_bound = CoordinatePair(lower_latitude, lower_longitude)
             delta = CoordinatePair(latitude_delta, longitude_delta)
-            return Numenclat(lower_bound, upper_bound, new_name, delta)
+            return Numenclat(lower_bound, upper_bound, new_name, delta=delta, part=needed_part)
 
         if iteration % (parts_number) == 0:
             upper_latitude = upper_latitude - latitude_delta
