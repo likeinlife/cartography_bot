@@ -2,8 +2,8 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from cartography.cartography import numenclature_parse
 
+from cartography.cartography import numenclature_parse
 from cartography.tg_bot.states import ByNumenclatureImages
 
 router = Router()

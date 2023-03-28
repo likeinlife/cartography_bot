@@ -1,8 +1,10 @@
 from abc import ABC, abstractmethod
+
 from cartography.utils.classes import Alphabet, CoordinatePair
-from cartography.utils.types import NumenclatList, ImageGenerator
-from .find_numenclate_functions import get_first, get_numenculat_by_parts
+from cartography.utils.types import ImageGenerator, NumenclatList
+
 from .create_image import create_image
+from .find_numenclate_functions import get_first, get_numenculat_by_parts
 
 
 class AbstractFindNumenclature(ABC):

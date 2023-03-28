@@ -1,7 +1,9 @@
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
+
 from cartography.utils import help_strings
+
 from ..keyboards import inline
 
 router = Router()
