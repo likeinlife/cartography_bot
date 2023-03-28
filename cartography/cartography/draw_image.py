@@ -3,7 +3,14 @@ from PIL import Image, ImageDraw, ImageFont
 from cartography.config import ImageConfig
 
 
-def draw_table(img: Image, parts: int, pad: int, name: str = "Numenclature", alphabet: list[str] | None = None):
+def draw_table(
+    img: Image,
+    parts: int,
+    pad: int,
+    name: str = "Numenclature",
+    alphabet: list[str] | None = None,
+    cell_to_fill: str = "",
+):
     """Draw table
 
     Args:
@@ -40,8 +47,12 @@ def draw_table(img: Image, parts: int, pad: int, name: str = "Numenclature", alp
         else:
             number = cell
 
-        img_draw.rectangle(((left_x, up_y), (right_x, lower_y)), ImageConfig.BACKGROUND_COLOR, ImageConfig.TEXT_COLOR,
-                           width)
+        if str(number) == cell_to_fill:
+            img_draw.rectangle(((left_x, up_y), (right_x, lower_y)), ImageConfig.FILLED_CELL_COLOR,
+                               ImageConfig.TEXT_COLOR, width)
+        else:
+            img_draw.rectangle(((left_x, up_y), (right_x, lower_y)), ImageConfig.BACKGROUND_COLOR,
+                               ImageConfig.TEXT_COLOR, width)
         box = img_draw.textbbox((middle_x, middle_y), str(number), pil_font, 'mm')
         img_draw.text(box, str(number), ImageConfig.TEXT_COLOR, pil_font)
 

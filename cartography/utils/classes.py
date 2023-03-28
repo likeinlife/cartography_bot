@@ -100,6 +100,7 @@ class Numenclat(NamedTuple):
     upper_bound: CoordinatePair
     numenculat: str
     delta: CoordinatePair = CoordinatePair(0, 0)
+    part: str = ""
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Numenclat):
