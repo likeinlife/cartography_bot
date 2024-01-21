@@ -19,7 +19,7 @@ async def start(message: Message):
 
 
 @router.message(Command("stop", "стоп"))
-@router.message(F.text == "stop")
+@router.message(F.text.lower().in_(["stop", "стоп"]))
 async def stop(message: Message, state: FSMContext):
     if await state.get_state():
         await message.answer("Остановлено")
@@ -28,12 +28,13 @@ async def stop(message: Message, state: FSMContext):
 
 
 @router.message(Command(commands=["hide", "скрыть"]))
-@router.message(F.text == "hide")
+@router.message(F.text.lower().in_(["hide", "скрыть"]))
 async def hide_keyboard(message: Message):
     await message.answer("Клавиатура скрыта", reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Command(commands=["show", "показать"]))
 @router.message(F.text == "show")
+@router.message(F.text.lower().in_(["show", "показать"]))
 async def show_keyboard(message: Message):
     await message.answer("Клавиатура показана", reply_markup=reply.get_reply_showButtons())

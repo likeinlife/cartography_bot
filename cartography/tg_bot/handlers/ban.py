@@ -23,7 +23,7 @@ async def ban(message: Message, command: CommandObject):
             await message.answer(f"Пользователь {user_id=} добавлен в черный список")
         else:
             await message.answer(f"Пользователь {user_id=} уже в черном списке")
-    config.updateBannedUsers()
+    config.update_banned_users()
 
 
 @router.message(Command(commands=["banlist"]), F.from_user.id == config.ADMIN_ID)
@@ -49,4 +49,4 @@ async def unban(message: Message, command: CommandObject):
             await message.answer(f"Пользователь {user_id=} убран из черного списка")
         else:
             await message.answer(f"Пользователя с {user_id=} нет в черном списке")
-    config.updateBannedUsers()
+    config.update_banned_users()
