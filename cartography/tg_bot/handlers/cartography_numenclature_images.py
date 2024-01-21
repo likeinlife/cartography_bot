@@ -1,6 +1,6 @@
 from itertools import islice
 
-from aiogram import Router
+from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
@@ -34,10 +34,8 @@ async def coordinates_enter_second(message: Message, state: FSMContext):
     await message.answer("Введите количество операций. /help -> Масштабы")
 
 
-@router.message(
-    ByCoordinatesImages.enter_operations_number,
-    flags={"chat_action": "upload_document"},
-)
+@router.message(ByCoordinatesImages.enter_operations_number)
+@flags.chat_action("upload_document")
 @utils.validate_operation_number
 async def coordinates_enter_operations_number(message: Message, state: FSMContext):
     data = await state.update_data(operations_number=message.text)
