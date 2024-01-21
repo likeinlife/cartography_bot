@@ -12,13 +12,7 @@ def get_delta(bounds: Numenclat, parts_number) -> Tuple[Degrees, Degrees]:
 
 
 def get_first(coordinate: CoordinatePair) -> Numenclat:
-    """Finds numenculat by coordinate
-
-    Args:
-        first_part (CoordinatePair): CoordinatePair()
-
-    Returns : (latitude1, latitude2, longitude1, longitude2), part
-    """
+    """Find nomenclature by coordinate."""
     alphabet = string.ascii_uppercase
     lower_latitude = Degrees()
     upper_latitude = Degrees()
@@ -35,7 +29,7 @@ def get_first(coordinate: CoordinatePair) -> Numenclat:
             break
 
     if not latitude_char:
-        exit('Not found latitude char')
+        exit("Not found latitude char")
 
     for this_index in range(31, 61):
         lower_longitude = Degrees((this_index - 31) * 6)
@@ -46,9 +40,9 @@ def get_first(coordinate: CoordinatePair) -> Numenclat:
             break
 
     if not longitude_index:
-        exit('Not found longitude index')
+        exit("Not found longitude index")
 
-    numenculat = f'{latitude_char}-{longitude_index}'
+    numenculat = f"{latitude_char}-{longitude_index}"
     lower_bound = CoordinatePair(lower_latitude, lower_longitude)
     uppder_bound = CoordinatePair(upper_latitude, upper_longitude)
     values = Numenclat(lower_bound, uppder_bound, numenculat)
@@ -61,23 +55,18 @@ def get_numenculat_by_parts(
     parts_number: int,
     bounds: Numenclat,
     alphabet: list[str] | None = None,
-    numenclature_format: Callable[[str, str], str] = lambda x, y: f'{x}-{y}',
+    numenclature_format: Callable[[str, str], str] = lambda x, y: f"{x}-{y}",
 ) -> Numenclat:
-    """
-    Figure divided by :arg:parts_number parts, finds numenculat by :arg:coordinate
-    Args:
-        parts_number: 2, 3, 12, 16
-        bounds: left lower, right upper
-        alphabet: ('А', 'Б', 'В', 'Г')
-
-    Returns: Numenculat
-    """
-
+    """Figure divided by :arg: parts_number parts, finds nomenclature by :arg: coordinate."""
     latitude_delta, longitude_delta = get_delta(bounds, parts_number)
 
     upper_latitude = bounds.upper_bound.latitude
     lower_longitude = bounds.lower_bound.longitude
-    initional_longitude = (lower_longitude.degree, lower_longitude.minute, lower_longitude.second)
+    initional_longitude = (
+        lower_longitude.degree,
+        lower_longitude.minute,
+        lower_longitude.second,
+    )
 
     for this_part in range(1, parts_number**2 + 1):
         lower_latitude = upper_latitude - latitude_delta
@@ -91,7 +80,13 @@ def get_numenculat_by_parts(
             lower_bound = CoordinatePair(lower_latitude, lower_longitude)
             upper_bound = CoordinatePair(upper_latitude, upper_longitude)
             delta = CoordinatePair(latitude_delta, longitude_delta)
-            values = Numenclat(lower_bound, upper_bound, full_numenclature_name, delta=delta, part=current_part_name)
+            values = Numenclat(
+                lower_bound,
+                upper_bound,
+                full_numenclature_name,
+                delta=delta,
+                part=current_part_name,
+            )
             return values
 
         if this_part % parts_number == 0:
@@ -100,4 +95,4 @@ def get_numenculat_by_parts(
         else:
             lower_longitude = lower_longitude + longitude_delta
 
-    raise Exception('Неизвестная ошибка')
+    raise Exception("Неизвестная ошибка")

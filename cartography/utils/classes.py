@@ -6,21 +6,58 @@ from typing import NamedTuple
 
 
 class Alphabet:
-    LOWER_ALPHA = ['а', 'б', 'в', 'г']
-    LOWER_ALPHA_EXTENDENT = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и']
-    UPPER_ALPHA = ['А', 'Б', 'В', 'Г']
-    NUMBERS = ['1', '2', '3', '4']
-    ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VII', 'VIII', 'IX']
+    LOWER_ALPHA = ["а", "б", "в", "г"]
+    LOWER_ALPHA_EXTENDENT = ["а", "б", "в", "г", "д", "е", "ж", "з", "и"]
+    UPPER_ALPHA = ["А", "Б", "В", "Г"]
+    NUMBERS = ["1", "2", "3", "4"]
+    ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VII", "VIII", "IX"]
     ROMAN_EXTENDED = [
-        "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII",
-        "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI",
-        "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI"
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        "X",
+        "XI",
+        "XII",
+        "XIII",
+        "XIV",
+        "XV",
+        "XVI",
+        "XVII",
+        "XVIII",
+        "XIX",
+        "XX",
+        "XXI",
+        "XXII",
+        "XXIII",
+        "XXIV",
+        "XXV",
+        "XXVI",
+        "XXVII",
+        "XXVIII",
+        "XXIX",
+        "XXX",
+        "XXXI",
+        "XXXII",
+        "XXXIII",
+        "XXXIV",
+        "XXXV",
+        "XXXVI",
     ]
 
 
 class Degrees:
-
-    def __init__(self, degree: int | Decimal = 0, minute: int | Decimal = 0, second: Decimal | int = 0) -> None:
+    def __init__(
+        self,
+        degree: int | Decimal = 0,
+        minute: int | Decimal = 0,
+        second: Decimal | int = 0,
+    ) -> None:
         self.degree = degree
         self.minute = minute
         if second == int(second):
@@ -30,8 +67,14 @@ class Degrees:
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Degrees):
-            return all([self.degree == __o.degree, self.minute == __o.minute, self.second == __o.second])
-        raise Exception('Not a Degrees instance')
+            return all(
+                [
+                    self.degree == __o.degree,
+                    self.minute == __o.minute,
+                    self.second == __o.second,
+                ]
+            )
+        raise Exception("Not a Degrees instance")
 
     def __add__(self, __o: Degrees):
         return Degrees.collectFromSeconds(self.getAllInSeconds() + __o.getAllInSeconds())
@@ -68,14 +111,13 @@ class Degrees:
         return Decimal(self.degree) * 3600 + Decimal(self.minute) * 60 + Decimal(self.second)
 
     def __repr__(self) -> str:
-        degree = (f'{f"{self.degree}°" if self.degree else " "}').rjust(4, ' ')
-        minute = (f'{f"{self.minute}′" if self.minute else " "}').rjust(4, ' ')
-        second = (f'{f"{round(self.second, 2)}″" if self.second else " "}').rjust(6, ' ')
-        return f'{degree}{minute}{second}'
+        degree = (f'{f"{self.degree}°" if self.degree else " "}').rjust(4, " ")
+        minute = (f'{f"{self.minute}′" if self.minute else " "}').rjust(4, " ")
+        second = (f'{f"{round(self.second, 2)}″" if self.second else " "}').rjust(6, " ")
+        return f"{degree}{minute}{second}"
 
 
 class CoordinatePair:
-
     def __init__(self, latitude: Degrees | int, longitude: Degrees | int) -> None:
         if isinstance(latitude, int):
             self.latitude = Degrees(latitude)
@@ -87,7 +129,7 @@ class CoordinatePair:
             self.longitude = longitude
 
     def __repr__(self) -> str:
-        return f'φ = {self.latitude} ;λ = {self.longitude}'
+        return f"φ = {self.latitude} ;λ = {self.longitude}"
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, CoordinatePair):
@@ -104,16 +146,21 @@ class Numenclat(NamedTuple):
 
     def __eq__(self, __o: object) -> bool:
         if isinstance(__o, Numenclat):
-            return all([
-                self.lower_bound == __o.lower_bound, self.upper_bound == __o.upper_bound,
-                self.numenculat == __o.numenculat
-            ])
+            return all(
+                [
+                    self.lower_bound == __o.lower_bound,
+                    self.upper_bound == __o.upper_bound,
+                    self.numenculat == __o.numenculat,
+                ]
+            )
         return False
 
     def __repr__(self) -> str:
-        content = (f'{self.numenculat}\n'
-                   f'φ: {self.lower_bound.latitude} - {self.upper_bound.latitude}\n'
-                   f'λ: {self.lower_bound.longitude} - {self.upper_bound.longitude}')
+        content = (
+            f"{self.numenculat}\n"
+            f"φ: {self.lower_bound.latitude} - {self.upper_bound.latitude}\n"
+            f"λ: {self.lower_bound.longitude} - {self.upper_bound.longitude}"
+        )
         return content
 
 

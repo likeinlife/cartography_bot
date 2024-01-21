@@ -5,13 +5,14 @@ from cartography.utils.classes import CoordinatePair, Degrees, Numenclat
 
 
 def get_first(first_part_name: str) -> Numenclat:
-    """Finds geographic coordinates of edges by first part name
+    """
+    Find geographic coordinates of edges by first part name.
 
     Args:
-        first_part (str): R-41, D-58
-
+    ----
+        first_part_name: R-41, D-58
     """
-    first_part = first_part_name.split('-')
+    first_part = first_part_name.split("-")
     alphabet = string.ascii_uppercase
     lower_latitude = Degrees()
     upper_latitude = Degrees()
@@ -34,7 +35,7 @@ def get_first(first_part_name: str) -> Numenclat:
 
     lower_bound = CoordinatePair(lower_latitude, lower_longitude)
     upper_bound = CoordinatePair(upper_latitude, upper_longitude)
-    return Numenclat(lower_bound, upper_bound, '-'.join(first_part))
+    return Numenclat(lower_bound, upper_bound, "-".join(first_part))
 
 
 def get_part(
@@ -42,20 +43,16 @@ def get_part(
     numenclature: Numenclat,
     parts_number: int,
     alphabet: Optional[list] = None,
-    numenclature_format: Callable[[str, str], str] = lambda x, y: f'{x}-{y}',
+    numenclature_format: Callable[[str, str], str] = lambda x, y: f"{x}-{y}",
 ) -> Numenclat:
-    """
-    Figure divided by :parts_number: parts, finds coordinated of :needed_part:
-    Args:
-        part: "19", "24"
-        numenclature: previous numenclature
-        parts_number: 2, 3, 12, 16
-
-    Returns: new bounds
-    """
+    """Figure divided by :parts_number: parts, finds coordinated of :needed_part:."""
     upper_latitude = numenclature.upper_bound.latitude
     lower_longitude = numenclature.lower_bound.longitude
-    initional_longitude = (lower_longitude.degree, lower_longitude.minute, lower_longitude.second)
+    initional_longitude = (
+        lower_longitude.degree,
+        lower_longitude.minute,
+        lower_longitude.second,
+    )
 
     latitude_delta = (numenclature.upper_bound.latitude - numenclature.lower_bound.latitude) / parts_number
     longitude_delta = (numenclature.upper_bound.longitude - numenclature.lower_bound.longitude) / parts_number
@@ -81,4 +78,4 @@ def get_part(
         else:
             lower_longitude = lower_longitude + longitude_delta
 
-    raise Exception(f'Неизвестная ошибка. Часть {needed_part} не найдена')
+    raise Exception(f"Неизвестная ошибка. Часть {needed_part} не найдена")

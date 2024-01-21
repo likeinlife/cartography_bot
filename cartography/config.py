@@ -18,11 +18,10 @@ def check_option(option_name: str) -> bool:
 
 
 class Config:
-
-    STATIC_PATH: Path = Path(os.getcwd()) / Path('static')
-    BAN_LIST_PATH: Path = STATIC_PATH / Path('banned_users.json')
-    DISABLE_STREAM_HANDLER = check_option('DISABLE-STREAM-HANDLER')  # disable logging output in console
-    PUBLIC = check_option('PUBLIC')  # open bot for public use(not admin only)
+    STATIC_PATH: Path = Path(os.getcwd()) / Path("static")
+    BAN_LIST_PATH: Path = STATIC_PATH / Path("banned_users.json")
+    DISABLE_STREAM_HANDLER = check_option("DISABLE-STREAM-HANDLER")  # disable logging output in console
+    PUBLIC = check_option("PUBLIC")  # open bot for public use(not admin only)
     LOGS_MAX_SIZE = 256  # in kilobytes
 
     def __init__(self) -> None:
@@ -31,29 +30,29 @@ class Config:
 
     @property
     def DEV_MODE(self) -> bool:
-        if mode := check_option('DEV-MODE'):
-            print('DEV MODE ON')
+        if mode := check_option("DEV-MODE"):
+            print("DEV MODE ON")
         return mode
 
     @property
     def BOT_TOKEN(self) -> str:
-        return os.environ['BOT-TOKEN']
+        return os.environ["BOT-TOKEN"]
 
     @property
     def ADMIN_ID(self) -> int:
-        admin_id = os.environ['ADMIN-ID']
+        admin_id = os.environ["ADMIN-ID"]
         return int(admin_id)
 
     @property
     def LOGGING_LEVEL(self) -> str:
-        logging_level = os.getenv('LOGGING-LEVEL')
+        logging_level = os.getenv("LOGGING-LEVEL")
         if not logging_level:
-            return 'WARNING'
+            return "WARNING"
         return logging_level
 
     def updateBannedUsers(self):
-        print('update')
-        with open(self.BAN_LIST_PATH, 'r') as file_obj:
+        print("update")
+        with open(self.BAN_LIST_PATH, "r") as file_obj:
             ban_list = json.load(file_obj)
         self.BAN_LIST = ban_list
 
@@ -67,7 +66,7 @@ class ImageConfig:
     BACKGROUND_COLOR = Color.WHITE
     FILLED_CELL_COLOR = Color.GRAY
     TEXT_COLOR = Color.BLACK
-    PATH_TO_FONT: str = str(Config.STATIC_PATH / Path('font.otf'))
+    PATH_TO_FONT: str = str(Config.STATIC_PATH / Path("font.otf"))
 
 
 config = Config()
