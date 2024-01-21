@@ -1,4 +1,4 @@
-from aiogram import Router
+from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
@@ -15,7 +15,8 @@ async def numenclature_by(message: Message, state: FSMContext):
     await state.set_state(ByNumenclatureImages.enter_numenclature)
 
 
-@router.message(ByNumenclatureImages.enter_numenclature, flags={"chat_action": "upload_document"})
+@router.message(ByNumenclatureImages.enter_numenclature)
+@flags.chat_action("upload_document")
 async def numenclature_results(message: Message, state: FSMContext):
     if not message.text:
         return await message.answer("Вы не ввели значение нуменклатуры.")
