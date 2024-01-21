@@ -8,7 +8,6 @@ from .find_numenclate_functions import get_first, get_numenculat_by_parts
 
 
 class AbstractFindNumenclature(ABC):
-
     def __init__(self, coordinates: CoordinatePair) -> None:
         self.coordinates = coordinates
         self.values: NumenclatList = []
@@ -23,18 +22,16 @@ class AbstractFindNumenclature(ABC):
 
 
 class FindNumenclat_1M(AbstractFindNumenclature):
-
     def get_numenculat_values(self) -> NumenclatList:
         self.values = [get_first(self.coordinates)]
         return self.values
 
     def get_images(self) -> ImageGenerator:
         values = self.get_numenculat_values()
-        yield create_image(values[0], 1, [' '])
+        yield create_image(values[0], 1, [" "])
 
 
 class FindNumenclat_500k(FindNumenclat_1M):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
         this = get_numenculat_by_parts(self.coordinates, 2, previous[0], Alphabet.UPPER_ALPHA)
@@ -48,14 +45,13 @@ class FindNumenclat_500k(FindNumenclat_1M):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[0], 2, Alphabet.UPPER_ALPHA, values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_300k(FindNumenclat_500k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
-        numenclature_format = lambda x, y: f'{y}-{x}'
+        numenclature_format = lambda x, y: f"{y}-{x}"
         this = get_numenculat_by_parts(self.coordinates, 3, previous[0], Alphabet.ROMAN, numenclature_format)
         self.values = previous + [this]
         return self.values
@@ -67,11 +63,10 @@ class FindNumenclat_300k(FindNumenclat_500k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[0], 3, Alphabet.ROMAN, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_200k(FindNumenclat_300k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
         this = get_numenculat_by_parts(self.coordinates, 6, previous[0], Alphabet.ROMAN_EXTENDED)
@@ -85,11 +80,10 @@ class FindNumenclat_200k(FindNumenclat_300k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[0], 6, Alphabet.ROMAN_EXTENDED, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_100k(FindNumenclat_200k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
         this = get_numenculat_by_parts(self.coordinates, 12, previous[0])
@@ -103,11 +97,10 @@ class FindNumenclat_100k(FindNumenclat_200k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[0], 12, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_50k(FindNumenclat_100k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
         this = get_numenculat_by_parts(self.coordinates, 2, previous[-1], Alphabet.UPPER_ALPHA)
@@ -121,11 +114,10 @@ class FindNumenclat_50k(FindNumenclat_100k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[-2], 2, Alphabet.UPPER_ALPHA, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_25k(FindNumenclat_50k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
         this = get_numenculat_by_parts(self.coordinates, 2, previous[-1], Alphabet.LOWER_ALPHA)
@@ -139,11 +131,10 @@ class FindNumenclat_25k(FindNumenclat_50k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[-2], 2, Alphabet.LOWER_ALPHA, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_10k(FindNumenclat_25k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
         this = get_numenculat_by_parts(self.coordinates, 2, previous[-1])
@@ -157,14 +148,13 @@ class FindNumenclat_10k(FindNumenclat_25k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[-2], 2, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_5k(FindNumenclat_10k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
-        numenclature_format = lambda x, y: f'{x}-({y})'
+        numenclature_format = lambda x, y: f"{x}-({y})"
         this = get_numenculat_by_parts(self.coordinates, 16, previous[-4], numenclature_format=numenclature_format)
         self.values = previous + [this]
         return self.values
@@ -176,16 +166,20 @@ class FindNumenclat_5k(FindNumenclat_10k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[-5], 16, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])
 
 
 class FindNumenclat_2k(FindNumenclat_5k):
-
     def get_numenculat_values(self) -> NumenclatList:
         previous = self.values if self.values else super().get_numenculat_values()
-        numenclature_format = lambda x, y: f'{x}-({y})'
-        this = get_numenculat_by_parts(self.coordinates, 3, previous[-1], Alphabet.LOWER_ALPHA_EXTENDENT,
-                                       numenclature_format)
+        numenclature_format = lambda x, y: f"{x}-({y})"
+        this = get_numenculat_by_parts(
+            self.coordinates,
+            3,
+            previous[-1],
+            Alphabet.LOWER_ALPHA_EXTENDENT,
+            numenclature_format,
+        )
         self.values = previous + [this]
         return self.values
 
@@ -196,4 +190,4 @@ class FindNumenclat_2k(FindNumenclat_5k):
         self.values = lower_scale.values
         values = self.get_numenculat_values()
         yield create_image(values[-2], 3, Alphabet.LOWER_ALPHA_EXTENDENT, cell_to_fill=values[-1].part)
-        yield create_image(values[-1], 1, [' '])
+        yield create_image(values[-1], 1, [" "])

@@ -14,17 +14,22 @@ def create_image(
     alphabet: list[str] | None = None,
     cell_to_fill: str = "",
 ) -> bytes:
-    """Делает изображение, вызывает все необходимые функции
+    """
+    Делает изображение, вызывает все необходимые функции.
 
     Args:
-        bounds (Numenculat): Класс с данными
-        parts_number (int): Количество частей
+    ----
+        bounds: Класс с данными
+        parts_number: Количество частей
+        alphabet: Количество частей
+        cell_to_fill: Количество частей
 
     Returns:
-        bytes: Изображение в байтах
+    -------
+        Изображение в байтах
     """
     imaginary_doc = BytesIO()
-    img = Image.new('RGB', ImageConfig.RESOLUTION, ImageConfig.BACKGROUND_COLOR)
+    img = Image.new("RGB", ImageConfig.RESOLUTION, ImageConfig.BACKGROUND_COLOR)
     pad = 100
     draw_table(img, parts_number, pad, bounds.numenculat, alphabet, cell_to_fill)
     x_values = get_middle_list(bounds.lower_bound.longitude, bounds.upper_bound.longitude, parts_number)
@@ -33,6 +38,6 @@ def create_image(
 
     draw_values_on_table(img, parts_number, x_values, y_values, pad)
 
-    img.save(imaginary_doc, 'JPEG')
+    img.save(imaginary_doc, "JPEG")
 
     return imaginary_doc.getvalue()

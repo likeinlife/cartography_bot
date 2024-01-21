@@ -12,34 +12,35 @@ logger = get_chat_actions_logger(__name__)
 
 
 class BanListCheck(BaseMiddleware):
-
-    async def __call__(self, handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]], event: TelegramObject,
-                       data: Dict[str, Any]) -> Any:
+    async def __call__(
+        self,
+        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
+        data: Dict[str, Any],
+    ) -> Any:
         if event.from_user.id not in config.BAN_LIST:
             return await handler(event, data)
 
 
 class IsAdminMiddleWare(BaseMiddleware):
-
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-        if data['event_from_user'].id == config.ADMIN_ID:
+        if data["event_from_user"].id == config.ADMIN_ID:
             return await handler(event, data)
 
 
 class ChatActionMiddleware(BaseMiddleware):
-
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-        chat_action = get_flag(data, 'chat_action')
+        chat_action = get_flag(data, "chat_action")
         if not chat_action:
             return await handler(event, data)
 
@@ -48,8 +49,11 @@ class ChatActionMiddleware(BaseMiddleware):
 
 
 class LoggingChatActions(BaseMiddleware):
-
-    async def __call__(self, handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]], event: TelegramObject,
-                       data: Dict[str, Any]) -> Any:
+    async def __call__(
+        self,
+        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
+        data: Dict[str, Any],
+    ) -> Any:
         logger.info(f'{event.chat.username}({event.chat.id}) <- "{event.text}"')
         return await handler(event, data)

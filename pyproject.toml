@@ -8,19 +8,15 @@ packages = [{include = "cartography"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiogram = "3.0.0b7"
+aiogram = "3.3.0"
 tabulate = "^0.9.0"
 python-dotenv = "^1.0.0"
 pillow = "^9.4.0"
 
 [tool.poetry.group.dev.dependencies]
-yapf = "^0.32.0"
-pynvim = "^0.4.3"
 mypy = "^1.0.1"
-isort = "^5.12.0"
-rope = "^1.7.0"
-toml = "^0.10.2"
-bandit = "^1.7.5"
+ruff = "^0.1.14"
+pre-commit = "^3.6.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -28,3 +24,21 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 bot = "cartography.__main__:main"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings"
+
+[tool.ruff]
+line-length = 120
+select = ["D", "B", "S", "A", "C4", "T10", "F", "Q"]
+ignore = ["D100", "D107", "D101", "D106", "D103", "D104", "D102", "D105", "D203", "D212", "B008", "B904", "A003"]
+exclude = ["__init__.py"]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "parents"

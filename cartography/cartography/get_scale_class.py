@@ -1,4 +1,16 @@
-from .find_numenclature import *
+from .find_numenclature import (
+    AbstractFindNumenclature,
+    FindNumenclat_1M,
+    FindNumenclat_2k,
+    FindNumenclat_5k,
+    FindNumenclat_10k,
+    FindNumenclat_25k,
+    FindNumenclat_50k,
+    FindNumenclat_100k,
+    FindNumenclat_200k,
+    FindNumenclat_300k,
+    FindNumenclat_500k,
+)
 
 table = {
     1: FindNumenclat_1M,
@@ -10,7 +22,7 @@ table = {
     7: FindNumenclat_25k,
     8: FindNumenclat_10k,
     9: FindNumenclat_5k,
-    10: FindNumenclat_2k
+    10: FindNumenclat_2k,
 }
 
 

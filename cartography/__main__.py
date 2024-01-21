@@ -2,19 +2,28 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 
-from cartography.tg_bot.commands import (set_admin_commands,
-                                         set_default_commands,
-                                         set_dev_commands)
+from cartography.tg_bot.commands import (
+    set_admin_commands,
+    set_default_commands,
+    set_dev_commands,
+)
 
 from .config import config
 from .tg_bot import middlewares
-from .tg_bot.handlers import (ban, cartography_geograph_images,
-                              cartography_numenclature_images, geodezia, help,
-                              middle_values, tmogi, util_handlers)
+from .tg_bot.handlers import (
+    ban,
+    cartography_geograph_images,
+    cartography_numenclature_images,
+    geodezia,
+    help,
+    middle_values,
+    tmogi,
+    util_handlers,
+)
 
 
 async def start():
-    bot = Bot(config.BOT_TOKEN, parse_mode='HTML')
+    bot = Bot(config.BOT_TOKEN, parse_mode="HTML")
     await set_default_commands(bot)
     await set_admin_commands(bot)
     await set_dev_commands(bot)
@@ -41,6 +50,7 @@ async def start():
 
     if config.DEV_MODE:
         from .tg_bot.handlers import devs
+
         dp.include_router(devs.router)
 
     try:
@@ -53,5 +63,5 @@ def main():
     asyncio.run(start())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

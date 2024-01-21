@@ -7,17 +7,21 @@ def draw_table(
     img: Image,
     parts: int,
     pad: int,
-    name: str = "Numenclature",
+    name: str = "Nomenclature",
     alphabet: list[str] | None = None,
     cell_to_fill: str = "",
 ):
-    """Draw table
+    """
+    Draw table.
 
     Args:
-        img (Image): image to edit
-        parts (int): parts number. Example: 16x16, parts=16
-        pad (int): Length to image borders
-        name (str): Table name
+    ----
+        img: image to edit
+        parts: parts count. Example: 16x16, parts=16
+        pad: Length to image borders
+        name: Table name
+        alphabet: Alphabet
+        cell_to_fill: Cell name to fill
     """
     img_draw = ImageDraw.Draw(img)
     delta_x = (img.size[0] - pad * 2) // parts
@@ -28,7 +32,7 @@ def draw_table(
 
     pil_font = ImageFont.truetype(font_name, font_size)
     name_font = ImageFont.truetype(font_name, name_size)
-    box = img_draw.textbbox((img.size[0] // 2, pad // 2), name, name_font, 'mm')
+    box = img_draw.textbbox((img.size[0] // 2, pad // 2), name, name_font, "mm")
     img_draw.text(box, name, ImageConfig.TEXT_COLOR, name_font)
 
     row = 0
@@ -48,12 +52,20 @@ def draw_table(
             number = cell
 
         if str(number) == cell_to_fill:
-            img_draw.rectangle(((left_x, up_y), (right_x, lower_y)), ImageConfig.FILLED_CELL_COLOR,
-                               ImageConfig.TEXT_COLOR, width)
+            img_draw.rectangle(
+                ((left_x, up_y), (right_x, lower_y)),
+                ImageConfig.FILLED_CELL_COLOR,
+                ImageConfig.TEXT_COLOR,
+                width,
+            )
         else:
-            img_draw.rectangle(((left_x, up_y), (right_x, lower_y)), ImageConfig.BACKGROUND_COLOR,
-                               ImageConfig.TEXT_COLOR, width)
-        box = img_draw.textbbox((middle_x, middle_y), str(number), pil_font, 'mm')
+            img_draw.rectangle(
+                ((left_x, up_y), (right_x, lower_y)),
+                ImageConfig.BACKGROUND_COLOR,
+                ImageConfig.TEXT_COLOR,
+                width,
+            )
+        box = img_draw.textbbox((middle_x, middle_y), str(number), pil_font, "mm")
         img_draw.text(box, str(number), ImageConfig.TEXT_COLOR, pil_font)
 
         if parts == 1:
@@ -73,9 +85,11 @@ def draw_values_on_table(
     y_values: list,
     pad: int,
 ):
-    """Generates lables in bottom and right of table
+    """
+    Generate labels in bottom and right of table.
 
     Args:
+    ----
         table_image (Image): Image with table
         parts (int): parts number. Example: 16x16 => parts=16
         x_values (list): columns labels
@@ -99,9 +113,9 @@ def draw_values_on_table(
         x = pad + column_label_number * x_delta
         y = table_image.size[1] - pad + offset_y_from_table
 
-        box = img_draw.textbbox((x, y), value, pil_font, 'ms')
+        box = img_draw.textbbox((x, y), value, pil_font, "ms")
 
-        text_img = Image.new('RGBA', (box[2] - box[0], font_size + 1), (0, 0, 0, 0))
+        text_img = Image.new("RGBA", (box[2] - box[0], font_size + 1), (0, 0, 0, 0))
         text_draw = ImageDraw.Draw(text_img)
 
         text_x_size, _ = text_img.size
@@ -115,5 +129,5 @@ def draw_values_on_table(
         x = table_image.size[0] - pad + offset_x_from_table
         y = pad + row_label_number * y_delta
 
-        box = img_draw.textbbox((x, y), value, pil_font, 'ls')
+        box = img_draw.textbbox((x, y), value, pil_font, "ls")
         img_draw.text(box, value, ImageConfig.TEXT_COLOR, pil_font)
