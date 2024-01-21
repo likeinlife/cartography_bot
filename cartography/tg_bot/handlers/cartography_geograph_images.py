@@ -20,7 +20,7 @@ async def numenclature_by(message: Message, state: FSMContext):
 async def numenclature_results(message: Message, state: FSMContext):
     if not message.text:
         return await message.answer("Вы не ввели значение нуменклатуры.")
-    parsed = numenclature_parse.NumenclatureParser(message.text).parse()
+    parsed = numenclature_parse.parse_nomenclature_string(message.text)
     if parsed is None:
         return await message.answer("Некорректная нуменклатура. Посмотрите примеры в /help")
 
