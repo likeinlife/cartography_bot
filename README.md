@@ -10,3 +10,6 @@
 - PUBLIC - enable public use
 - DISABLE_STREAM_HANDLER - disable stream logging output
 
+# Screenshot
+
+![](./static/telegram_screenshot.png)
