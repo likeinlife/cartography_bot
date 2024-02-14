@@ -1,8 +1,5 @@
-from decimal import Decimal as _
-
 import pytest
 from business.math_actions.coordinate_actions import between, divide, get_middle, minus, multiply, plus
-from domain.models import Coordinate
 
 from .coordinates_help import from_tuple
 
@@ -102,3 +99,17 @@ def test_divide(first, second, expected):
 )
 def test_between(left, this, right, expected):
     assert between(left, this, right) == expected
+
+
+@pytest.mark.parametrize(
+    ("left", "right", "expected"),
+    [
+        (
+            from_tuple((0, 10, 5)),
+            from_tuple((10, 20, 15)),
+            from_tuple((5, 15, 10)),
+        )
+    ],
+)
+def test_get_middle(left, right, expected):
+    assert get_middle(left, right) == expected

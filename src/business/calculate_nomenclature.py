@@ -28,7 +28,7 @@ def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:
         lower_longitude = Coordinate(degrees=_((this_index - 31) * 6))
         upper_longitude = Coordinate(degrees=_(6 * (this_index + 1 - 31)))
 
-        if coordinate_actions.between(lower_longitude, coordinate_pair.longitude, upper_longitude)
+        if coordinate_actions.between(lower_longitude, coordinate_pair.longitude, upper_longitude):
             longitude_index = this_index
             break
 
@@ -58,7 +58,7 @@ def get_nomenclature_by_parts(
     upper_latitude = previous_nomenclature.upper_bound.latitude
     lower_longitude = previous_nomenclature.lower_bound.longitude
     initial_longitude = lower_longitude
-    
+
     for this_part in range(1, parts_number**2 + 1):
         lower_latitude = coordinate_actions.minus(upper_latitude, delta.latitude)
         upper_longitude = coordinate_actions.plus(lower_longitude, delta.longitude)
@@ -74,7 +74,7 @@ def get_nomenclature_by_parts(
                 title=nomenclature_title,
                 lower_bound=lower_bound,
                 upper_bound=upper_bound,
-                coordinates_delta=delta, 
+                coordinates_delta=delta,
                 cell_to_fill=current_part_name,
             )
 
