@@ -4,8 +4,6 @@ from domain.models import CoordinatePair
 
 from .coordinates_help import from_tuple
 
-from .coordinates_help import from_tuple
-
 
 @pytest.mark.parametrize(
     ("upper_bound", "lower_bound", "parts_number", "expected"),
