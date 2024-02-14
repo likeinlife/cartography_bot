@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Telegram bot to solve cartography issues"
 authors = ["likeinlife <likeinlife48@yandex.ru>"]
 readme = "README.md"
-packages = [{include = "cartography"}]
+packages = [{ include = "cartography" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -19,6 +19,10 @@ mypy = "^1.0.1"
 ruff = "^0.1.14"
 pre-commit = "^3.6.0"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -27,7 +31,15 @@ build-backend = "poetry.core.masonry.api"
 bot = "cartography.__main__:main"
 
 [tool.mypy]
-plugins = ["mypy_django_plugin.main"]
+plugins = ["pydantic.mypy"]
+
+follow_imports = "silent"
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+
 
 [tool.django-stubs]
 django_settings_module = "config.settings"
@@ -35,8 +47,26 @@ django_settings_module = "config.settings"
 [tool.ruff]
 line-length = 120
 select = ["D", "B", "S", "A", "C4", "T10", "F", "Q"]
-ignore = ["D100", "D107", "D101", "D106", "D103", "D104", "D102", "D105", "D203", "D212", "B008", "B904", "A003"]
+ignore = [
+    "D100",
+    "D107",
+    "D101",
+    "D106",
+    "D103",
+    "D104",
+    "D102",
+    "D105",
+    "D203",
+    "D212",
+    "D407",
+    "B008",
+    "B904",
+    "A003",
+]
 exclude = ["__init__.py"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*" = ["S"]
 
 [tool.ruff.lint.flake8-quotes]
 inline-quotes = "double"
