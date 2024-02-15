@@ -14,6 +14,7 @@ class CoordinatePair(BaseModel):
     longitude: Coordinate
 
 
+# TODO: outer lower and upper bounds to draw image
 class Nomenclature(BaseModel):
     title: str
     lower_bound: CoordinatePair
