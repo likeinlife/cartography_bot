@@ -3,7 +3,6 @@ from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 
 from business.calculate_nomenclature import get_1m_nomenclature, get_nomenclature_by_parts
-from business.scale_resolver.scale_info_resolver import get_scale_info
 
 
 class ChainLinkShortcut(ICoordinateChainLink):
@@ -13,8 +12,10 @@ class ChainLinkShortcut(ICoordinateChainLink):
         coordinate_pair: CoordinatePair,
         previous_scale: Scale,
     ) -> dict[Scale, Nomenclature]:
-        previous = cls.previous_link.resolve(coordinate_pair)
+        from business.scale_resolver.scale_info_resolver import get_scale_info
+
         scale_info = get_scale_info(scale=cls.scale)
+        previous = scale_info.class_.previous_link.resolve(coordinate_pair)
         this = {
             cls.scale: get_nomenclature_by_parts(
                 coordinate_pair=coordinate_pair,

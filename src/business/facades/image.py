@@ -2,7 +2,7 @@ from io import BytesIO
 
 from container import ImageContainer
 from dependency_injector.wiring import Provide, inject
-from domain.models import Nomenclature
+from domain.models import CoordinatePair
 from domain.types import ImageType
 from PIL import Image
 
@@ -15,8 +15,10 @@ class ImageGeneratorFacade:
     @inject
     def generate(
         cls,
-        nomenclature: Nomenclature,
-        scale_name: str,
+        upper_bound: CoordinatePair,
+        lower_bound: CoordinatePair,
+        cell_to_fill: str | None,
+        title: str,
         parts: int,
         alphabet: list[str],
         resolution: tuple[int, int] = Provide[ImageContainer.settings.resolution],
@@ -25,21 +27,15 @@ class ImageGeneratorFacade:
         in_memory_file = BytesIO()
         image = Image.new("RGB", resolution, background_color)
 
-        title = f"{nomenclature.title} ({scale_name})"
-
         draw_table(
             img=image,
             parts=parts,
             title=title,
             alphabet=alphabet,
-            cell_to_fill=nomenclature.cell_to_fill,
+            cell_to_fill=cell_to_fill,
         )
-        x_values = coordinate_actions.get_middle_list(
-            nomenclature.lower_bound.longitude, nomenclature.upper_bound.longitude, parts
-        )
-        y_values = coordinate_actions.get_middle_list(
-            nomenclature.lower_bound.latitude, nomenclature.upper_bound.latitude, parts
-        )
+        x_values = coordinate_actions.get_middle_list(lower_bound.longitude, upper_bound.longitude, parts)
+        y_values = coordinate_actions.get_middle_list(lower_bound.latitude, upper_bound.latitude, parts)
         y_values.reverse()
 
         draw_labels(
