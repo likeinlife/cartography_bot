@@ -9,16 +9,16 @@ from .coordinates_help import from_tuple
     ("upper_bound", "lower_bound", "parts_number", "expected"),
     [
         (
-            CoordinatePair(latitude=from_tuple((10, 0, 0)), longitude=from_tuple((10, 0, 0))),
-            CoordinatePair(latitude=from_tuple((5, 0, 0)), longitude=from_tuple((5, 0, 0))),
+            CoordinatePair(latitude=from_tuple(10), longitude=from_tuple(10)),
+            CoordinatePair(latitude=from_tuple(5), longitude=from_tuple(5)),
             2,
-            CoordinatePair(latitude=from_tuple((2, 30, 0)), longitude=from_tuple((2, 30, 0))),
+            CoordinatePair(latitude=from_tuple(2, 30), longitude=from_tuple(2, 30)),
         ),
         (
-            CoordinatePair(latitude=from_tuple((53, 15, 0)), longitude=from_tuple((47, 30, 0))),
-            CoordinatePair(latitude=from_tuple((53, 10, 0)), longitude=from_tuple((47, 22, 30))),
+            CoordinatePair(latitude=from_tuple(53, 15), longitude=from_tuple(47, 30)),
+            CoordinatePair(latitude=from_tuple(53, 10), longitude=from_tuple(47, 22, 30)),
             2,
-            CoordinatePair(latitude=from_tuple((0, 2, 30)), longitude=from_tuple((0, 3, 45))),
+            CoordinatePair(latitude=from_tuple(0, 2, 30), longitude=from_tuple(0, 3, 45)),
         ),
     ],
 )
