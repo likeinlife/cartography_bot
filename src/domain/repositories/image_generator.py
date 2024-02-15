@@ -6,7 +6,7 @@ from domain.models import Nomenclature
 from domain.types import ImageType
 
 
-class IImageGenerator(abc.ABC):
+class IImageGeneratorRepository(abc.ABC):
     """Nomenclature image generator."""
 
     @abc.abstractmethod

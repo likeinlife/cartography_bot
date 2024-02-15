@@ -1,4 +1,4 @@
-from domain.repositories import IChainLink
+from domain.chain import IChainLink
 
 from src.domain.models import CoordinatePair, Nomenclature
 
