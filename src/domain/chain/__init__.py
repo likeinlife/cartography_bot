@@ -1,1 +1,1 @@
-from .chain_link import IChainLink
+from .coordinate_chain import ICoordinateChainLink

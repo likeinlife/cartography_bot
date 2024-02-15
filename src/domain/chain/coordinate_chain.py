@@ -5,10 +5,10 @@ import abc
 from domain.models import CoordinatePair, Nomenclature
 
 
-class IChainLink(abc.ABC):
+class ICoordinateChainLink(abc.ABC):
     """Nomenclature chain for current scale."""
 
-    previous_link: type[IChainLink]
+    previous_link: type[ICoordinateChainLink]
     scale: str
 
     @classmethod

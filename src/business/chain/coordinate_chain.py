@@ -1,13 +1,13 @@
 from typing import Callable
 
-from domain.chain import IChainLink
+from domain.chain import ICoordinateChainLink
 from domain.models import CoordinatePair, Nomenclature
 
 from business import constants
 from business.calculate_nomenclature import get_1m_nomenclature, get_nomenclature_by_parts
 
 
-class ChainLinkShortcut(IChainLink):
+class ChainLinkShortcut(ICoordinateChainLink):
     @classmethod
     def _resolve_shortcut(
         cls,
@@ -30,7 +30,7 @@ class ChainLinkShortcut(IChainLink):
         return previous | this
 
 
-class ChainLink1M(IChainLink):
+class ChainLink1M(ICoordinateChainLink):
     previous_link = None  # type: ignore
     scale = "1m"
 
@@ -42,7 +42,7 @@ class ChainLink1M(IChainLink):
         return {cls.scale: get_1m_nomenclature(coordinate_pair)}
 
 
-class ChainLink500K(ChainLinkShortcut, IChainLink):
+class ChainLink500K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink1M
     scale = "500k"
 
@@ -59,7 +59,7 @@ class ChainLink500K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink300K(ChainLinkShortcut, IChainLink):
+class ChainLink300K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink500K
     scale = "300k"
 
@@ -79,7 +79,7 @@ class ChainLink300K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink200K(ChainLinkShortcut, IChainLink):
+class ChainLink200K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink300K
     scale = "200k"
 
@@ -96,7 +96,7 @@ class ChainLink200K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink100K(ChainLinkShortcut, IChainLink):
+class ChainLink100K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink200K
     scale = "100k"
 
@@ -112,7 +112,7 @@ class ChainLink100K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink50K(ChainLinkShortcut, IChainLink):
+class ChainLink50K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink100K
     scale = "50k"
 
@@ -129,7 +129,7 @@ class ChainLink50K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink25K(ChainLinkShortcut, IChainLink):
+class ChainLink25K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink50K
     scale = "25k"
 
@@ -146,7 +146,7 @@ class ChainLink25K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink10K(ChainLinkShortcut, IChainLink):
+class ChainLink10K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink25K
     scale = "10k"
 
@@ -162,7 +162,7 @@ class ChainLink10K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink5K(ChainLinkShortcut, IChainLink):
+class ChainLink5K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink10K
     scale = "5k"
 
@@ -180,7 +180,7 @@ class ChainLink5K(ChainLinkShortcut, IChainLink):
         )
 
 
-class ChainLink2K(ChainLinkShortcut, IChainLink):
+class ChainLink2K(ChainLinkShortcut, ICoordinateChainLink):
     previous_link = ChainLink5K
     scale = "2k"
 

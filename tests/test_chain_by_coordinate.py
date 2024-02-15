@@ -1,5 +1,5 @@
 import pytest
-from business.chain import chain_link
+from business.chain import coordinate_chain
 from domain.models import CoordinatePair, Nomenclature
 
 from .coordinates_help import from_tuple
@@ -30,7 +30,7 @@ from .coordinates_help import from_tuple
     ],
 )
 def test_1m(coordinate_pair, expected):
-    assert chain_link.ChainLink1M.resolve(coordinate_pair) == expected
+    assert coordinate_chain.ChainLink1M.resolve(coordinate_pair) == expected
 
 
 @pytest.mark.parametrize(
@@ -70,7 +70,7 @@ def test_1m(coordinate_pair, expected):
     ],
 )
 def test_500k(coordinate_pair, expected):
-    assert chain_link.ChainLink500K.resolve(coordinate_pair) == expected
+    assert coordinate_chain.ChainLink500K.resolve(coordinate_pair) == expected
 
 
 @pytest.mark.parametrize(
@@ -122,4 +122,4 @@ def test_500k(coordinate_pair, expected):
     ],
 )
 def test_300k(coordinate_pair, expected):
-    assert chain_link.ChainLink300K.resolve(coordinate_pair) == expected
+    assert coordinate_chain.ChainLink300K.resolve(coordinate_pair) == expected
