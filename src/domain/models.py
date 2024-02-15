@@ -19,4 +19,3 @@ class Nomenclature(BaseModel):
     lower_bound: CoordinatePair
     upper_bound: CoordinatePair
     cell_to_fill: str | None = None
-    coordinates_delta: CoordinatePair | None = None

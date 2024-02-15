@@ -74,7 +74,6 @@ def get_nomenclature_by_parts(
                 title=nomenclature_title,
                 lower_bound=lower_bound,
                 upper_bound=upper_bound,
-                coordinates_delta=delta,
                 cell_to_fill=current_part_name,
             )
 
