@@ -11,8 +11,8 @@ class IChainLink(abc.ABC):
     previous_link: type[IChainLink]
     scale: str
 
-    @abc.abstractmethod
     @classmethod
+    @abc.abstractmethod
     def resolve(
         cls,
         coordinate_pair: CoordinatePair,

@@ -22,6 +22,8 @@ pre-commit = "^3.6.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.0"
+coverage = "^7.4.1"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -73,3 +75,13 @@ inline-quotes = "double"
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "parents"
+
+[tool.coverage.run]
+omit = [
+    "*/micrometr/*",
+    "*/tg_bot/*",
+    "*/cartography/*",
+    "*/models/*",
+    "src/*.py",
+    "__init__.py",
+]
