@@ -156,7 +156,7 @@ class ChainLink5K(ChainLinkShortcut, ICoordinateChainLink):
     ) -> dict[Scale, Nomenclature]:
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
-            previous_scale=cls.previous_link.scale,
+            previous_scale=ChainLink100K.scale,
         )
 
 

@@ -75,7 +75,7 @@ table = {
         class_=coordinate_chain.ChainLink5K,
     ),
     Scale._2K: ScaleInfo(
-        alphabet=[str(i) for i in range(1, 10)],
+        alphabet=constants.LOWER_ALPHA_EXTENDED,
         parts=3,
         formatter=lambda x, y: f"{x}-({y})",
         name="1/2_000",
