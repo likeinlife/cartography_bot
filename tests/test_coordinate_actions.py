@@ -1,5 +1,5 @@
 import pytest
-from business.math_actions.coordinate_actions import between, divide, get_middle, minus, multiply, plus
+from business.math_actions.coordinate_actions import between, divide, get_middle, get_middle_list, minus, multiply, plus
 
 from .coordinates_help import from_tuple
 
@@ -113,3 +113,22 @@ def test_between(left, this, right, expected):
 )
 def test_get_middle(left, right, expected):
     assert get_middle(left, right) == expected
+
+
+@pytest.mark.parametrize(
+    "left, right, parts, expected",
+    [
+        (
+            from_tuple(0, 10, 5),
+            from_tuple(10, 20, 15),
+            2,
+            [
+                from_tuple(0, 10, 5),
+                from_tuple(5, 15, 10),
+                from_tuple(10, 20, 15),
+            ],
+        )
+    ],
+)
+def test_get_middle_list(left, right, parts, expected):
+    assert get_middle_list(left, right, parts) == expected

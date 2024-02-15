@@ -1,5 +1,6 @@
 import pytest
 from business.chain import coordinate_chain
+from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 
 from .coordinates_help import from_tuple
@@ -14,7 +15,7 @@ from .coordinates_help import from_tuple
                 longitude=from_tuple(3),
             ),
             {
-                "1m": Nomenclature(
+                Scale._1M: Nomenclature(
                     title="I-31",
                     lower_bound=CoordinatePair(
                         latitude=from_tuple(32),
@@ -42,7 +43,7 @@ def test_1m(coordinate_pair, expected):
                 longitude=from_tuple(65),
             ),
             {
-                "1m": Nomenclature(
+                Scale._1M: Nomenclature(
                     title="M-41",
                     lower_bound=CoordinatePair(
                         latitude=from_tuple(48),
@@ -53,7 +54,7 @@ def test_1m(coordinate_pair, expected):
                         longitude=from_tuple(66),
                     ),
                 ),
-                "500k": Nomenclature(
+                Scale._500K: Nomenclature(
                     title="M-41-Б",
                     lower_bound=CoordinatePair(
                         latitude=from_tuple(50),
@@ -82,7 +83,7 @@ def test_500k(coordinate_pair, expected):
                 longitude=from_tuple(65),
             ),
             {
-                "1m": Nomenclature(
+                Scale._1M: Nomenclature(
                     title="M-41",
                     lower_bound=CoordinatePair(
                         latitude=from_tuple(48),
@@ -93,7 +94,7 @@ def test_500k(coordinate_pair, expected):
                         longitude=from_tuple(66),
                     ),
                 ),
-                "500k": Nomenclature(
+                Scale._500K: Nomenclature(
                     title="M-41-Б",
                     lower_bound=CoordinatePair(
                         latitude=from_tuple(50),
@@ -105,7 +106,7 @@ def test_500k(coordinate_pair, expected):
                     ),
                     cell_to_fill="Б",
                 ),
-                "300k": Nomenclature(
+                Scale._300K: Nomenclature(
                     title="III-M-41",
                     lower_bound=CoordinatePair(
                         latitude=from_tuple(50, 40),
