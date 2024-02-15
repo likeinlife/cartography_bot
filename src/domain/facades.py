@@ -9,7 +9,7 @@ class INomenclatureFacade(abc.ABC):
     """Facade for image generation from nomenclature and coordinates."""
 
     @abc.abstractmethod
-    def generate_from_coordinates(self, coordinates: CoordinatePair, needed_scale: int) -> list[ImageType]:
+    def generate_from_coordinates(self, coordinate_pair: CoordinatePair, needed_scale: int) -> list[ImageType]:
         ...
 
     @abc.abstractmethod

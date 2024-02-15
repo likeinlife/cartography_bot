@@ -88,7 +88,9 @@ omit = [
     "src/*.py",
     "__init__.py",
 ]
-exclude_also = [
+
+[tool.coverage.report]
+exclude = [
     "raise AssertionError",
     "raise NotImplementedError",
     "@(abc\\.)?abstractmethod",

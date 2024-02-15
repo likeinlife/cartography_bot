@@ -1,11 +1,9 @@
-from typing import Callable
-
 from domain.chain import ICoordinateChainLink
 from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 
-from business import constants
 from business.calculate_nomenclature import get_1m_nomenclature, get_nomenclature_by_parts
+from business.scale_resolver.scale_info_resolver import get_scale_info
 
 
 class ChainLinkShortcut(ICoordinateChainLink):
@@ -14,18 +12,16 @@ class ChainLinkShortcut(ICoordinateChainLink):
         cls,
         coordinate_pair: CoordinatePair,
         previous_scale: Scale,
-        parts_number: int,
-        alphabet: list[str] | None = None,
-        title_formatter: Callable[[str, str], str] = lambda x, y: f"{x}-{y}",
     ) -> dict[Scale, Nomenclature]:
         previous = cls.previous_link.resolve(coordinate_pair)
+        scale_info = get_scale_info(scale=cls.scale)
         this = {
             cls.scale: get_nomenclature_by_parts(
                 coordinate_pair=coordinate_pair,
-                parts_number=parts_number,
+                parts_number=scale_info.parts,
                 previous_nomenclature=previous[previous_scale],
-                alphabet=alphabet,
-                title_formatter=title_formatter,
+                alphabet=scale_info.alphabet,
+                title_formatter=scale_info.formatter,
             )
         }
         return previous | this
@@ -55,8 +51,6 @@ class ChainLink500K(ChainLinkShortcut, ICoordinateChainLink):
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=ChainLink1M.scale,
-            parts_number=2,
-            alphabet=constants.UPPER_ALPHA,
         )
 
 
@@ -69,14 +63,9 @@ class ChainLink300K(ChainLinkShortcut, ICoordinateChainLink):
         cls,
         coordinate_pair: CoordinatePair,
     ) -> dict[Scale, Nomenclature]:
-        title_formatter = lambda x, y: f"{y}-{x}"
-
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=ChainLink1M.scale,
-            parts_number=3,
-            title_formatter=title_formatter,
-            alphabet=constants.ROMAN,
         )
 
 
@@ -92,8 +81,6 @@ class ChainLink200K(ChainLinkShortcut, ICoordinateChainLink):
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=ChainLink1M.scale,
-            parts_number=6,
-            alphabet=constants.ROMAN,
         )
 
 
@@ -109,7 +96,6 @@ class ChainLink100K(ChainLinkShortcut, ICoordinateChainLink):
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=ChainLink1M.scale,
-            parts_number=12,
         )
 
 
@@ -125,8 +111,6 @@ class ChainLink50K(ChainLinkShortcut, ICoordinateChainLink):
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=cls.previous_link.scale,
-            parts_number=2,
-            alphabet=constants.UPPER_ALPHA,
         )
 
 
@@ -142,8 +126,6 @@ class ChainLink25K(ChainLinkShortcut, ICoordinateChainLink):
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=cls.previous_link.scale,
-            parts_number=2,
-            alphabet=constants.LOWER_ALPHA,
         )
 
 
@@ -159,7 +141,6 @@ class ChainLink10K(ChainLinkShortcut, ICoordinateChainLink):
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=cls.previous_link.scale,
-            parts_number=2,
         )
 
 
@@ -172,12 +153,9 @@ class ChainLink5K(ChainLinkShortcut, ICoordinateChainLink):
         cls,
         coordinate_pair: CoordinatePair,
     ) -> dict[Scale, Nomenclature]:
-        title_formatter = lambda x, y: f"{x}-({y})"
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=cls.previous_link.scale,
-            parts_number=16,
-            title_formatter=title_formatter,
         )
 
 
@@ -190,11 +168,7 @@ class ChainLink2K(ChainLinkShortcut, ICoordinateChainLink):
         cls,
         coordinate_pair: CoordinatePair,
     ) -> dict[Scale, Nomenclature]:
-        title_formatter = lambda x, y: f"{x}-({y})"
         return cls._resolve_shortcut(
             coordinate_pair=coordinate_pair,
             previous_scale=cls.previous_link.scale,
-            parts_number=3,
-            alphabet=constants.LOWER_ALPHA_EXTENDED,
-            title_formatter=title_formatter,
         )

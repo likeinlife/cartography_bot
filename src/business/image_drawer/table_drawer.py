@@ -11,8 +11,8 @@ from PIL import Image, ImageDraw, ImageFont
 def draw_table(
     img: Image.Image,
     parts: int,
+    alphabet: list[str],
     title: str = "Nomenclature",
-    alphabet: list[str] | None = None,
     cell_to_fill: str | None = None,
     padding: int = Provide[ImageContainer.settings.padding],
     font_path: Path = Provide[ImageContainer.settings.font_path],
@@ -61,10 +61,7 @@ def draw_table(
         middle_x = (right_x + left_x) // 2
         middle_y = (lower_y + up_y) // 2
 
-        if alphabet:
-            cell_name: int | str = alphabet[cell_number - 1]
-        else:
-            cell_name = cell_number
+        cell_name: int | str = alphabet[cell_number - 1]
 
         box = img_draw.textbbox((middle_x, middle_y), str(cell_name), pil_font, "mm")
 
