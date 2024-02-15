@@ -23,10 +23,11 @@ app_settings = Config()  # type: ignore
 class ImageConfig(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_prefix="IMAGE_")
 
-    height: int = Field(800, description="Height of image in pixels")
-    width: int = Field(800, description="Width of image in pixels")
+    height: int = Field(1200, description="Height of image in pixels")
+    width: int = Field(1200, description="Width of image in pixels")
 
-    padding: int = Field(100, description="Length to image borders in pixels")
+    padding: int = Field(150, description="Length to image borders in pixels")
+    text_size_coefficient: int = Field(10, description="Text size coefficient")
     text_angle: int = Field(310, description="Angle of column labels in degrees")
     bottom_label_offset: int = Field(0, description="Vertical length to table bottom")
     right_label_offset: int = Field(3, description="Horizontal length to table right")

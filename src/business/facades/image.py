@@ -16,6 +16,7 @@ class ImageGeneratorFacade:
     def generate(
         cls,
         nomenclature: Nomenclature,
+        scale_name: str,
         parts: int,
         alphabet: list[str],
         resolution: tuple[int, int] = Provide[ImageContainer.settings.resolution],
@@ -24,10 +25,12 @@ class ImageGeneratorFacade:
         in_memory_file = BytesIO()
         image = Image.new("RGB", resolution, background_color)
 
+        title = f"{nomenclature.title} ({scale_name})"
+
         draw_table(
             img=image,
             parts=parts,
-            title=nomenclature.title,
+            title=title,
             alphabet=alphabet,
             cell_to_fill=nomenclature.cell_to_fill,
         )

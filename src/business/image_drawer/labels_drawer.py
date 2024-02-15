@@ -18,6 +18,7 @@ def draw_labels(
     padding: int = Provide[ImageContainer.settings.padding],
     font_path: Path = Provide[ImageContainer.settings.font_path],
     text_color: ImageColorType = Provide[ImageContainer.settings.text_color],
+    text_size_coefficient: int = Provide[ImageContainer.settings.text_size_coefficient],
     text_angle: int = Provide[ImageContainer.settings.text_angle],
     bottom_label_offset: int = Provide[ImageContainer.settings.bottom_label_offset],
     right_label_offset: int = Provide[ImageContainer.settings.right_label_offset],
@@ -38,7 +39,7 @@ def draw_labels(
     img_draw = ImageDraw.Draw(img)
     x_delta = (img.size[0] - padding * 2) // parts
     y_delta = (img.size[1] - padding * 2) // parts
-    font_size = padding // 7
+    font_size = padding // text_size_coefficient
 
     pil_font = ImageFont.truetype(str(font_path), font_size)
 
@@ -47,7 +48,6 @@ def draw_labels(
         x = padding + column_label_number * x_delta
         y = img.size[1] - padding + bottom_label_offset
 
-        print(x, y, value, pil_font)
         box = img_draw.textbbox((x, y), coordinate_actions.to_str(value), pil_font, "ms")
 
         text_img = Image.new("RGBA", (box[2] - box[0], font_size + 1), (0, 0, 0, 0))
