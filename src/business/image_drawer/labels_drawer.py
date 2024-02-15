@@ -66,4 +66,13 @@ def draw_labels(
         y = padding + row_label_number * y_delta
 
         box = img_draw.textbbox((x, y), coordinate_actions.to_str(value), pil_font, "ls")
-        img_draw.text(box, coordinate_actions.to_str(value), text_color, pil_font)  # type: ignore
+
+        text_img = Image.new("RGBA", (box[2] - box[0], font_size + 1), (0, 0, 0, 0))
+        text_draw = ImageDraw.Draw(text_img)
+
+        text_x_size, _ = text_img.size
+
+        text_draw.text((0, 0), coordinate_actions.to_str(value), text_color, pil_font)
+        text_img = text_img.rotate(text_angle, expand=True)
+
+        img.paste(text_img, (x, y - text_x_size // 4), text_img)

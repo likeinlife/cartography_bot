@@ -57,6 +57,8 @@ def get_delta(left: Coordinate, right: Coordinate) -> Coordinate:
 
 def to_str(coordinate: Coordinate) -> str:
     def _get(number: Decimal, symbol: str, rjust: int) -> str:
+        if len(str(number)) > 4:
+            number = round(number, 4)
         string = f"{number}{symbol}" if number != 0 else ""
         return string.rjust(rjust, " ")
 
