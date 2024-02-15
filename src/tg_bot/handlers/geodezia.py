@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from src import geodezia
+from src import micrometr
 
 from ..states import GeodeziaMocrometr
 
@@ -34,4 +34,4 @@ async def enter_second_stolb(message: Message, state: FSMContext):
 def call_calculate_micrometr_func(data: dict):
     first_stolb = tuple(map(float, data["first_stolb"].split(" ")))
     second_stolb = tuple(map(float, (data["second_stolb"].split(" "))))
-    return geodezia.micrometr_actions(first_stolb, second_stolb)
+    return micrometr.micrometr_actions(first_stolb, second_stolb)
