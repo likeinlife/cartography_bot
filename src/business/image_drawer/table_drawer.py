@@ -11,11 +11,11 @@ from PIL import Image, ImageDraw, ImageFont
 def draw_table(
     img: Image.Image,
     parts: int,
-    pad: int,
     title: str = "Nomenclature",
     alphabet: list[str] | None = None,
-    cell_to_fill: str = "",
-    font_path: Path = Provide[ImageContainer.settings.path_to_font],
+    cell_to_fill: str | None = None,
+    padding: int = Provide[ImageContainer.settings.padding],
+    font_path: Path = Provide[ImageContainer.settings.font_path],
     text_color: ImageColorType = Provide[ImageContainer.settings.text_color],
     inverse_text_color: ImageColorType = Provide[ImageContainer.settings.inverse_text_color],
     background_color: ImageColorType = Provide[ImageContainer.settings.background_color],
@@ -34,29 +34,29 @@ def draw_table(
     """
 
     def need_to_fill(x: Any) -> bool:
-        return str(x) == cell_to_fill
+        return cell_to_fill is not None and str(x) == cell_to_fill
 
     img_draw = ImageDraw.Draw(img)
-    delta_x = (img.size[0] - pad * 2) // parts
-    delta_y = (img.size[1] - pad * 2) // parts
+    delta_x = (img.size[0] - padding * 2) // parts
+    delta_y = (img.size[1] - padding * 2) // parts
     font_size = delta_x // 4
-    name_size = pad // 4
+    name_size = padding // 4
     width = 2
 
     pil_font = ImageFont.truetype(str(font_path), font_size)
     name_font = ImageFont.truetype(str(font_path), name_size)
 
     # Draw title
-    box = img_draw.textbbox((img.size[0] // 2, pad // 2), title, name_font, "mm")
+    box = img_draw.textbbox((img.size[0] // 2, padding // 2), title, name_font, "mm")
     img_draw.text(box, title, text_color, name_font)  # type: ignore
 
     row = 0
     column = 0
     for cell_number in range(1, parts**2 + 1):
-        left_x = pad + column * delta_x
-        right_x = pad + (column + 1) * delta_x
-        up_y = pad + row * delta_y
-        lower_y = pad + (row + 1) * delta_y
+        left_x = padding + column * delta_x
+        right_x = padding + (column + 1) * delta_x
+        up_y = padding + row * delta_y
+        lower_y = padding + (row + 1) * delta_y
 
         middle_x = (right_x + left_x) // 2
         middle_y = (lower_y + up_y) // 2

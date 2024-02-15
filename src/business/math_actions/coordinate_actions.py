@@ -46,5 +46,22 @@ def get_middle(left: Coordinate, right: Coordinate) -> Coordinate:
     return _transform_to_coordinate((_transform_to_seconds(left) + _transform_to_seconds(right)) / 2)
 
 
+def get_middle_list(first: Coordinate, second: Coordinate, parts: int) -> list[Coordinate]:
+    delta = divide(minus(second, first), parts)
+    return [plus(multiply(delta, i), first) for i in range(parts + 1)]
+
+
 def get_delta(left: Coordinate, right: Coordinate) -> Coordinate:
     return _transform_to_coordinate((_transform_to_seconds(left) + _transform_to_seconds(right)) / 2)
+
+
+def to_str(coordinate: Coordinate) -> str:
+    def _get(number: Decimal, symbol: str, rjust: int) -> str:
+        string = f"{number}{symbol}" if number != 0 else ""
+        return string.rjust(rjust, " ")
+
+    degree = _get(coordinate.degrees, "°", 4)
+    minute = _get(coordinate.minutes, "'", 4)
+    second = _get(coordinate.seconds, '"', 6)
+
+    return f"{degree}{minute}{second}"

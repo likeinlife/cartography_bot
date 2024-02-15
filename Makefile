@@ -1,2 +1,2 @@
 run:
-	python3 -m cartography
+	python src/main.py
