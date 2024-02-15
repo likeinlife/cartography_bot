@@ -16,7 +16,16 @@ romanNumeralMap = (
 
 
 def generate_roman_number(n: int):
-    """Convert integer to Roman numeral."""
+    """
+    Convert integer to Roman numeral.
+
+    >>> generate_roman_number(0)
+    'N'
+    >>> generate_roman_number(3)
+    'III'
+    >>> generate_roman_number(10)
+    'X'
+    """
     if n == 0:
         return "N"
 
