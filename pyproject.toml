@@ -14,6 +14,7 @@ python-dotenv = "^1.0.0"
 pillow = "^9.4.0"
 pydantic-settings = "^2.1.0"
 dependency-injector = "^4.41.0"
+structlog = "^24.1.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.0.1"
@@ -86,4 +87,9 @@ omit = [
     "*/models/*",
     "src/*.py",
     "__init__.py",
+]
+exclude_also = [
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "@(abc\\.)?abstractmethod",
 ]
