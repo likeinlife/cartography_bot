@@ -4,6 +4,7 @@ from decimal import Decimal as _
 import errors
 from domain.models import Coordinate, CoordinatePair, Nomenclature
 from domain.types import NomenclatureTitleFormatter
+from misc import from_tuple
 
 from .math_actions import coordinate_actions, coordinate_pair_actions
 
@@ -38,7 +39,23 @@ def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:
     title = f"{latitude_char}-{longitude_index}"
     lower_bound = CoordinatePair(latitude=lower_latitude, longitude=lower_longitude)
     upper_bound = CoordinatePair(latitude=upper_latitude, longitude=upper_longitude)
-    return Nomenclature(title=title, lower_bound=lower_bound, upper_bound=upper_bound)
+
+    outer_lower_bound = CoordinatePair(
+        latitude=from_tuple(0, 0, 0),
+        longitude=from_tuple(0, 0, 0),
+    )
+    outer_upper_bound = CoordinatePair(
+        latitude=from_tuple(0, 0, 0),
+        longitude=from_tuple(0, 0, 0),
+    )
+
+    return Nomenclature(
+        title=title,
+        lower_bound=lower_bound,
+        upper_bound=upper_bound,
+        outer_lower_bound=outer_lower_bound,
+        outer_upper_bound=outer_upper_bound,
+    )
 
 
 def get_nomenclature_by_parts(
@@ -72,6 +89,8 @@ def get_nomenclature_by_parts(
             upper_bound = CoordinatePair(latitude=upper_latitude, longitude=upper_longitude)
             return Nomenclature(
                 title=nomenclature_title,
+                outer_lower_bound=previous_nomenclature.lower_bound,
+                outer_upper_bound=previous_nomenclature.upper_bound,
                 lower_bound=lower_bound,
                 upper_bound=upper_bound,
                 cell_to_fill=current_part_name,

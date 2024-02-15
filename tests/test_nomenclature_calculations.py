@@ -4,6 +4,8 @@ from business.constants import UPPER_ALPHA
 from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple
 
+from .test_helper import generate_random_bound
+
 
 @pytest.mark.parametrize(
     "coordinate_pair, expected",
@@ -23,6 +25,8 @@ from misc import from_tuple
                     latitude=from_tuple(36),
                     longitude=from_tuple(6),
                 ),
+                outer_lower_bound=generate_random_bound(),
+                outer_upper_bound=generate_random_bound(),
             ),
         )
     ],
@@ -50,6 +54,8 @@ def test_get_1m_nomenclature(coordinate_pair, expected):
                     latitude=from_tuple(16),
                     longitude=from_tuple(150),
                 ),
+                outer_lower_bound=generate_random_bound(),
+                outer_upper_bound=generate_random_bound(),
             ),
             UPPER_ALPHA,
             lambda x, y: f"{x}-{y}",
@@ -64,6 +70,14 @@ def test_get_1m_nomenclature(coordinate_pair, expected):
                     longitude=from_tuple(150),
                 ),
                 cell_to_fill="Б",
+                outer_lower_bound=CoordinatePair(
+                    latitude=from_tuple(12),
+                    longitude=from_tuple(144),
+                ),
+                outer_upper_bound=CoordinatePair(
+                    latitude=from_tuple(16),
+                    longitude=from_tuple(150),
+                ),
             ),
         )
     ],
