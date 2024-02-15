@@ -8,12 +8,13 @@ from domain.models import CoordinatePair, Nomenclature
 class IChainLink(abc.ABC):
     """Nomenclature chain for current scale."""
 
-    previous_link: type[IChainLink] | None = None
+    previous_link: type[IChainLink]
+    scale: str
 
     @abc.abstractmethod
+    @classmethod
     def resolve(
-        self,
+        cls,
         coordinate_pair: CoordinatePair,
-        previous_nomenclature_list: list[Nomenclature] | None = None,
-    ) -> list[Nomenclature]:
+    ) -> dict[str, Nomenclature]:
         ...
