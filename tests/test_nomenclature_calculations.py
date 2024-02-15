@@ -2,8 +2,7 @@ import pytest
 from business.calculate_nomenclature import get_1m_nomenclature, get_nomenclature_by_parts
 from business.constants import UPPER_ALPHA
 from domain.models import CoordinatePair, Nomenclature
-
-from .coordinates_help import from_tuple
+from misc import from_tuple
 
 
 @pytest.mark.parametrize(

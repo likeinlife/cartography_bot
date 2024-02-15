@@ -1,3 +1,7 @@
+from decimal import Decimal as _
+
+from domain.models import Coordinate
+
 romanNumeralMap = (
     ("M", 1000),
     ("CM", 900),
@@ -35,3 +39,7 @@ def generate_roman_number(n: int):
             result += numeral
             n -= integer
     return result
+
+
+def from_tuple(degrees: int = 0, minutes: int = 0, seconds: int = 0) -> Coordinate:
+    return Coordinate(degrees=_(degrees), minutes=_(minutes), seconds=_(seconds))

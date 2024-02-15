@@ -2,8 +2,7 @@ import pytest
 from business.chain import coordinate_chain
 from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
-
-from .coordinates_help import from_tuple
+from misc import from_tuple
 
 
 @pytest.mark.parametrize(

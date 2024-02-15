@@ -1,7 +1,6 @@
 import pytest
 from business.math_actions.coordinate_actions import between, divide, get_middle, get_middle_list, minus, multiply, plus
-
-from .coordinates_help import from_tuple
+from misc import from_tuple
 
 
 @pytest.mark.parametrize(
