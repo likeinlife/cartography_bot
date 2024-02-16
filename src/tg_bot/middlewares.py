@@ -1,33 +1,24 @@
 from typing import Any, Awaitable, Callable, Dict
 
+import structlog
 from aiogram.dispatcher.middlewares.base import BaseMiddleware
 from aiogram.types import TelegramObject
+from container import AppContainer
+from dependency_injector.wiring import Provide, inject
 
-from src.config import config
-from src.logger_setup import get_chat_actions_logger
-
-logger = get_chat_actions_logger(__name__)
-
-
-class BanListCheck(BaseMiddleware):
-    async def __call__(
-        self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-        event: TelegramObject,
-        data: Dict[str, Any],
-    ) -> Any:
-        if event.from_user.id not in config.BAN_LIST:
-            return await handler(event, data)
+logger = structlog.get_logger()
 
 
 class IsAdminMiddleWare(BaseMiddleware):
+    @inject
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
         event: TelegramObject,
         data: Dict[str, Any],
+        admin_id: int = Provide[AppContainer.settings.admin_id],
     ) -> Any:
-        if data["event_from_user"].id == config.ADMIN_ID:
+        if data["event_from_user"].id == admin_id:
             return await handler(event, data)
 
 
@@ -38,5 +29,5 @@ class LoggingChatActions(BaseMiddleware):
         event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-        logger.info(f'{event.chat.username}({event.chat.id}) <- "{event.text}"')
+        logger.info(event.text, username=event.chat.username, chat_id=event.chat.id)  # type: ignore
         return await handler(event, data)

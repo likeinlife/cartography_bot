@@ -4,9 +4,7 @@ from container import AppContainer
 from dependency_injector.wiring import Provide, inject
 
 from src.tg_bot.commands import (
-    set_admin_commands,
-    set_default_commands,
-    set_dev_commands,
+    set_commands,
 )
 
 from .tg_bot import middlewares
@@ -28,9 +26,7 @@ async def run(
     dev_mode: bool = Provide[AppContainer.settings.dev_mode],
 ) -> None:
     bot = Bot(bot_token, parse_mode="HTML")
-    await set_default_commands(bot)
-    await set_admin_commands(bot)
-    await set_dev_commands(bot)
+    await set_commands(bot)
     dp = Dispatcher()
 
     dp.include_router(ban.router)
@@ -44,7 +40,6 @@ async def run(
     dp.include_router(middle_values.router)
 
     dp.message.middleware(ChatActionMiddleware())
-    dp.message.middleware(middlewares.BanListCheck())
     dp.message.middleware(middlewares.LoggingChatActions())
 
     if dev_mode:

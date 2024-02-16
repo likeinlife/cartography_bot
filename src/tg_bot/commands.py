@@ -1,7 +1,7 @@
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefault
-
-from src.config import config
+from container import AppContainer
+from dependency_injector.wiring import Provide, inject
 
 commands = [
     ("start", "Начало работы"),
@@ -34,18 +34,17 @@ BotCommand_admin = [BotCommand(command=command, description=description) for (co
 BotCommand_all = BotCommand_default + BotCommand_dev + BotCommand_admin
 
 
-async def set_admin_commands(bot: Bot):
+@inject
+async def set_commands(
+    bot: Bot,
+    dev_mode: bool = Provide[AppContainer.settings.debug_mode],
+    admin_id: int = Provide[AppContainer.settings.admin_id],
+):
     await bot.set_my_commands(
         BotCommand_admin + BotCommand_default,
-        BotCommandScopeChat(chat_id=config.ADMIN_ID, type="chat"),
+        BotCommandScopeChat(chat_id=admin_id, type="chat"),  # type: ignore
     )
-
-
-async def set_dev_commands(bot: Bot):
-    if config.DEV_MODE:
-        await bot.set_my_commands(BotCommand_all, BotCommandScopeChat(chat_id=config.ADMIN_ID, type="chat"))
-
-
-async def set_default_commands(bot: Bot):
-    if config.PUBLIC:
+    if dev_mode:
+        await bot.set_my_commands(BotCommand_all, BotCommandScopeChat(chat_id=admin_id, type="chat"))  # type: ignore
+    else:
         await bot.set_my_commands(BotCommand_default, BotCommandScopeDefault())

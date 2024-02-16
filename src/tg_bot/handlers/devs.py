@@ -6,4 +6,6 @@ router = Router()
 
 @router.message(F.document)
 async def get_document_id(message: Message):
-    print(message.document.file_id)
+    if message.document:
+        return await message.answer(text=str(message.document.file_id))
+    return await message.answer(text="No document")
