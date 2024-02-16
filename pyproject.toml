@@ -78,13 +78,15 @@ omit = [
     "*/micrometr/*",
     "*/tg_bot/*",
     "*/cartography/*",
-    "*/models/*",
+    "*/business/image_drawer/*",
+    "*/facades/*",
     "src/*.py",
     "__init__.py",
 ]
 
 [tool.coverage.report]
-exclude = [
+exclude_lines = [
+    "pragma: no cover",
     "raise AssertionError",
     "raise NotImplementedError",
     "@(abc\\.)?abstractmethod",

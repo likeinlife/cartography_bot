@@ -1,5 +1,5 @@
 import pytest
-from business.chain import coordinate_chain
+from business.scale_resolver import coordinate_resolver
 from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple
@@ -8,13 +8,14 @@ from .test_helper import generate_random_bound
 
 
 @pytest.mark.parametrize(
-    "coordinate_pair, expected",
+    "coordinate_pair, scale, expected",
     [
         (
             CoordinatePair(
                 latitude=from_tuple(35),
                 longitude=from_tuple(3),
             ),
+            1,
             {
                 Scale._1M: Nomenclature(
                     title="I-31",
@@ -33,18 +34,20 @@ from .test_helper import generate_random_bound
         )
     ],
 )
-def test_1m(coordinate_pair, expected):
-    assert coordinate_chain.ChainLink1M.resolve(coordinate_pair) == expected
+def test_1m(coordinate_pair, scale, expected):
+    chain_link = coordinate_resolver.get_scale(scale)
+    assert chain_link.resolve(coordinate_pair) == expected
 
 
 @pytest.mark.parametrize(
-    "coordinate_pair, expected",
+    "coordinate_pair, scale, expected",
     [
         (
             CoordinatePair(
                 latitude=from_tuple(51),
                 longitude=from_tuple(65),
             ),
+            2,
             {
                 Scale._1M: Nomenclature(
                     title="M-41",
@@ -83,18 +86,20 @@ def test_1m(coordinate_pair, expected):
         )
     ],
 )
-def test_500k(coordinate_pair, expected):
-    assert coordinate_chain.ChainLink500K.resolve(coordinate_pair) == expected
+def test_500k(coordinate_pair, scale, expected):
+    chain_link = coordinate_resolver.get_scale(scale)
+    assert chain_link.resolve(coordinate_pair) == expected
 
 
 @pytest.mark.parametrize(
-    "coordinate_pair, expected",
+    "coordinate_pair, scale, expected",
     [
         (
             CoordinatePair(
                 latitude=from_tuple(51),
                 longitude=from_tuple(65),
             ),
+            3,
             {
                 Scale._1M: Nomenclature(
                     title="M-41",
@@ -153,5 +158,6 @@ def test_500k(coordinate_pair, expected):
         )
     ],
 )
-def test_300k(coordinate_pair, expected):
-    assert coordinate_chain.ChainLink300K.resolve(coordinate_pair) == expected
+def test_300k(coordinate_pair, scale, expected):
+    chain_link = coordinate_resolver.get_scale(scale)
+    assert chain_link.resolve(coordinate_pair) == expected
