@@ -22,6 +22,7 @@ class BaseNomenclatureTitleChainLink(INomenclatureTitleChainLink):
                 parts_number=cls.parts,
                 previous_nomenclature=previous[cls.outbound_class.scale],
                 alphabet=cls.alphabet,
+                nomenclature_title_formatter=cls.title_formatter,
             )
         }
         return previous | this
@@ -53,7 +54,7 @@ class ChainLink500K(BaseNomenclatureTitleChainLink):
 
 
 class ChainLink300K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink500K
+    previous_link = ChainLink1M
     scale = Scale._300K
     alphabet = constants.ROMAN
     parts = 3
@@ -63,7 +64,7 @@ class ChainLink300K(BaseNomenclatureTitleChainLink):
 
 
 class ChainLink200K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink300K
+    previous_link = ChainLink1M
     scale = Scale._200K
     alphabet = constants.ROMAN_EXTENDED
     parts = 6
@@ -72,7 +73,7 @@ class ChainLink200K(BaseNomenclatureTitleChainLink):
 
 
 class ChainLink100K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink200K
+    previous_link = ChainLink1M
     scale = Scale._100K
     parts = 12
     alphabet = [str(i) for i in range(1, parts**2 + 1)]
@@ -108,7 +109,7 @@ class ChainLink10K(BaseNomenclatureTitleChainLink):
 
 
 class ChainLink5K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink10K
+    previous_link = ChainLink100K
     scale = Scale._5K
     parts = 16
     alphabet = [str(i) for i in range(1, parts**2 + 1)]
