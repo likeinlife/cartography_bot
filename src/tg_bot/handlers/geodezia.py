@@ -2,36 +2,34 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-
-from src import micrometr
-
-from ..states import GeodeziaMocrometr
+from micrometr.horizontal_angles import calculate_micrometer
+from tg_bot.states import MicrometerState
 
 router = Router()
 
 
 @router.message(Command(commands=["micro"]))
-async def calculate_micrometr(message: Message, state: FSMContext):
-    await state.set_state(GeodeziaMocrometr.first_stolb)
+async def calculate_micrometer_handler(message: Message, state: FSMContext):
+    await state.set_state(MicrometerState.first_column)
     await message.answer("Введите первый столбец(КЛ и КП) через пробел")
 
 
-@router.message(GeodeziaMocrometr.first_stolb)
-async def enter_first_stolb(message: Message, state: FSMContext):
-    await state.update_data(first_stolb=message.text)
-    await state.set_state(GeodeziaMocrometr.second_stolb)
+@router.message(MicrometerState.first_column)
+async def enter_first_column_handler(message: Message, state: FSMContext):
+    await state.update_data(first_column=message.text)
+    await state.set_state(MicrometerState.second_column)
     await message.answer("Введите второй столбец(КЛ и КП) через пробел")
 
 
-@router.message(GeodeziaMocrometr.second_stolb)
-async def enter_second_stolb(message: Message, state: FSMContext):
-    data = await state.update_data(second_stolb=message.text)
-    answer = call_calculate_micrometr_func(data)
-    for values in answer:
-        await message.answer(round(values, 1))
+@router.message(MicrometerState.second_column)
+async def enter_second_column_handler(message: Message, state: FSMContext):
+    data = await state.update_data(second_column=message.text)
+    answer = handle_micrometer_data(data)
+    for value in answer:
+        await message.answer(text=str(round(value, 1)))
 
 
-def call_calculate_micrometr_func(data: dict):
-    first_stolb = tuple(map(float, data["first_stolb"].split(" ")))
-    second_stolb = tuple(map(float, (data["second_stolb"].split(" "))))
-    return micrometr.micrometr_actions(first_stolb, second_stolb)
+def handle_micrometer_data(data: dict):
+    first_column = tuple(map(float, data["first_column"].split(" ")))
+    second_column = tuple(map(float, (data["second_column"].split(" "))))
+    return calculate_micrometer(first_column, second_column)

@@ -27,6 +27,6 @@ class GetMiddle(StatesGroup):
     enter_parts_number = State()
 
 
-class GeodeziaMocrometr(StatesGroup):
-    first_stolb = State()
-    second_stolb = State()
+class MicrometerState(StatesGroup):
+    first_column = State()
+    second_column = State()
