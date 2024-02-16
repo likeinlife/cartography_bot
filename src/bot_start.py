@@ -2,20 +2,17 @@ from aiogram import Bot, Dispatcher
 from aiogram.utils.chat_action import ChatActionMiddleware
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
-
-from src.tg_bot.commands import (
+from tg_bot.commands import (
     set_commands,
 )
 
 from .tg_bot import middlewares
 from .tg_bot.handlers import (
-    ban,
-    cartography_geograph_images,
-    cartography_numenclature_images,
     geodezia,
+    geography_coordinates,
     help,
     middle_values,
-    tmogi,
+    nomenclature_title,
     util_handlers,
 )
 
@@ -29,14 +26,12 @@ async def run(
     await set_commands(bot)
     dp = Dispatcher()
 
-    dp.include_router(ban.router)
     dp.include_router(help.router)
     dp.include_router(util_handlers.router)
 
-    dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
-    dp.include_router(cartography_numenclature_images.router)
-    dp.include_router(cartography_geograph_images.router)
+    dp.include_router(geography_coordinates.router)
+    dp.include_router(nomenclature_title.router)
     dp.include_router(middle_values.router)
 
     dp.message.middleware(ChatActionMiddleware())

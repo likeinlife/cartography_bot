@@ -12,5 +12,10 @@ def generate_roman_number(number: int) -> str:
     return f'{"X"*ten}'
 
 
-def from_tuple(degrees: int = 0, minutes: int = 0, seconds: int = 0) -> Coordinate:
+def from_tuple(degrees: int = 0, minutes: int = 0, seconds: int | float = 0) -> Coordinate:
     return Coordinate(degrees=_(degrees), minutes=_(minutes), seconds=_(seconds))
+
+
+def generate_coordinate_from_string(string: str) -> Coordinate:
+    degrees, minutes, seconds = string.split(" ")
+    return from_tuple(int(degrees), int(minutes), float(seconds))
