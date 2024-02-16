@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from domain.types import ImageColorType
-from enums import Color
+from misc.constants import Color
 from pydantic import Field, SecretStr, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 

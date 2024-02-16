@@ -1,4 +1,4 @@
-import logger_setup
+import core.logger_setup as logger_setup
 from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.providers import Configuration, Resource
 

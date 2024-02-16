@@ -1,7 +1,7 @@
-import asyncio
-
 from aiogram import Bot, Dispatcher
 from aiogram.utils.chat_action import ChatActionMiddleware
+from container import AppContainer
+from dependency_injector.wiring import Provide, inject
 
 from src.tg_bot.commands import (
     set_admin_commands,
@@ -9,7 +9,6 @@ from src.tg_bot.commands import (
     set_dev_commands,
 )
 
-from .settings import config
 from .tg_bot import middlewares
 from .tg_bot.handlers import (
     ban,
@@ -23,8 +22,12 @@ from .tg_bot.handlers import (
 )
 
 
-async def start():
-    bot = Bot(config.BOT_TOKEN, parse_mode="HTML")
+@inject
+async def run(
+    bot_token: str = Provide[AppContainer.settings.bot_token],
+    dev_mode: bool = Provide[AppContainer.settings.dev_mode],
+) -> None:
+    bot = Bot(bot_token, parse_mode="HTML")
     await set_default_commands(bot)
     await set_admin_commands(bot)
     await set_dev_commands(bot)
@@ -34,7 +37,6 @@ async def start():
     dp.include_router(help.router)
     dp.include_router(util_handlers.router)
 
-    #  Buisness-logic
     dp.include_router(tmogi.router)
     dp.include_router(geodezia.router)
     dp.include_router(cartography_numenclature_images.router)
@@ -45,11 +47,10 @@ async def start():
     dp.message.middleware(middlewares.BanListCheck())
     dp.message.middleware(middlewares.LoggingChatActions())
 
-    if not config.PUBLIC:
-        dp.message.middleware(middlewares.IsAdminMiddleWare())
-
-    if config.DEV_MODE:
+    if dev_mode:
         from .tg_bot.handlers import devs
+
+        dp.message.middleware(middlewares.IsAdminMiddleWare())
 
         dp.include_router(devs.router)
 
@@ -57,11 +58,3 @@ async def start():
         await dp.start_polling(bot)
     finally:
         await bot.session.close()
-
-
-def main():
-    asyncio.run(start())
-
-
-if __name__ == "__main__":
-    main()
