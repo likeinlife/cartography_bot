@@ -11,10 +11,9 @@ from business.math_actions import coordinate_actions
 
 
 class ImageGeneratorFacade:
-    @classmethod
+    @staticmethod
     @inject
     def generate(
-        cls,
         upper_bound: CoordinatePair,
         lower_bound: CoordinatePair,
         cell_to_fill: str | None,
