@@ -1,29 +1,27 @@
+from typing import TypeAlias
+
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefault
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
 
-commands = [
+CommandHelpType: TypeAlias = list[tuple[str, str]]
+
+commands: CommandHelpType = [
     ("start", "Начало работы"),
     ("help", "Помощь"),
     ("stop", "Остановить набор значений"),
     ("hide", "Скрыть клавиатуру"),
     ("show", "Показать клавиатуру"),
     ("by_nomenclature_images", "Определить координаты рамки, но с изображениями"),
-    ("by_coordinates_images", "Определить нуменклатуру по координатам и масштабу"),
+    ("by_coordinates_images", "Определить номенклатуру по координатам и масштабу"),
     ("get_middle", "Получить промежуточные значения между границами рамки"),
     ("micro", "Посчитать отсчеты по микрометру"),
 ]
 
-dev_commands = [
-    ("not_working_dev", "Неработающая команда разработчика"),
-]
+dev_commands: CommandHelpType = []
 
-admin_commands = [
-    ("ban", "Забанить"),
-    ("unban", "Разбанить"),
-    ("banlist", "Список забаненых"),
-]
+admin_commands: CommandHelpType = []
 
 BotCommand_default = [BotCommand(command=command, description=description) for (command, description) in commands]
 BotCommand_dev = [BotCommand(command=command, description=description) for (command, description) in dev_commands]
