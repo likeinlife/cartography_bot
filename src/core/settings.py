@@ -2,17 +2,17 @@ from pathlib import Path
 
 from domain.types import ImageColorType
 from misc.constants import Color
-from pydantic import Field, SecretStr, computed_field
+from pydantic import Field, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Config(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env")
-    bot_token: SecretStr = Field()
+    bot_token: str = Field()
     admin_id: int = Field()
     dev_mode: bool = Field(True, description="True - admin only use ")
 
-    static_path: Path = Field(Path(__file__).parent.parent / Path("static"))
+    static_path: Path = Field(Path(__file__).parent.parent.parent / Path("static"))
 
     logging_level: str = Field("WARNING")
 
