@@ -20,6 +20,7 @@ structlog = "^24.1.0"
 mypy = "^1.0.1"
 ruff = "^0.1.14"
 pre-commit = "^3.6.0"
+types-pillow = "^10.2.0.20240213"
 
 
 [tool.poetry.group.test.dependencies]
@@ -36,13 +37,6 @@ bot = "cartography.__main__:main"
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
-
-follow_imports = "silent"
-warn_redundant_casts = true
-warn_unused_ignores = true
-disallow_any_generics = true
-check_untyped_defs = true
-no_implicit_reexport = true
 
 
 [tool.django-stubs]

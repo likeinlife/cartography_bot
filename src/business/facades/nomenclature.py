@@ -14,9 +14,9 @@ class NomenclatureFacade(INomenclatureFacade):
         nomenclatures_dict = chain_link.resolve(coordinate_pair)
         images: list[ImageType] = []
         for scale, nomenclature in nomenclatures_dict.items():
-            scale_info = scale_info_resolver.get_scale_info(scale)
+            cur_chain_link = scale_info_resolver.get_scale_info(scale)
 
-            previous_scale = scale_info.class_.previous_link
+            previous_scale = cur_chain_link.previous_link
 
             if previous_scale:
                 previous_scale_nomenclature = nomenclatures_dict[previous_scale.scale]
@@ -28,12 +28,12 @@ class NomenclatureFacade(INomenclatureFacade):
                         lower_bound=nomenclature.outer_lower_bound,
                         cell_to_fill=nomenclature.cell_to_fill,
                         title=outer_title,
-                        parts=scale_info.parts,
-                        alphabet=scale_info.alphabet,
+                        parts=cur_chain_link.parts,
+                        alphabet=cur_chain_link.alphabet,
                     )
                 )
 
-            title = f"{nomenclature.title} ({scale_info.name})"
+            title = f"{nomenclature.title} ({cur_chain_link.name})"
             images.append(
                 ImageGeneratorFacade.generate(
                     upper_bound=nomenclature.upper_bound,
