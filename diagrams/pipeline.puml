@@ -1,0 +1,23 @@
+@startuml
+autonumber
+
+actor customer as "Customer"
+participant nomenclature_facade as "Nomenclature facade"
+participant nomenclature_link as "Nomenclature scale link"
+participant nomenclature_scale_helper as "Nomenclature scale helper"
+participant nomenclature_image_generator as "Nomenclature image generator"
+
+customer -> nomenclature_facade ++: generate_from_coordinates(coordinate_pair, needed_scale)
+
+nomenclature_facade -> nomenclature_scale_helper ++: get(needed_scale)
+nomenclature_scale_helper -> nomenclature_facade --: nomenclature_link class
+
+nomenclature_facade -> nomenclature_link ++: resolve(coordinate_pair)
+nomenclature_link -> nomenclature_facade --: list[Nomenclature]
+
+nomenclature_facade -> nomenclature_image_generator ++: generate(list[Nomenclature])
+nomenclature_image_generator -> nomenclature_facade --: list[Images]
+
+nomenclature_facade -> customer --: list[Images]
+
+@enduml

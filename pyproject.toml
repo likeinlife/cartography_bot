@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Telegram bot to solve cartography issues"
 authors = ["likeinlife <likeinlife48@yandex.ru>"]
 readme = "README.md"
-packages = [{include = "cartography"}]
+packages = [{ include = "cartography" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -13,11 +13,20 @@ tabulate = "^0.9.0"
 python-dotenv = "^1.0.0"
 pillow = "^9.4.0"
 pydantic-settings = "^2.1.0"
+dependency-injector = "^4.41.0"
+structlog = "^24.1.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.0.1"
 ruff = "^0.1.14"
 pre-commit = "^3.6.0"
+types-pillow = "^10.2.0.20240213"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.0"
+coverage = "^7.4.1"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -27,7 +36,8 @@ build-backend = "poetry.core.masonry.api"
 bot = "cartography.__main__:main"
 
 [tool.mypy]
-plugins = ["mypy_django_plugin.main"]
+plugins = ["pydantic.mypy"]
+
 
 [tool.django-stubs]
 django_settings_module = "config.settings"
@@ -35,11 +45,49 @@ django_settings_module = "config.settings"
 [tool.ruff]
 line-length = 120
 select = ["D", "B", "S", "A", "C4", "T10", "F", "Q"]
-ignore = ["D100", "D107", "D101", "D106", "D103", "D104", "D102", "D105", "D203", "D212", "B008", "B904", "A003"]
+ignore = [
+    "D100",
+    "D107",
+    "D101",
+    "D106",
+    "D103",
+    "D104",
+    "D102",
+    "D105",
+    "D203",
+    "D212",
+    "D407",
+    "D417",
+    "B008",
+    "B904",
+    "A003",
+]
 exclude = ["__init__.py"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*" = ["S"]
 
 [tool.ruff.lint.flake8-quotes]
 inline-quotes = "double"
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "parents"
+
+[tool.coverage.run]
+omit = [
+    "*/micrometr/*",
+    "*/tg_bot/*",
+    "*/cartography/*",
+    "*/business/image_drawer/*",
+    "*/facades/*",
+    "src/*.py",
+    "__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "@(abc\\.)?abstractmethod",
+]
