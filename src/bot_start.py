@@ -2,12 +2,11 @@ from aiogram import Bot, Dispatcher
 from aiogram.utils.chat_action import ChatActionMiddleware
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
+from tg_bot import middlewares
 from tg_bot.commands import (
     set_commands,
 )
-
-from .tg_bot import middlewares
-from .tg_bot.handlers import (
+from tg_bot.handlers import (
     geodezia,
     geography_coordinates,
     help,
@@ -38,7 +37,7 @@ async def run(
     dp.message.middleware(middlewares.LoggingChatActions())
 
     if dev_mode:
-        from .tg_bot.handlers import devs
+        from tg_bot.handlers import devs
 
         dp.message.middleware(middlewares.IsAdminMiddleWare())
 

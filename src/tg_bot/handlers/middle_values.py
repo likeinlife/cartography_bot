@@ -5,8 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from business.math_actions import coordinate_actions
 from misc import decorators
-
-from src.tg_bot.states import GetMiddle
+from tg_bot.states import GetMiddle
 
 router = Router()
 

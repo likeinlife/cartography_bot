@@ -2,8 +2,7 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
 from misc import constants
-
-from ..keyboards import inline
+from tg_bot.keyboards import inline
 
 router = Router()
 

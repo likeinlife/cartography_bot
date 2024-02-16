@@ -35,7 +35,7 @@ BotCommand_all = BotCommand_default + BotCommand_dev + BotCommand_admin
 @inject
 async def set_commands(
     bot: Bot,
-    dev_mode: bool = Provide[AppContainer.settings.debug_mode],
+    dev_mode: bool = Provide[AppContainer.settings.dev_mode],
     admin_id: int = Provide[AppContainer.settings.admin_id],
 ):
     await bot.set_my_commands(

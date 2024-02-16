@@ -69,7 +69,6 @@ def _generate_from_nomenclature_title_image_list(nomenclature_dict: dict[Scale, 
         cur_chain_link = nomenclature_title_chain_link_resolver.get_chain_link(scale)
 
         outbound = cur_chain_link.previous_link
-        print(cur_chain_link, outbound)
 
         if outbound:
             outbound_nomenclature = nomenclature_dict[outbound.scale]
