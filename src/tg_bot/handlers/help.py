@@ -1,8 +1,7 @@
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
-
-from src.utils import help_strings
+from misc import constants
 
 from ..keyboards import inline
 
@@ -17,19 +16,19 @@ async def help_menu(message: Message | CallbackQuery):
     if isinstance(message, Message):
         await message.answer(help_menu_text, reply_markup=inline.get_inline_help(-1))
     else:
-        await message.message.edit_text(help_menu_text, reply_markup=inline.get_inline_help(-1))
+        await message.message.edit_text(help_menu_text, reply_markup=inline.get_inline_help(-1))  # type: ignore
 
 
 @router.callback_query(F.data == "help_commands")
 async def show_help_commands(call: CallbackQuery):
-    await call.message.edit_text(help_strings.COMMANDS_HELP, reply_markup=inline.get_inline_help(0))
+    await call.message.edit_text(constants.COMMANDS_HELP, reply_markup=inline.get_inline_help(0))  # type: ignore
 
 
 @router.callback_query(F.data == "help_scales")
 async def show_help_scales(call: CallbackQuery):
-    await call.message.edit_text(help_strings.SCALES_HELP, reply_markup=inline.get_inline_help(1))
+    await call.message.edit_text(constants.SCALES_HELP, reply_markup=inline.get_inline_help(1))  # type: ignore
 
 
 @router.callback_query(F.data == "help_numenclature")
 async def show_help_numenclature(call: CallbackQuery):
-    await call.message.edit_text(help_strings.NUMENCLATURE_HELP, reply_markup=inline.get_inline_help(2))
+    await call.message.edit_text(constants.NUMENCLATURE_HELP, reply_markup=inline.get_inline_help(2))  # type: ignore
