@@ -2,10 +2,11 @@ import string
 from typing import Any
 
 import errors
-from business.math_actions import coordinate_actions
 from domain.models import CoordinatePair, Nomenclature
 from domain.types import NomenclatureTitleFormatter
 from misc import from_tuple
+
+from business.math_actions import coordinate_actions
 
 
 def get_1m_nomenclature(nomenclature_title: str) -> Nomenclature:
@@ -47,9 +48,9 @@ def get_1m_nomenclature(nomenclature_title: str) -> Nomenclature:
     )
 
 
-def get_part(
+def get_nomenclature_by_parts(
     needed_nomenclature_title: str,
-    nomenclature: Nomenclature,
+    previous_nomenclature: Nomenclature,
     parts_number: int,
     alphabet: list[str],
     nomenclature_title_formatter: NomenclatureTitleFormatter = lambda x, y: f"{x}-{y}",
@@ -64,22 +65,22 @@ def get_part(
     def _is_needed_part(part: Any) -> bool:
         return part == needed_nomenclature_title
 
-    upper_latitude = nomenclature.upper_bound.latitude
-    lower_longitude = nomenclature.lower_bound.longitude
+    upper_latitude = previous_nomenclature.upper_bound.latitude
+    lower_longitude = previous_nomenclature.lower_bound.longitude
 
     initial_longitude = lower_longitude
 
     latitude_delta = coordinate_actions.divide(
         coordinate_actions.minus(
-            nomenclature.upper_bound.latitude,
-            nomenclature.lower_bound.latitude,
+            previous_nomenclature.upper_bound.latitude,
+            previous_nomenclature.lower_bound.latitude,
         ),
         parts_number,
     )
     longitude_delta = coordinate_actions.divide(
         coordinate_actions.minus(
-            nomenclature.upper_bound.longitude,
-            nomenclature.lower_bound.longitude,
+            previous_nomenclature.upper_bound.longitude,
+            previous_nomenclature.lower_bound.longitude,
         ),
         parts_number,
     )
@@ -88,13 +89,13 @@ def get_part(
         if _is_needed_part(part):
             lower_latitude = coordinate_actions.minus(upper_latitude, latitude_delta)
             upper_longitude = coordinate_actions.plus(lower_longitude, longitude_delta)
-            nomenclature_title = nomenclature_title_formatter(nomenclature.title, needed_nomenclature_title)
+            nomenclature_title = nomenclature_title_formatter(previous_nomenclature.title, needed_nomenclature_title)
             upper_bound = CoordinatePair(latitude=upper_latitude, longitude=upper_longitude)
             lower_bound = CoordinatePair(latitude=lower_latitude, longitude=lower_longitude)
             return Nomenclature(
                 title=nomenclature_title,
-                outer_lower_bound=nomenclature.lower_bound,
-                outer_upper_bound=nomenclature.upper_bound,
+                outer_lower_bound=previous_nomenclature.lower_bound,
+                outer_upper_bound=previous_nomenclature.upper_bound,
                 lower_bound=lower_bound,
                 upper_bound=upper_bound,
                 cell_to_fill=needed_nomenclature_title,
