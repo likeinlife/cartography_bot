@@ -1,4 +1,9 @@
-run:
+run-python:
 	python src/main.py
+
+run-docker:
+	docker build -t cartography_bot .
+	docker run -d cartography_bot
+
 freeze:
-	poetry export -o src/requirements.txt --without-hashes
+	poetry export -o requirements.txt --without-hashes

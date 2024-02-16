@@ -9,9 +9,7 @@ COPY requirements.txt requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY . .
-
-RUN chmod 777 docker-entrypoint.sh
+COPY src .
 
 RUN chmod +x ./docker-entrypoint.sh
 
