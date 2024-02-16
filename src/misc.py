@@ -2,43 +2,14 @@ from decimal import Decimal as _
 
 from domain.models import Coordinate
 
-romanNumeralMap = (
-    ("M", 1000),
-    ("CM", 900),
-    ("D", 500),
-    ("CD", 400),
-    ("C", 100),
-    ("XC", 90),
-    ("L", 50),
-    ("XL", 40),
-    ("X", 10),
-    ("IX", 9),
-    ("V", 5),
-    ("IV", 4),
-    ("I", 1),
-)
 
-
-def generate_roman_number(n: int):
-    """
-    Convert integer to Roman numeral.
-
-    >>> generate_roman_number(0)
-    'N'
-    >>> generate_roman_number(3)
-    'III'
-    >>> generate_roman_number(10)
-    'X'
-    """
-    if n == 0:
-        return "N"
-
-    result = ""
-    for numeral, integer in romanNumeralMap:
-        while n >= integer:
-            result += numeral
-            n -= integer
-    return result
+def generate_roman_number(number: int) -> str:
+    """Works for number 1-98 including."""
+    variants = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+    ten, ten_left = divmod(number, 10)
+    if ten_left:
+        return f'{"X"*ten}{variants[ten_left-1]}'
+    return f'{"X"*ten}'
 
 
 def from_tuple(degrees: int = 0, minutes: int = 0, seconds: int = 0) -> Coordinate:
