@@ -33,15 +33,14 @@ git clone git@github.com:likeinlife/cartography_bot.git
 
 ## via Docker
 
-1. `make run-docker`
+1. `make run-docker` - запустить
+2. `make down-docker` - остановить
 
 # Env
 
 - BOT_TOKEN - bot token
 - ADMIN_ID - admin telegram id
-- DEV_MODE - enable dev mode(enable some commands)
-- PUBLIC - enable public use
-- DISABLE_STREAM_HANDLER - disable stream logging output
+- DEV_MODE (default=True) - бот отвечает только админу, включает dev-команды
 
 # Testing
 

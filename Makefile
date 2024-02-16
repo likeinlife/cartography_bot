@@ -2,8 +2,10 @@ run-python:
 	python src/main.py
 
 run-docker:
-	docker build -t cartography_bot .
-	docker run -d cartography_bot
+	docker compose up -d
+
+down-docker:
+	docker compose down -v
 
 freeze:
 	poetry export -o requirements.txt --without-hashes
