@@ -1,0 +1,1 @@
+"""Package for cartography business logic: image generation and nomenclature calculations."""

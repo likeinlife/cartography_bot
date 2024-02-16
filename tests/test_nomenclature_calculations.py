@@ -1,5 +1,5 @@
 import pytest
-from business.calculate_nomenclature import get_1m_nomenclature, get_nomenclature_by_parts
+from business.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
 from business.constants import UPPER_ALPHA
 from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple

@@ -2,7 +2,7 @@ from domain.chain import ICoordinateChainLink
 from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 
-from business.calculate_nomenclature import get_1m_nomenclature, get_nomenclature_by_parts
+from business.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
 
 
 class ChainLinkShortcut(ICoordinateChainLink):

@@ -48,4 +48,5 @@ class NomenclatureFacade(INomenclatureFacade):
 
     @classmethod
     def generate_from_nomenclature(cls, nomenclature: str) -> list[ImageType]:
+        # TODO: Реализовать генерацию через номенклатуры
         raise NotImplementedError

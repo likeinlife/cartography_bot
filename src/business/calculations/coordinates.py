@@ -2,11 +2,10 @@ import string
 from decimal import Decimal as _
 
 import errors
+from business.math_actions import coordinate_actions, coordinate_pair_actions
 from domain.models import Coordinate, CoordinatePair, Nomenclature
 from domain.types import NomenclatureTitleFormatter
 from misc import from_tuple
-
-from .math_actions import coordinate_actions, coordinate_pair_actions
 
 
 def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:
