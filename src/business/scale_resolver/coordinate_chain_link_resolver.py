@@ -18,5 +18,5 @@ chain_list: list[type[ICoordinateChainLink]] = [
 table: dict[Scale, type[ICoordinateChainLink]] = {type_.scale: type_ for type_ in chain_list}
 
 
-def get_scale_info(scale: Scale) -> type[ICoordinateChainLink]:
+def get_chain_link(scale: Scale) -> type[ICoordinateChainLink]:
     return table[scale]

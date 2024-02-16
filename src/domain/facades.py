@@ -8,12 +8,12 @@ from .types import ImageType
 class INomenclatureFacade(abc.ABC):
     """Facade for image generation from nomenclature and coordinates."""
 
-    @classmethod
+    @staticmethod
     @abc.abstractmethod
-    def generate_from_coordinates(cls, coordinate_pair: CoordinatePair, needed_scale: int) -> list[ImageType]:
+    def generate_from_coordinates(coordinate_pair: CoordinatePair, needed_scale: int) -> list[ImageType]:
         ...
 
-    @classmethod
+    @staticmethod
     @abc.abstractmethod
-    def generate_from_nomenclature(cls, nomenclature: str) -> list[ImageType]:
+    def generate_from_nomenclature(nomenclature: str) -> list[ImageType]:
         ...

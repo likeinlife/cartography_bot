@@ -12,3 +12,7 @@ class NoLatitudeCharError(BaseError):
 
 class NoLongitudeIndexError(BaseError):
     ...
+
+
+class InvalidNomenclatureTitleError(BaseError):
+    ...
