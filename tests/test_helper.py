@@ -1,4 +1,4 @@
-from domain.models import CoordinatePair
+from business.models import CoordinatePair
 from misc import from_tuple
 
 

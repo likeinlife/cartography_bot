@@ -1,8 +1,7 @@
-from domain.models import CoordinatePair, Nomenclature
-
 from business import constants
 from business.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
 from business.enums import Scale
+from business.models import CoordinatePair, Nomenclature
 
 from .interfaces import ICoordinateChainLink
 

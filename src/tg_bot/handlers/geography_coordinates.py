@@ -6,7 +6,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from business.facades.nomenclature_facade import NomenclatureFacade
-from domain.models import CoordinatePair
+from business.models import CoordinatePair
 from misc import decorators
 from tg_bot.states import ByCoordinatesImages
 

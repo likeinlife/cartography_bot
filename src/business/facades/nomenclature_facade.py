@@ -1,7 +1,7 @@
 from domain.facades import INomenclatureFacade
-from domain.models import CoordinatePair, Nomenclature
 
 from business.enums import Scale
+from business.models import CoordinatePair, Nomenclature
 from business.scale_resolver import (
     coordinate_chain_link_resolver,
     coordinate_resolver,

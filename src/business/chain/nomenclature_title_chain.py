@@ -1,8 +1,7 @@
-from domain.models import Nomenclature
-
 from business import constants
 from business.calculations.nomenclature_title import get_1m_nomenclature, get_nomenclature_by_parts
 from business.enums import Scale
+from business.models import Nomenclature
 from business.types import NomenclatureTitleDictType
 
 from .interfaces import INomenclatureTitleChainLink

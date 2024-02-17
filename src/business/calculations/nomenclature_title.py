@@ -2,10 +2,10 @@ import string
 from typing import Any
 
 import errors
-from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple
 
 from business.math_actions import coordinate_actions
+from business.models import CoordinatePair, Nomenclature
 from business.types import NomenclatureTitleFormatter
 
 

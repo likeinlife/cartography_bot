@@ -2,10 +2,10 @@ from pathlib import Path
 
 from container import ImageContainer
 from dependency_injector.wiring import Provide, inject
-from domain.models import Coordinate
 from PIL import Image, ImageDraw, ImageFont
 
 from business.math_actions import coordinate_actions
+from business.models import Coordinate
 from business.types import ImageColorType
 
 

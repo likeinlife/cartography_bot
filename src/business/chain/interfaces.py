@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import abc
 
-from domain.models import CoordinatePair, Nomenclature
-
 from business.enums import Scale
+from business.models import CoordinatePair, Nomenclature
 from business.types import NomenclatureTitleDictType, NomenclatureTitleFormatter
 
 

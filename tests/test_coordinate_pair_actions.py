@@ -1,6 +1,6 @@
 import pytest
 from business.math_actions.coordinate_pair_actions import get_delta
-from domain.models import CoordinatePair
+from business.models import CoordinatePair
 from misc import from_tuple
 
 
