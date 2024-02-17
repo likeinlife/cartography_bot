@@ -56,12 +56,12 @@ class ErrorHandlerMiddleware(BaseMiddleware):
                 logger.error(e.msg, username=event.from_user.username, chat_id=event.from_user.id)
                 await event.answer(e.msg)
             if isinstance(event, Message):
-                logger.error(e.msg, username=event.from_user.username, chat_id=event.from_user.id)  # type: ignore
+                logger.error(e.msg, username=event.chat.username, chat_id=event.chat.id)
                 await event.answer(e.msg)
         except Exception as e:
             if isinstance(event, CallbackQuery):
                 logger.error(e, username=event.from_user.username, chat_id=event.from_user.id, exc_info=True)
                 await event.answer("Unexpected error")
             if isinstance(event, Message):
-                logger.error(e, username=event.from_user.username, chat_id=event.from_user.id, exc_info=True)  # type: ignore
+                logger.error(e, username=event.chat.username, chat_id=event.chat.id, exc_info=True)
                 await event.answer("Unexpected error")

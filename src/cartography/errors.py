@@ -11,20 +11,20 @@ class AdditionalInputMixin(BaseMsgError):
 
 
 class PartNomenclatureError(AdditionalInputMixin):
-    msg = "Invalid part"
+    msg = "Некорректная часть номенклатуры"
 
 
 class InvalidLatitudeOrLongitude(AdditionalInputMixin):
-    msg = "Invalid latitude or longitude"
+    msg = "Некорректные координаты"
 
 
 class NoLatitudeCharError(AdditionalInputMixin):
-    msg = "Invalid latitude char"
+    msg = "Некорректная широта"
 
 
 class NoLongitudeIndexError(AdditionalInputMixin):
-    msg = "Invalid longitude index"
+    msg = "Некорректная долгота"
 
 
 class InvalidNomenclatureTitleError(AdditionalInputMixin):
-    msg = "Invalid nomenclature part"
+    msg = "Некорректная номенклатура"
