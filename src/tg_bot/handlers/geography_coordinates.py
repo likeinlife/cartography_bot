@@ -1,3 +1,4 @@
+from enum import StrEnum, auto
 from itertools import islice
 
 import misc
@@ -14,10 +15,10 @@ from tg_bot.states import ByCoordinatesImages
 router = Router()
 
 
-class Data:
-    longitude = "longitude"
-    latitude = "latitude"
-    scale_number = "scale_number"
+class Data(StrEnum):
+    longitude = auto()
+    latitude = auto()
+    scale_number = auto()
 
 
 @router.message(Command(CartographyCommandsEnum.BY_COORDINATE))
