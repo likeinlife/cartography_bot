@@ -12,7 +12,7 @@ router = Router()
 
 @router.message(Command(CartographyCommandsEnum.BY_NOMENCLATURE_TITLE))
 async def by_nomenclature_title_handler(message: Message, state: FSMContext):
-    await message.answer("Введи номенклатуру. Например: U-32-4-Г-а или U-32-4-(128-и)")
+    await message.answer("Введи номенклатуру. Например: U-32-4-Г-а или U-32-4-(128)-(и)")
     await state.set_state(ByNomenclatureTitle.enter_nomenclature)
 
 
