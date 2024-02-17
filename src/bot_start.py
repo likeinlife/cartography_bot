@@ -3,13 +3,13 @@ from aiogram.utils.chat_action import ChatActionMiddleware
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
 from tg_bot import middlewares
+from tg_bot.callbacks import help
 from tg_bot.commands import (
     set_commands,
 )
 from tg_bot.handlers import (
-    geodezia,
     geography_coordinates,
-    help,
+    micrometer,
     middle_values,
     nomenclature_title,
     util_handlers,
@@ -28,7 +28,7 @@ async def run(
     dp.include_router(help.router)
     dp.include_router(util_handlers.router)
 
-    dp.include_router(geodezia.router)
+    dp.include_router(micrometer.router)
     dp.include_router(geography_coordinates.router)
     dp.include_router(nomenclature_title.router)
     dp.include_router(middle_values.router)
