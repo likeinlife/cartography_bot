@@ -37,11 +37,11 @@ async def run(
     dp.message.middleware(middlewares.LoggingChatActions())
 
     if dev_mode:
-        from tg_bot.handlers import devs
+        from tg_bot.handlers import dev_handlers
 
         dp.message.middleware(middlewares.IsAdminMiddleWare())
 
-        dp.include_router(devs.router)
+        dp.include_router(dev_handlers.router)
 
     try:
         await dp.start_polling(bot)
