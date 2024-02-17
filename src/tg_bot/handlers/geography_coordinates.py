@@ -8,7 +8,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from cartography.facades.nomenclature_facade import NomenclatureFacade
 from cartography.models import CoordinatePair
+from errors import BaseMsgError
 from misc import decorators
+
 from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByCoordinatesImages
 
@@ -56,7 +58,10 @@ async def enter_scale_number_handler(message: Message, state: FSMContext):
     await handle_nomenclature_handler(message, data)
 
 
-async def handle_nomenclature_handler(message: Message, data: dict[str, str]):
+async def handle_nomenclature_handler(
+    message: Message,
+    data: dict[str, str],
+):
     def _divide_to_chunks(arr_range, arr_size):
         arr_range = iter(arr_range)
         return iter(lambda: tuple(islice(arr_range, arr_size)), ())
@@ -66,7 +71,10 @@ async def handle_nomenclature_handler(message: Message, data: dict[str, str]):
     longitude = misc.generate_coordinate_from_string(data[Data.longitude])
     coordinate_pair = CoordinatePair(latitude=latitude, longitude=longitude)
 
-    images = NomenclatureFacade.generate_from_coordinates(coordinate_pair, scale_number)
+    try:
+        images = NomenclatureFacade.generate_from_coordinates(coordinate_pair, scale_number)
+    except BaseMsgError as e:
+        return await message.answer(e.msg)
 
     media_group: list[InputMediaPhoto] = []
 

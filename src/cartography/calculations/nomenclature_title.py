@@ -1,9 +1,9 @@
 import string
 from typing import Any
 
-import errors
 from misc import from_tuple
 
+from cartography.errors import PartNomenclatureError
 from cartography.math_actions import coordinate_actions
 from cartography.models import CoordinatePair, Nomenclature
 from cartography.types import NomenclatureTitleFormatter
@@ -107,4 +107,4 @@ def get_nomenclature_by_parts(
         else:
             lower_longitude = coordinate_actions.plus(lower_longitude, longitude_delta)
 
-    raise errors.PartNomenclatureError
+    raise PartNomenclatureError(needed_nomenclature_title)

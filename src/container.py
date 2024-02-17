@@ -1,16 +1,16 @@
 import core.logger_setup as logger_setup
+from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
-from dependency_injector.providers import Configuration, Resource
 
 
 class AppContainer(DeclarativeContainer):
-    settings: Configuration = Configuration(strict=True)
+    settings: providers.Configuration = providers.Configuration(strict=True)
 
-    log_configure: Resource = Resource(
+    log_configure: providers.Resource = providers.Resource(
         logger_setup.configure_structlog,
         log_level=settings.logging_level,
     )
 
 
 class ImageContainer(DeclarativeContainer):
-    settings: Configuration = Configuration(strict=True)
+    settings: providers.Configuration = providers.Configuration(strict=True)
