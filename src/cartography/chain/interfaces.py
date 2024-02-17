@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import abc
 
-from domain.models import CoordinatePair, Nomenclature
-
-from business.enums import Scale
-from business.types import NomenclatureTitleDictType, NomenclatureTitleFormatter
+from cartography.enums import Scale
+from cartography.models import CoordinatePair, Nomenclature
+from cartography.types import NomenclatureTitleDictType, NomenclatureTitleFormatter
 
 
 class ICoordinateChainLink(abc.ABC):

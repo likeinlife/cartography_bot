@@ -1,5 +1,13 @@
 import pytest
-from business.math_actions.coordinate_actions import between, divide, get_middle, get_middle_list, minus, multiply, plus
+from cartography.math_actions.coordinate_actions import (
+    between,
+    divide,
+    get_middle,
+    get_middle_list,
+    minus,
+    multiply,
+    plus,
+)
 from misc import from_tuple
 
 

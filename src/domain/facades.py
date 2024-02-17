@@ -1,8 +1,7 @@
 import abc
 
-from business.types import ImageType
-
-from domain.models import CoordinatePair
+from cartography.models import CoordinatePair
+from cartography.types import ImageType
 
 
 class INomenclatureFacade(abc.ABC):

@@ -4,9 +4,7 @@ from container import AppContainer
 from dependency_injector.wiring import Provide, inject
 from tg_bot import middlewares
 from tg_bot.callbacks import help
-from tg_bot.commands import (
-    set_commands,
-)
+from tg_bot.commands import set_commands
 from tg_bot.handlers import (
     geography_coordinates,
     micrometer,
@@ -35,13 +33,14 @@ async def run(
 
     dp.message.middleware(ChatActionMiddleware())
     dp.message.middleware(middlewares.LoggingChatActions())
+    dp.message.middleware(middlewares.ErrorHandlerMiddleware())
 
     if dev_mode:
-        from tg_bot.handlers import devs
+        from tg_bot.handlers import dev_handlers
 
         dp.message.middleware(middlewares.IsAdminMiddleWare())
 
-        dp.include_router(devs.router)
+        dp.include_router(dev_handlers.router)
 
     try:
         await dp.start_polling(bot)

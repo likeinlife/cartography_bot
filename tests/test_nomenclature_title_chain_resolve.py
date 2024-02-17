@@ -1,6 +1,6 @@
 import pytest
-from business.chain import nomenclature_title_chain as chain
-from business.scale_resolver import nomenclature_title_resolver as resolver
+from cartography.chain import nomenclature_title_chain as chain
+from cartography.scale_resolver import nomenclature_title_resolver as resolver
 
 
 @pytest.mark.parametrize(

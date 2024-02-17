@@ -1,12 +1,12 @@
 import string
 from decimal import Decimal as _
 
-import errors
-from domain.models import Coordinate, CoordinatePair, Nomenclature
 from misc import from_tuple
 
-from business.math_actions import coordinate_actions, coordinate_pair_actions
-from business.types import NomenclatureTitleFormatter
+from cartography.errors import NoLatitudeCharError, NoLongitudeIndexError, PartNomenclatureError
+from cartography.math_actions import coordinate_actions, coordinate_pair_actions
+from cartography.models import Coordinate, CoordinatePair, Nomenclature
+from cartography.types import NomenclatureTitleFormatter
 
 
 def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:
@@ -23,7 +23,7 @@ def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:
             break
 
     if not latitude_char:
-        raise errors.NoLatitudeCharError
+        raise NoLatitudeCharError(coordinate_actions.to_str(coordinate_pair.latitude))
 
     for this_index in range(31, 61):
         lower_longitude = Coordinate(degrees=_((this_index - 31) * 6))
@@ -34,7 +34,7 @@ def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:
             break
 
     if not longitude_index:
-        raise errors.NoLongitudeIndexError
+        raise NoLongitudeIndexError(coordinate_actions.to_str(coordinate_pair.longitude))
 
     title = f"{latitude_char}-{longitude_index}"
     lower_bound = CoordinatePair(latitude=lower_latitude, longitude=lower_longitude)
@@ -102,4 +102,4 @@ def get_nomenclature_by_parts(
         else:
             lower_longitude = coordinate_actions.plus(lower_longitude, delta.longitude)
 
-    raise errors.PartNomenclatureError
+    raise PartNomenclatureError(coordinate_pair_actions.to_str(coordinate_pair))

@@ -1,6 +1,10 @@
+from .models import MicrometerInput, MicrometerOutput
+
+
 def calculate_micrometer(
-    first_value: tuple[float, ...], second_value: tuple[float, ...]
-) -> tuple[float, float, float, float]:
+    first: MicrometerInput,
+    second: MicrometerInput,
+) -> MicrometerOutput:
     """
     Считает значения по отсчетам по микрометру.
 
@@ -11,11 +15,16 @@ def calculate_micrometer(
     Returns:
         Среднее по верхней, нижней части; коллимационная ошибка, среднее из двух отсчетов
     """
-    middle_first = (first_value[0] + second_value[0]) / 2
-    middle_second = (first_value[1] + second_value[1]) / 2
+    middle_first = (first.left_circle + second.left_circle) / 2
+    middle_second = (first.right_circle + second.right_circle) / 2
 
     c_2 = middle_first - middle_second
 
     kl_plus_kp = (middle_first + middle_second) / 2
 
-    return middle_first, middle_second, c_2, kl_plus_kp
+    return MicrometerOutput(
+        average_first=middle_first,
+        average_second=middle_second,
+        c_2=c_2,
+        average=kl_plus_kp,
+    )

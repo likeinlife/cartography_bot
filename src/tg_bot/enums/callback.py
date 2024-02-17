@@ -1,7 +1,7 @@
 from enum import StrEnum, auto
 
 
-class CallbackDataEnum(StrEnum):
+class HelpCallbackEnum(StrEnum):
     HELP_MENU = auto()
     HELP_COMMANDS = auto()
     HELP_SCALES = auto()

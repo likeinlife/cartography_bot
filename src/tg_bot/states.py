@@ -1,7 +1,7 @@
 from aiogram.fsm.state import State, StatesGroup
 
 
-class ByNomenclatureImages(StatesGroup):
+class ByNomenclatureTitle(StatesGroup):
     enter_nomenclature = State()
 
 

@@ -5,7 +5,7 @@ from container import ImageContainer
 from dependency_injector.wiring import Provide, inject
 from PIL import Image, ImageDraw, ImageFont
 
-from business.types import ImageColorType
+from cartography.types import ImageColorType
 
 
 @inject

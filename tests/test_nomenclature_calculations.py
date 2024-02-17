@@ -1,7 +1,7 @@
 import pytest
-from business.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
-from business.constants import UPPER_ALPHA
-from domain.models import CoordinatePair, Nomenclature
+from cartography.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
+from cartography.constants import UPPER_ALPHA
+from cartography.models import CoordinatePair, Nomenclature
 from misc import from_tuple
 
 from .test_helper import generate_random_bound

@@ -5,18 +5,20 @@ from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefaul
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
 
+from .enums import CartographyCommandsEnum, GeodesyCommandsEnum, UtilCommandsEnum
+
 CommandHelpType: TypeAlias = list[tuple[str, str]]
 
 commands: CommandHelpType = [
-    ("start", "Начало работы"),
-    ("help", "Помощь"),
-    ("stop", "Остановить набор значений"),
-    ("hide", "Скрыть клавиатуру"),
-    ("show", "Показать клавиатуру"),
-    ("by_nomenclature_images", "Определить координаты рамки, но с изображениями"),
-    ("by_coordinates_images", "Определить номенклатуру по координатам и масштабу"),
-    ("get_middle", "Получить промежуточные значения между границами рамки"),
-    ("micro", "Посчитать отсчеты по микрометру"),
+    (UtilCommandsEnum.START, "Начало работы"),
+    (UtilCommandsEnum.HELP, "Помощь"),
+    (UtilCommandsEnum.STOP, "Остановить набор значений"),
+    (UtilCommandsEnum.HIDE_KEYBOARD, "Скрыть клавиатуру"),
+    (UtilCommandsEnum.SHOW_KEYBOARD, "Показать клавиатуру"),
+    (CartographyCommandsEnum.BY_NOMENCLATURE_TITLE, "Сгенерировать изображения по номенклатуре"),
+    (CartographyCommandsEnum.BY_COORDINATE, "Сгенерировать изображения по координатам и масштабу"),
+    (CartographyCommandsEnum.GET_MIDDLE, "Получить промежуточные значения между границами рамки"),
+    (GeodesyCommandsEnum.CALCULATE_MICROMETER, "Посчитать отсчеты по микрометру"),
 ]
 
 dev_commands: CommandHelpType = []

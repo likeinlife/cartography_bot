@@ -1,3 +1,4 @@
+from enum import StrEnum, auto
 from itertools import islice
 
 import misc
@@ -5,21 +6,23 @@ from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from business.facades.nomenclature_facade import NomenclatureFacade
-from domain.models import CoordinatePair
+from cartography.facades.nomenclature_facade import NomenclatureFacade
+from cartography.models import CoordinatePair
 from misc import decorators
+
+from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByCoordinatesImages
 
 router = Router()
 
 
-class Data:
-    longitude = "longitude"
-    latitude = "latitude"
-    scale_number = "scale_number"
+class Data(StrEnum):
+    longitude = auto()
+    latitude = auto()
+    scale_number = auto()
 
 
-@router.message(Command("by_coordinates_images"))
+@router.message(Command(CartographyCommandsEnum.BY_COORDINATE))
 async def by_coordinates_handler(message: Message, state: FSMContext):
     await state.set_state(ByCoordinatesImages.enter_first_coordinates)
     await message.reply('Введи координату(широту). Например: "10 20 30"')
@@ -54,7 +57,10 @@ async def enter_scale_number_handler(message: Message, state: FSMContext):
     await handle_nomenclature_handler(message, data)
 
 
-async def handle_nomenclature_handler(message: Message, data: dict[str, str]):
+async def handle_nomenclature_handler(
+    message: Message,
+    data: dict[str, str],
+):
     def _divide_to_chunks(arr_range, arr_size):
         arr_range = iter(arr_range)
         return iter(lambda: tuple(islice(arr_range, arr_size)), ())
