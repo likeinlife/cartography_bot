@@ -8,7 +8,6 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from cartography.facades.nomenclature_facade import NomenclatureFacade
 from cartography.models import CoordinatePair
-from errors import BaseMsgError
 from misc import decorators
 
 from tg_bot.enums import CartographyCommandsEnum
@@ -71,10 +70,7 @@ async def handle_nomenclature_handler(
     longitude = misc.generate_coordinate_from_string(data[Data.longitude])
     coordinate_pair = CoordinatePair(latitude=latitude, longitude=longitude)
 
-    try:
-        images = NomenclatureFacade.generate_from_coordinates(coordinate_pair, scale_number)
-    except BaseMsgError as e:
-        return await message.answer(e.msg)
+    images = NomenclatureFacade.generate_from_coordinates(coordinate_pair, scale_number)
 
     media_group: list[InputMediaPhoto] = []
 

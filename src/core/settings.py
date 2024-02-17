@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Config(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict()
     bot_token: str = Field()
     admin_id: int = Field()
     dev_mode: bool = Field(True, description="True - admin only use ")
@@ -21,7 +21,7 @@ app_settings = Config()  # type: ignore
 
 
 class ImageConfig(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_prefix="IMAGE_")
+    model_config = SettingsConfigDict(env_prefix="IMAGE_")
 
     height: int = Field(1200, description="Height of image in pixels")
     width: int = Field(1200, description="Width of image in pixels")

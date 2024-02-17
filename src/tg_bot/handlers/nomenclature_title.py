@@ -3,7 +3,6 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from cartography.facades.nomenclature_facade import NomenclatureFacade
-from errors import BaseMsgError
 
 from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByNomenclatureTitle
@@ -26,17 +25,7 @@ async def nomenclature_title_handler(
     if not message.text:
         return await message.answer("Вы не ввели значение номенклатуры.")
 
-    await handle_nomenclature_title(message.text, state)
-
-
-async def handle_nomenclature_title(
-    message: Message,
-    state: FSMContext,
-):
-    try:
-        images = NomenclatureFacade.generate_from_nomenclature(message.text)
-    except BaseMsgError as e:
-        return await message.answer(e.msg)
+    images = NomenclatureFacade.generate_from_nomenclature(message.text)
 
     media_group: list[InputMediaPhoto] = []
     for image in images:
