@@ -5,6 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from cartography.math_actions import coordinate_actions
 from misc import decorators
+from tg_bot.enums.commands import CartographyCommandsEnum
 from tg_bot.states import GetMiddle
 
 router = Router()
@@ -16,7 +17,7 @@ class Data:
     part_number = "part_number"
 
 
-@router.message(Command("get_middle"))
+@router.message(Command(CartographyCommandsEnum.GET_MIDDLE))
 async def middle_get_handler(message: Message, state: FSMContext):
     await message.answer("Напиши первую координату (градусы, мин, сек)")
     await state.set_state(GetMiddle.enter_first_coordinates)

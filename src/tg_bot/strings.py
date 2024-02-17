@@ -1,19 +1,22 @@
-COMMANDS_HELP = """
+from tg_bot.enums import UtilCommandsEnum
+from tg_bot.enums.commands import CartographyCommandsEnum, GeodesyCommandsEnum
+
+COMMANDS_HELP = f"""
 Команды:
 Общие:
-/start
-/help - Помощь
-/show - Открыть клавиатуру
-/hide - Скрыть клавиатуру
-/stop - Завершить текущую операцию
+/{UtilCommandsEnum.START}
+/{UtilCommandsEnum.HELP} - Помощь
+/{UtilCommandsEnum.SHOW_KEYBOARD} - Открыть клавиатуру
+/{UtilCommandsEnum.HIDE_KEYBOARD} - Скрыть клавиатуру
+/{UtilCommandsEnum.STOP}- Завершить текущую операцию
 
 Картография:
-/by_coordinates_images - найти номенклатуру по заданным координатам и масштабу.
-/by_nomenclature_images - найти координаты границ сетки по заданной номенклатуре.
-/get_middle - разбить интервал на части и вывести
+/{CartographyCommandsEnum.BY_COORDINATE} - найти номенклатуру по заданным координатам и масштабу.
+/{CartographyCommandsEnum.BY_NOMENCLATURE_TITLE} - найти координаты границ сетки по заданной номенклатуре.
+/{CartographyCommandsEnum.GET_MIDDLE} - разбить интервал на части и вывести
 
 Геодезия:
-/micro - посчитать отсчеты по микрометру
+/{GeodesyCommandsEnum.CALCULATE_MICROMETER} - посчитать отсчеты по микрометру
 """
 
 NOMENCLATURE_HELP = """

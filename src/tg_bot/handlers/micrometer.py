@@ -3,12 +3,13 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from micrometr.horizontal_angles import calculate_micrometer
+from tg_bot.enums import GeodesyCommandsEnum
 from tg_bot.states import MicrometerState
 
 router = Router()
 
 
-@router.message(Command(commands=["micro"]))
+@router.message(Command(commands=GeodesyCommandsEnum.CALCULATE_MICROMETER))
 async def calculate_micrometer_handler(message: Message, state: FSMContext):
     await state.set_state(MicrometerState.first_column)
     await message.answer("Введите первый столбец(КЛ и КП) через пробел")
@@ -32,4 +33,4 @@ async def enter_second_column_handler(message: Message, state: FSMContext):
 def handle_micrometer_data(data: dict):
     first_column = tuple(map(float, data["first_column"].split(" ")))
     second_column = tuple(map(float, (data["second_column"].split(" "))))
-    return calculate_micrometer(first_column, second_column)
+    return calculate_micrometer(first_value=first_column, second_value=second_column)

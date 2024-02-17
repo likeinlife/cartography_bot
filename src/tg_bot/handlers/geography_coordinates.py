@@ -8,6 +8,7 @@ from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from cartography.facades.nomenclature_facade import NomenclatureFacade
 from cartography.models import CoordinatePair
 from misc import decorators
+from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByCoordinatesImages
 
 router = Router()
@@ -19,7 +20,7 @@ class Data:
     scale_number = "scale_number"
 
 
-@router.message(Command("by_coordinates_images"))
+@router.message(Command(CartographyCommandsEnum.BY_COORDINATE))
 async def by_coordinates_handler(message: Message, state: FSMContext):
     await state.set_state(ByCoordinatesImages.enter_first_coordinates)
     await message.reply('Введи координату(широту). Например: "10 20 30"')
