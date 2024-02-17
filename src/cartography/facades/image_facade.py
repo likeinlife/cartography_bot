@@ -4,10 +4,10 @@ from container import ImageContainer
 from dependency_injector.wiring import Provide, inject
 from PIL import Image
 
-from business.image_drawer import draw_labels, draw_table
-from business.math_actions import coordinate_actions
-from business.models import CoordinatePair
-from business.types import ImageType
+from cartography.image_drawer import draw_labels, draw_table
+from cartography.math_actions import coordinate_actions
+from cartography.models import CoordinatePair
+from cartography.types import ImageType
 
 
 class ImageGeneratorFacade:

@@ -77,8 +77,7 @@ ban-relative-imports = "parents"
 omit = [
     "*/micrometr/*",
     "*/tg_bot/*",
-    "*/cartography/*",
-    "*/business/image_drawer/*",
+    "*/cartography/image_drawer/*",
     "*/facades/*",
     "src/*.py",
     "__init__.py",

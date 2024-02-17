@@ -2,7 +2,7 @@ import asyncio
 
 import bot_start
 import tg_bot
-from business import facades, image_drawer
+from cartography import facades, image_drawer
 from container import AppContainer, ImageContainer
 from core.settings import app_settings, image_settings
 

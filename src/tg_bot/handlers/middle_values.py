@@ -3,7 +3,7 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from business.math_actions import coordinate_actions
+from cartography.math_actions import coordinate_actions
 from misc import decorators
 from tg_bot.states import GetMiddle
 

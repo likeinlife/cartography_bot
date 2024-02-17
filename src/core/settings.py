@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from business.types import ImageColorType
+from cartography.types import ImageColorType
 from misc.constants import Color
 from pydantic import Field, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict

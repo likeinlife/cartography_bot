@@ -3,7 +3,7 @@ from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from business.facades import NomenclatureFacade
+from cartography.facades import NomenclatureFacade
 from tg_bot.states import ByNomenclatureImages
 
 router = Router()

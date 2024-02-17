@@ -2,10 +2,10 @@ import re
 
 from errors import InvalidNomenclatureTitleError
 
-from business.chain.interfaces import INomenclatureTitleChainLink
-from business.enums import Scale
-from business.scale_resolver import nomenclature_title_chain_link_resolver as chain_link_resolver
-from business.types import NomenclatureTitleDictType
+from cartography.chain.interfaces import INomenclatureTitleChainLink
+from cartography.enums import Scale
+from cartography.scale_resolver import nomenclature_title_chain_link_resolver as chain_link_resolver
+from cartography.types import NomenclatureTitleDictType
 
 re_group_resolver = {
     "m1": Scale._1M,

@@ -4,9 +4,9 @@ from decimal import Decimal as _
 import errors
 from misc import from_tuple
 
-from business.math_actions import coordinate_actions, coordinate_pair_actions
-from business.models import Coordinate, CoordinatePair, Nomenclature
-from business.types import NomenclatureTitleFormatter
+from cartography.math_actions import coordinate_actions, coordinate_pair_actions
+from cartography.models import Coordinate, CoordinatePair, Nomenclature
+from cartography.types import NomenclatureTitleFormatter
 
 
 def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:

@@ -1,7 +1,7 @@
-from business import constants
-from business.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
-from business.enums import Scale
-from business.models import CoordinatePair, Nomenclature
+from cartography import constants
+from cartography.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
+from cartography.enums import Scale
+from cartography.models import CoordinatePair, Nomenclature
 
 from .interfaces import ICoordinateChainLink
 

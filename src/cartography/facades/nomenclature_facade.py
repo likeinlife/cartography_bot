@@ -1,14 +1,14 @@
 from domain.facades import INomenclatureFacade
 
-from business.enums import Scale
-from business.models import CoordinatePair, Nomenclature
-from business.scale_resolver import (
+from cartography.enums import Scale
+from cartography.models import CoordinatePair, Nomenclature
+from cartography.scale_resolver import (
     coordinate_chain_link_resolver,
     coordinate_resolver,
     nomenclature_title_chain_link_resolver,
     nomenclature_title_resolver,
 )
-from business.types import ImageType
+from cartography.types import ImageType
 
 from .image_facade import ImageGeneratorFacade
 

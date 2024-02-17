@@ -1,4 +1,4 @@
-from business.models import CoordinatePair
+from cartography.models import CoordinatePair
 
 from .coordinate_actions import divide, minus
 
