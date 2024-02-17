@@ -3,8 +3,9 @@ from typing import Any
 
 from container import ImageContainer
 from dependency_injector.wiring import Provide, inject
-from domain.types import ImageColorType
 from PIL import Image, ImageDraw, ImageFont
+
+from business.types import ImageColorType
 
 
 @inject

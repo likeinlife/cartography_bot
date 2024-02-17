@@ -1,10 +1,11 @@
-from domain.chain import INomenclatureTitleChainLink
-from domain.enums import Scale
 from domain.models import Nomenclature
-from domain.types import NomenclatureTitleDictType
 
 from business import constants
 from business.calculations.nomenclature_title import get_1m_nomenclature, get_nomenclature_by_parts
+from business.enums import Scale
+from business.types import NomenclatureTitleDictType
+
+from .interfaces import INomenclatureTitleChainLink
 
 
 class BaseNomenclatureTitleChainLink(INomenclatureTitleChainLink):

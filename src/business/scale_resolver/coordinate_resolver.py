@@ -1,6 +1,5 @@
-from domain.chain import ICoordinateChainLink
-
 from business.chain import coordinate_chain
+from business.chain.interfaces import ICoordinateChainLink
 
 table: dict[int, type[ICoordinateChainLink]] = {
     1: coordinate_chain.ChainLink1M,

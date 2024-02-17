@@ -1,9 +1,10 @@
-from domain.chain import ICoordinateChainLink
-from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 
 from business import constants
 from business.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
+from business.enums import Scale
+
+from .interfaces import ICoordinateChainLink
 
 
 class BaseCoordinateChainLink(ICoordinateChainLink):

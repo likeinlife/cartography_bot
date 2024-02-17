@@ -1,7 +1,6 @@
-from domain.chain import ICoordinateChainLink
-from domain.enums import Scale
-
 from business.chain import coordinate_chain
+from business.chain.interfaces import ICoordinateChainLink
+from business.enums import Scale
 
 chain_list: list[type[ICoordinateChainLink]] = [
     coordinate_chain.ChainLink1M,

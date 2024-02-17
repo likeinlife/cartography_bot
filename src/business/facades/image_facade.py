@@ -3,11 +3,11 @@ from io import BytesIO
 from container import ImageContainer
 from dependency_injector.wiring import Provide, inject
 from domain.models import CoordinatePair
-from domain.types import ImageType
 from PIL import Image
 
 from business.image_drawer import draw_labels, draw_table
 from business.math_actions import coordinate_actions
+from business.types import ImageType
 
 
 class ImageGeneratorFacade:

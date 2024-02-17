@@ -1,6 +1,6 @@
 import pytest
+from business.enums import Scale
 from business.scale_resolver import coordinate_resolver
-from domain.enums import Scale
 from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple
 

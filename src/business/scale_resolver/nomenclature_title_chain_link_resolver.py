@@ -1,7 +1,6 @@
-from domain.chain import INomenclatureTitleChainLink
-from domain.enums import Scale
-
 from business.chain import nomenclature_title_chain
+from business.chain.interfaces import INomenclatureTitleChainLink
+from business.enums import Scale
 
 chain_list: list[type[INomenclatureTitleChainLink]] = [
     nomenclature_title_chain.ChainLink1M,

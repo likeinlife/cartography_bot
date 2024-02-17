@@ -3,10 +3,10 @@ from typing import Any
 
 import errors
 from domain.models import CoordinatePair, Nomenclature
-from domain.types import NomenclatureTitleFormatter
 from misc import from_tuple
 
 from business.math_actions import coordinate_actions
+from business.types import NomenclatureTitleFormatter
 
 
 def get_1m_nomenclature(nomenclature_title: str) -> Nomenclature:

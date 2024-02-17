@@ -1,2 +1,0 @@
-from .coordinate_chain import ICoordinateChainLink
-from .nomenclature_title_chain import INomenclatureTitleChainLink

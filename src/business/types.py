@@ -1,6 +1,6 @@
 from typing import Callable, TypeAlias
 
-from .enums import Scale
+from business.enums import Scale
 
 ImageType: TypeAlias = bytes
 NomenclatureTitleFormatter: TypeAlias = Callable[[str, str], str]
