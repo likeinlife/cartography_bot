@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 from cartography.types import ImageColorType
@@ -14,7 +15,11 @@ class Config(BaseSettings):
 
     static_path: Path = Field(Path(__file__).parent.parent.parent / Path("static"))
 
-    logging_level: str = Field("WARNING")
+    logging_level: str = Field("DEBUG")
+
+    @computed_field
+    def numeric_logging_level(self) -> int:
+        return getattr(logging, self.logging_level)
 
 
 app_settings = Config()  # type: ignore

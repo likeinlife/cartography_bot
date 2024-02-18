@@ -11,8 +11,9 @@ class AppContainer(DeclarativeContainer):
     image_settings: providers.Configuration = providers.Configuration(strict=True)
 
     log_configure: providers.Resource = providers.Resource(
-        logger_setup.configure_structlog,
-        log_level=settings.logging_level,
+        logger_setup.configure_logging,
+        debug_mode=settings.dev_mode,
+        logging_level=settings.logging_level,
     )
 
     image_generator: providers.Singleton[IImageGenerator] = providers.Singleton(
