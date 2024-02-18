@@ -78,8 +78,10 @@ omit = [
     "*/micrometr/*",
     "*/tg_bot/*",
     "*/cartography/image_drawer/*",
+    "*/cartography/Image_generator/*",
     "*/facades/*",
     "src/*.py",
+    "models.py",
     "__init__.py",
 ]
 
