@@ -1,26 +1,23 @@
 from pathlib import Path
 from typing import Any
 
-from container import ImageContainer
-from dependency_injector.wiring import Provide, inject
 from PIL import Image, ImageDraw, ImageFont
 
 from cartography.types import ImageColorType
 
 
-@inject
 def draw_table(
     img: Image.Image,
     parts: int,
     alphabet: list[str],
-    title: str = "Nomenclature",
-    cell_to_fill: str | None = None,
-    padding: int = Provide[ImageContainer.settings.padding],
-    font_path: Path = Provide[ImageContainer.settings.font_path],
-    text_color: ImageColorType = Provide[ImageContainer.settings.text_color],
-    inverse_text_color: ImageColorType = Provide[ImageContainer.settings.inverse_text_color],
-    background_color: ImageColorType = Provide[ImageContainer.settings.background_color],
-    filling_color: ImageColorType = Provide[ImageContainer.settings.filling_color],
+    title: str,
+    cell_to_fill: str | None,
+    padding: int,
+    font_path: Path,
+    text_color: ImageColorType,
+    inverse_text_color: ImageColorType,
+    background_color: ImageColorType,
+    filling_color: ImageColorType,
 ) -> None:
     """
     Draw table with cells content.
@@ -32,6 +29,13 @@ def draw_table(
         title: Table name
         alphabet: Alphabet
         cell_to_fill: Cell name to fill
+        padding: padding from image borders
+        font_path: path to .otf file
+        text_color: text color
+        inverse_text_color: text color on filled cell
+        background_color: background color
+        filling_color: filled cell color
+
     """
 
     def need_to_fill(x: Any) -> bool:

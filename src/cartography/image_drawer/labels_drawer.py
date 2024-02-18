@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from container import ImageContainer
-from dependency_injector.wiring import Provide, inject
 from PIL import Image, ImageDraw, ImageFont
 
 from cartography.math_actions import coordinate_actions
@@ -9,32 +7,37 @@ from cartography.models import Coordinate
 from cartography.types import ImageColorType
 
 
-@inject
 def draw_labels(
     img: Image.Image,
     parts: int,
     x_values: list[Coordinate],
     y_values: list[Coordinate],
-    padding: int = Provide[ImageContainer.settings.padding],
-    font_path: Path = Provide[ImageContainer.settings.font_path],
-    text_color: ImageColorType = Provide[ImageContainer.settings.text_color],
-    text_size_coefficient: int = Provide[ImageContainer.settings.text_size_coefficient],
-    text_angle: int = Provide[ImageContainer.settings.text_angle],
-    bottom_label_offset: int = Provide[ImageContainer.settings.bottom_label_offset],
-    right_label_offset: int = Provide[ImageContainer.settings.right_label_offset],
+    padding: int,
+    font_path: Path,
+    text_color: ImageColorType,
+    text_size_coefficient: int,
+    text_angle: int,
+    bottom_label_offset: int,
+    right_label_offset: int,
 ) -> None:
     """
-    Generate labels in bottom and right of table.
+    Generate labels in bottom and right part of table.
 
     Args:
-    ----
-        table_image (Image): Image with table
-        parts (int): parts number. Example: 16x16 => parts=16
-        x_values (list): columns labels
-        y_values (list): rows labels
-        x_delta (int): cell width
-        y_delta (int): cell height
-        pad (int): padding from image borders
+        table_image: Image with table
+        parts: parts number. Example: 16x16 => parts=16
+        x_values: columns labels
+        y_values: rows labels
+        x_delta: cell width
+        y_delta: cell height
+        padding: padding from image borders
+        font_path: path to .otf file
+        text_color: text color
+        text_size_coefficient: font size calculates from padding
+        text_angle: in degrees
+        bottom_label_offset: offset from bottom
+        right_label_offset: offset from right
+
     """
     img_draw = ImageDraw.Draw(img)
     x_delta = (img.size[0] - padding * 2) // parts

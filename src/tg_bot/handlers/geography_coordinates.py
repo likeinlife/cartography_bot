@@ -6,8 +6,10 @@ from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from cartography.facades.nomenclature_facade import NomenclatureFacade
 from cartography.models import CoordinatePair
+from container import AppContainer
+from dependency_injector.wiring import Provide, inject
+from domain.facades import INomenclatureFacade
 from misc import decorators
 
 from tg_bot.enums import CartographyCommandsEnum
@@ -57,9 +59,11 @@ async def enter_scale_number_handler(message: Message, state: FSMContext):
     await handle_nomenclature_handler(message, data)
 
 
+@inject
 async def handle_nomenclature_handler(
     message: Message,
     data: dict[str, str],
+    nomenclature_facade: INomenclatureFacade = Provide[AppContainer.nomenclature_facade],
 ):
     def _divide_to_chunks(arr_range, arr_size):
         arr_range = iter(arr_range)
@@ -70,7 +74,7 @@ async def handle_nomenclature_handler(
     longitude = misc.generate_coordinate_from_string(data[Data.longitude])
     coordinate_pair = CoordinatePair(latitude=latitude, longitude=longitude)
 
-    images = NomenclatureFacade.generate_from_coordinates(coordinate_pair, scale_number)
+    images = nomenclature_facade.generate_from_coordinates(coordinate_pair, scale_number)
 
     media_group: list[InputMediaPhoto] = []
 

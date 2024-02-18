@@ -2,7 +2,9 @@ from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from cartography.facades.nomenclature_facade import NomenclatureFacade
+from container import AppContainer
+from dependency_injector.wiring import Provide, inject
+from domain.facades import INomenclatureFacade
 
 from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByNomenclatureTitle
@@ -18,14 +20,16 @@ async def by_nomenclature_title_handler(message: Message, state: FSMContext):
 
 @router.message(ByNomenclatureTitle.enter_nomenclature)
 @flags.chat_action("upload_document")
+@inject
 async def nomenclature_title_handler(
     message: Message,
     state: FSMContext,
+    nomenclature_facade: INomenclatureFacade = Provide[AppContainer.nomenclature_facade],
 ):
     if not message.text:
         return await message.answer("Вы не ввели значение номенклатуры.")
 
-    images = NomenclatureFacade.generate_from_nomenclature(message.text)
+    images = nomenclature_facade.generate_from_nomenclature(message.text)
 
     media_group = [InputMediaPhoto(media=BufferedInputFile(image, "jpeg")) for image in images]
 
