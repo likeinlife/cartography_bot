@@ -5,7 +5,6 @@ def get_reply_showButtons():
     keyboard_builder = ReplyKeyboardBuilder()
 
     keyboard_builder.button(text="Стоп")
-    keyboard_builder.button(text="Скрыть")
     keyboard_builder.button(text="Помощь")
 
     keyboard_builder.adjust(3)

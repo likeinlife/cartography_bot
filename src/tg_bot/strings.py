@@ -1,6 +1,12 @@
 from tg_bot.enums import UtilCommandsEnum
 from tg_bot.enums.commands import CartographyCommandsEnum, GeodesyCommandsEnum
 
+GREETING_MESSAGE = (
+    "Бот для генерации графического представления номенклатуры топографических карт по номенклатуре или координатам"
+)
+STOP_SUCCESS = "Остановлено"
+STOP_ERROR = "Останавливать нечего. `стоп` используется, чтобы прекратить ввод значений"
+
 COMMANDS_HELP = f"""
 Команды:
 Общие:
@@ -8,7 +14,7 @@ COMMANDS_HELP = f"""
 /{UtilCommandsEnum.HELP} - Помощь
 /{UtilCommandsEnum.SHOW_KEYBOARD} - Открыть клавиатуру
 /{UtilCommandsEnum.HIDE_KEYBOARD} - Скрыть клавиатуру
-/{UtilCommandsEnum.STOP}- Завершить текущую операцию
+/{UtilCommandsEnum.STOP} - Завершить текущую операцию
 
 Картография:
 /{CartographyCommandsEnum.BY_COORDINATE} - найти номенклатуру по заданным координатам и масштабу.
