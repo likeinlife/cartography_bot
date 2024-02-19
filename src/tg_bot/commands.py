@@ -2,8 +2,6 @@ from typing import TypeAlias
 
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefault
-from container import AppContainer
-from dependency_injector.wiring import Provide, inject
 
 from .enums import CartographyCommandsEnum, GeodesyCommandsEnum, UtilCommandsEnum
 
@@ -32,11 +30,10 @@ BotCommand_admin = [BotCommand(command=command, description=description) for (co
 BotCommand_all = BotCommand_default + BotCommand_dev + BotCommand_admin
 
 
-@inject
 async def set_commands(
     bot: Bot,
-    dev_mode: bool = Provide[AppContainer.settings.dev_mode],
-    admin_id: int = Provide[AppContainer.settings.admin_id],
+    dev_mode: bool,
+    admin_id: int,
 ):
     await bot.set_my_commands(
         BotCommand_admin + BotCommand_default,
