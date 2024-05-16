@@ -33,7 +33,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-bot = "cartography.__main__:main"
+bot = "src.cartography.__main__:main"
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]
@@ -92,3 +92,6 @@ exclude_lines = [
     "raise NotImplementedError",
     "@(abc\\.)?abstractmethod",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = "src"
