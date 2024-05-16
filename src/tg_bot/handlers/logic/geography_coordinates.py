@@ -9,7 +9,7 @@ from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from cartography.models import CoordinatePair
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
-from logic.facades import INomenclatureFacade
+from domain.facades import INomenclatureFacade
 from misc import decorators
 
 from tg_bot.enums import CartographyCommandsEnum

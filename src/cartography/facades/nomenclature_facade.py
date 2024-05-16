@@ -1,6 +1,6 @@
 from typing import Callable
 
-from logic.facades import INomenclatureFacade
+from domain.facades import INomenclatureFacade
 
 from cartography.chain.interfaces import ICoordinateChainLink, INomenclatureTitleChainLink
 from cartography.enums import Scale
@@ -42,7 +42,7 @@ class NomenclatureFacade(INomenclatureFacade):
         for scale, nomenclature in nomenclature_dict.items():
             cur_chain_link = resolver(scale)
 
-            outbound = cur_chain_link.previous_link
+            outbound = cur_chain_link.outbound_class
 
             if outbound:
                 outbound_nomenclature = nomenclature_dict[outbound.scale]
