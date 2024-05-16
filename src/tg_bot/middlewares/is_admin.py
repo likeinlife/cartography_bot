@@ -4,8 +4,10 @@ import structlog
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 
+from ..mixins import MessageInfoGetterMixin
 
-class BlockNonAdminMiddleware(BaseMiddleware):
+
+class BlockNonAdminMiddleware(BaseMiddleware, MessageInfoGetterMixin):
     def __init__(self, admin_id: int) -> None:
         self.admin_id = admin_id
         self.logger = structlog.get_logger("blocknonadmin_middleware")
@@ -24,5 +26,9 @@ class BlockNonAdminMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-        if self._is_admin(event.chat.id):  # type: ignore
+        message_info = self._get_message_info(event)
+        if message_info.user is None:
             return await handler(event, data)
+        if self._is_admin(message_info.user.id):
+            return await handler(event, data)
+        self.logger.warning("Block non-admin user", user_id=message_info.user.id, username=message_info.user.username)

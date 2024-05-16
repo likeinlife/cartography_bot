@@ -5,8 +5,10 @@ from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
 from errors import BaseMsgError
 
+from ..mixins import MessageInfo, MessageInfoGetterMixin
 
-class ErrorHandlerMiddleware(BaseMiddleware):
+
+class ErrorHandlerMiddleware(BaseMiddleware, MessageInfoGetterMixin):
     def __init__(self) -> None:
         self.logger = structlog.get_logger("error_handler_middleware")
 
@@ -17,18 +19,27 @@ class ErrorHandlerMiddleware(BaseMiddleware):
         data: Dict[str, Any],
     ) -> Any:
         try:
-            await handler(event, data)
-        except BaseMsgError as e:
-            if isinstance(event, CallbackQuery):
-                self.logger.error(e.msg, username=event.from_user.username, chat_id=event.from_user.id)
-                await event.answer(e.msg)
-            if isinstance(event, Message):
-                self.logger.error(e.msg, username=event.chat.username, chat_id=event.chat.id)
-                await event.answer(e.msg)
+            return await handler(event, data)
         except Exception as e:
-            if isinstance(event, CallbackQuery):
-                self.logger.error(e, username=event.from_user.username, chat_id=event.from_user.id, exc_info=True)
-                await event.answer("Unexpected error")
-            if isinstance(event, Message):
-                self.logger.error(e, username=event.chat.username, chat_id=event.chat.id, exc_info=True)
-                await event.answer("Unexpected error")
+            error = e
+        message_info = self._get_message_info(event)
+        if isinstance(error, BaseMsgError):
+            await self._process_msg_error(error, event, message_info)
+        else:
+            await self._process_unexpected_error(error, event, message_info)
+
+    async def _process_msg_error(self, error: BaseMsgError, event: TelegramObject, message_info: MessageInfo):
+        if not message_info.user:
+            self.logger.error("No user info", error=error.msg)
+            return
+        self.logger.error(error.msg, username=message_info.user.username, chat_id=message_info.user.id)
+        if isinstance(event, CallbackQuery | Message):
+            await event.answer(error.msg)
+
+    async def _process_unexpected_error(self, error: Exception, event: TelegramObject, message_info: MessageInfo):
+        if not message_info.user:
+            self.logger.error("No user info", error=error, exc_info=True)
+            return
+        self.logger.error(error, username=message_info.user.username, chat_id=message_info.user.id, exc_info=True)
+        if isinstance(event, CallbackQuery | Message):
+            await event.answer("Unexpected error")
