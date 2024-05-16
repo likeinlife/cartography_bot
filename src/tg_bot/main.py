@@ -15,7 +15,7 @@ async def run(
     dp = Dispatcher()
 
     await commands.set_commands(bot=bot, dev_mode=dev_mode, admin_id=admin_id)
-    handlers.register_all_handlers(dp, dev_mode)
+    handlers.register_all_handlers(dp)
     middlewares.register_all_middlewares(dp, dev_mode, admin_id)
 
     await dp.start_polling(bot)
