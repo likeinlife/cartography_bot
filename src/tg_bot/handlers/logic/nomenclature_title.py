@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from container import AppContainer
 from dependency_injector.wiring import Provide, inject
-from domain.facades import INomenclatureFacade
+from logic.facades import INomenclatureFacade
 
 from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByNomenclatureTitle

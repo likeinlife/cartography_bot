@@ -3,7 +3,7 @@ from cartography.facades import NomenclatureFacade
 from cartography.image_generator import IImageGenerator, ImageGenerator
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
-from domain.facades import INomenclatureFacade
+from logic.facades import INomenclatureFacade
 
 
 class AppContainer(DeclarativeContainer):

@@ -1,1 +1,1 @@
-from .main import register_all_handlers
+from .register_handlers import register_all_handlers

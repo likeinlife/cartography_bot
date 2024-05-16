@@ -1,1 +1,1 @@
-from .main import register_all_middlewares
+from .register_middlewares import register_all_middlewares

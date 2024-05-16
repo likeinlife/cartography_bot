@@ -4,12 +4,11 @@ import structlog
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 
-logger = structlog.get_logger()
-
 
 class BlockNonAdminMiddleware(BaseMiddleware):
     def __init__(self, admin_id: int) -> None:
         self.admin_id = admin_id
+        self.logger = structlog.get_logger("blocknonadmin_middleware")
 
     def _is_admin(
         self,

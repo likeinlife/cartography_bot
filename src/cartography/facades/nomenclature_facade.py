@@ -1,6 +1,6 @@
 from typing import Callable
 
-from domain.facades import INomenclatureFacade
+from logic.facades import INomenclatureFacade
 
 from cartography.chain.interfaces import ICoordinateChainLink, INomenclatureTitleChainLink
 from cartography.enums import Scale

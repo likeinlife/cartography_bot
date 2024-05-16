@@ -14,6 +14,7 @@ def calculate_micrometer(
 
     Returns:
         Среднее по верхней, нижней части; коллимационная ошибка, среднее из двух отсчетов
+
     """
     middle_first = (first.left_circle + second.left_circle) / 2
     middle_second = (first.right_circle + second.right_circle) / 2
