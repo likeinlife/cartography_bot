@@ -5,7 +5,7 @@ from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
 from errors import BaseMsgError
 
-from ..mixins import MessageInfo, MessageInfoGetterMixin
+from .mixins import MessageInfo, MessageInfoGetterMixin
 
 
 class ErrorHandlerMiddleware(BaseMiddleware, MessageInfoGetterMixin):

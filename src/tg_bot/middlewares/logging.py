@@ -4,7 +4,7 @@ import structlog
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 
-from ..mixins import MessageInfoGetterMixin
+from .mixins import MessageInfoGetterMixin
 
 
 class LogCommandsMiddleware(BaseMiddleware, MessageInfoGetterMixin):
