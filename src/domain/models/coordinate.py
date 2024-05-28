@@ -1,20 +1,18 @@
+from dataclasses import dataclass
 from decimal import Decimal
 from functools import total_ordering
-from typing import Any
-
-from pydantic import BaseModel, ConfigDict
 
 from .actions import CoordinateActions
 
 
 @total_ordering
-class Coordinate(BaseModel):
-    model_config = ConfigDict(extra="allow")
+@dataclass
+class Coordinate:
     degrees: Decimal
     minutes: Decimal = Decimal(0)
     seconds: Decimal = Decimal(0)
 
-    def model_post_init(self, __context: Any) -> None:
+    def __post_init__(self) -> None:
         self.actions = CoordinateActions(self)
 
     @classmethod

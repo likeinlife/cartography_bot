@@ -1,17 +1,15 @@
-from typing import Any
-
-from pydantic import BaseModel, ConfigDict
+from dataclasses import dataclass
 
 from .actions import CoordinatePairActions
 from .coordinate import Coordinate
 
 
-class CoordinatePair(BaseModel):
-    model_config = ConfigDict(extra="allow")
+@dataclass
+class CoordinatePair:
     latitude: Coordinate
     longitude: Coordinate
 
-    def model_post_init(self, __context: Any) -> None:
+    def __post_init__(self) -> None:
         self.actions = CoordinatePairActions(self)
 
     def to_str(self) -> str:

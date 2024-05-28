@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
 
 from .coordinate_pair import CoordinatePair
 
 
-class Nomenclature(BaseModel):
+@dataclass
+class Nomenclature:
     title: str
     outer_lower_bound: CoordinatePair
     outer_upper_bound: CoordinatePair
