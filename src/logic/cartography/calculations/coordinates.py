@@ -2,9 +2,9 @@ import string
 
 from domain.models import Coordinate, CoordinatePair, Nomenclature
 
-from cartography.constants import FINISH_GEO_ZONE, INIT_GEO_ZONE
-from cartography.errors import NoLatitudeCharError, NoLongitudeIndexError, PartNomenclatureError
-from cartography.types import NomenclatureTitleFormatter
+from logic.cartography.constants import FINISH_GEO_ZONE, INIT_GEO_ZONE
+from logic.cartography.errors import NoLatitudeCharError, NoLongitudeIndexError, PartNomenclatureError
+from logic.cartography.types import NomenclatureTitleFormatter
 
 
 def get_1m_nomenclature(coordinate_pair: CoordinatePair) -> Nomenclature:

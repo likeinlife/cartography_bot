@@ -3,9 +3,9 @@ from typing import Any
 
 from domain.models import Coordinate, CoordinatePair, Nomenclature
 
-from cartography.constants import FINISH_GEO_ZONE, INIT_GEO_ZONE
-from cartography.errors import PartNomenclatureError
-from cartography.types import NomenclatureTitleFormatter
+from logic.cartography.constants import FINISH_GEO_ZONE, INIT_GEO_ZONE
+from logic.cartography.errors import PartNomenclatureError
+from logic.cartography.types import NomenclatureTitleFormatter
 
 
 def get_1m_nomenclature(nomenclature_title: str) -> Nomenclature:

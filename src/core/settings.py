@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-from cartography.types import ImageColorType
+from logic.cartography.types import ImageColorType
 from misc.constants import Color
 from pydantic import Field, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict

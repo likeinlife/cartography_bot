@@ -2,7 +2,7 @@ import abc
 
 from domain.models import CoordinatePair
 
-from cartography.types import ImageType
+from logic.cartography.types import ImageType
 
 
 class IImageGenerator(abc.ABC):

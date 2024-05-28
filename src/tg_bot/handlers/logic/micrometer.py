@@ -4,8 +4,9 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from geodesy.micrometer import calculate_micrometer
-from geodesy.models import MicrometerInput
+from logic.geodesy.micrometer import calculate_micrometer
+from logic.geodesy.models import MicrometerInput
+
 from tg_bot.enums import GeodesyCommandsEnum
 from tg_bot.states import MicrometerState
 

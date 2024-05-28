@@ -3,16 +3,16 @@ from typing import Callable
 from domain.facades import INomenclatureFacade
 from domain.models import CoordinatePair, Nomenclature
 
-from cartography.chain.interfaces import ICoordinateChainLink, INomenclatureTitleChainLink
-from cartography.enums import Scale
-from cartography.image_generator import IImageGenerator
-from cartography.scale_resolver import (
+from logic.cartography.chain.interfaces import ICoordinateChainLink, INomenclatureTitleChainLink
+from logic.cartography.enums import Scale
+from logic.cartography.image_generator import IImageGenerator
+from logic.cartography.scale_resolver import (
     coordinate_chain_link_resolver,
     coordinate_resolver,
     nomenclature_title_chain_link_resolver,
     nomenclature_title_resolver,
 )
-from cartography.types import ImageType
+from logic.cartography.types import ImageType
 
 
 class NomenclatureFacade(INomenclatureFacade):

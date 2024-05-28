@@ -1,10 +1,10 @@
 import re
 
-from cartography.chain.interfaces import INomenclatureTitleChainLink
-from cartography.enums import Scale
-from cartography.errors import InvalidNomenclatureTitleError
-from cartography.scale_resolver import nomenclature_title_chain_link_resolver as chain_link_resolver
-from cartography.types import NomenclatureTitleDictType
+from logic.cartography.chain.interfaces import INomenclatureTitleChainLink
+from logic.cartography.enums import Scale
+from logic.cartography.errors import InvalidNomenclatureTitleError
+from logic.cartography.scale_resolver import nomenclature_title_chain_link_resolver as chain_link_resolver
+from logic.cartography.types import NomenclatureTitleDictType
 
 re_group_resolver = {
     "m1": Scale._1M,

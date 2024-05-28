@@ -1,6 +1,6 @@
-from cartography.chain import nomenclature_title_chain
-from cartography.chain.interfaces import INomenclatureTitleChainLink
-from cartography.enums import Scale
+from logic.cartography.chain import nomenclature_title_chain
+from logic.cartography.chain.interfaces import INomenclatureTitleChainLink
+from logic.cartography.enums import Scale
 
 chain_list: list[type[INomenclatureTitleChainLink]] = [
     nomenclature_title_chain.ChainLink1M,

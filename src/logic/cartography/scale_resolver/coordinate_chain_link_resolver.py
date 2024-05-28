@@ -1,6 +1,6 @@
-from cartography.chain import coordinate_chain
-from cartography.chain.interfaces import ICoordinateChainLink
-from cartography.enums import Scale
+from logic.cartography.chain import coordinate_chain
+from logic.cartography.chain.interfaces import ICoordinateChainLink
+from logic.cartography.enums import Scale
 
 chain_list: list[type[ICoordinateChainLink]] = [
     coordinate_chain.ChainLink1M,

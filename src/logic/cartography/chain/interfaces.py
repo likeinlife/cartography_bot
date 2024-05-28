@@ -1,18 +1,16 @@
-from __future__ import annotations
-
 import abc
 
 from domain.models import CoordinatePair, Nomenclature
 
-from cartography.enums import Scale
-from cartography.types import NomenclatureTitleDictType, NomenclatureTitleFormatter
+from logic.cartography.enums import Scale
+from logic.cartography.types import NomenclatureTitleDictType, NomenclatureTitleFormatter
 
 
 class ICoordinateChainLink(abc.ABC):
     """Nomenclature chain for current scale."""
 
-    previous_link: type[ICoordinateChainLink]
-    outbound_class: type[ICoordinateChainLink]
+    previous_link: type["ICoordinateChainLink"]
+    outbound_class: type["ICoordinateChainLink"]
     scale: Scale
     name: str
     parts: int
@@ -31,8 +29,8 @@ class ICoordinateChainLink(abc.ABC):
 class INomenclatureTitleChainLink(abc.ABC):
     """Nomenclature chain for current scale."""
 
-    previous_link: type[INomenclatureTitleChainLink]
-    outbound_class: type[INomenclatureTitleChainLink]
+    previous_link: type["INomenclatureTitleChainLink"]
+    outbound_class: type["INomenclatureTitleChainLink"]
     scale: Scale
     name: str
     parts: int

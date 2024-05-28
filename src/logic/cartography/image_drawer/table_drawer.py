@@ -3,7 +3,7 @@ from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
 
-from cartography.types import ImageColorType
+from logic.cartography.types import ImageColorType
 
 
 def draw_table(

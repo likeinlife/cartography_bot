@@ -4,8 +4,8 @@ from pathlib import Path
 from domain.models import CoordinatePair
 from PIL import Image
 
-from cartography.image_drawer import draw_labels, draw_table
-from cartography.types import ImageColorType, ImageType
+from logic.cartography.image_drawer import draw_labels, draw_table
+from logic.cartography.types import ImageColorType, ImageType
 
 from .interface import IImageGenerator
 

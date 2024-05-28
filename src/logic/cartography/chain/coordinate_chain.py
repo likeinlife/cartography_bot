@@ -1,35 +1,34 @@
-from domain.models import Nomenclature
+from domain.models import CoordinatePair, Nomenclature
 
-from cartography import constants
-from cartography.calculations.nomenclature_title import get_1m_nomenclature, get_nomenclature_by_parts
-from cartography.enums import Scale
-from cartography.types import NomenclatureTitleDictType
+from logic.cartography import constants
+from logic.cartography.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
+from logic.cartography.enums import Scale
 
-from .interfaces import INomenclatureTitleChainLink
+from .interfaces import ICoordinateChainLink
 
 
-class BaseNomenclatureTitleChainLink(INomenclatureTitleChainLink):
+class BaseCoordinateChainLink(ICoordinateChainLink):
     title_formatter = lambda x, y: f"{x}-{y}"
 
     @classmethod
     def resolve(
         cls,
-        nomenclature_dict: NomenclatureTitleDictType,
+        coordinate_pair: CoordinatePair,
     ) -> dict[Scale, Nomenclature]:
-        previous = cls.previous_link.resolve(nomenclature_dict)
+        previous = cls.previous_link.resolve(coordinate_pair)
         this = {
             cls.scale: get_nomenclature_by_parts(
-                needed_nomenclature_title=nomenclature_dict[cls.scale],
+                coordinate_pair=coordinate_pair,
                 parts_number=cls.parts,
                 previous_nomenclature=previous[cls.outbound_class.scale],
                 alphabet=cls.alphabet,
-                nomenclature_title_formatter=cls.title_formatter,
+                title_formatter=cls.title_formatter,
             )
         }
         return previous | this
 
 
-class ChainLink1M(BaseNomenclatureTitleChainLink):
+class ChainLink1M(BaseCoordinateChainLink):
     previous_link = None  # type: ignore
     scale = Scale._1M
     alphabet = None  # type: ignore
@@ -40,12 +39,12 @@ class ChainLink1M(BaseNomenclatureTitleChainLink):
     @classmethod
     def resolve(
         cls,
-        nomenclature_dict: NomenclatureTitleDictType,
+        coordinate_pair: CoordinatePair,
     ) -> dict[Scale, Nomenclature]:
-        return {cls.scale: get_1m_nomenclature(nomenclature_title=nomenclature_dict[cls.scale])}
+        return {cls.scale: get_1m_nomenclature(coordinate_pair)}
 
 
-class ChainLink500K(BaseNomenclatureTitleChainLink):
+class ChainLink500K(BaseCoordinateChainLink):
     previous_link = ChainLink1M
     scale = Scale._500K
     alphabet = constants.UPPER_ALPHA
@@ -54,8 +53,8 @@ class ChainLink500K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink1M
 
 
-class ChainLink300K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink1M
+class ChainLink300K(BaseCoordinateChainLink):
+    previous_link = ChainLink500K
     scale = Scale._300K
     alphabet = constants.ROMAN
     parts = 3
@@ -64,8 +63,8 @@ class ChainLink300K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink1M
 
 
-class ChainLink200K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink1M
+class ChainLink200K(BaseCoordinateChainLink):
+    previous_link = ChainLink300K
     scale = Scale._200K
     alphabet = constants.ROMAN_EXTENDED
     parts = 6
@@ -73,8 +72,8 @@ class ChainLink200K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink1M
 
 
-class ChainLink100K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink1M
+class ChainLink100K(BaseCoordinateChainLink):
+    previous_link = ChainLink200K
     scale = Scale._100K
     parts = 12
     alphabet = [str(i) for i in range(1, parts**2 + 1)]
@@ -82,7 +81,7 @@ class ChainLink100K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink1M
 
 
-class ChainLink50K(BaseNomenclatureTitleChainLink):
+class ChainLink50K(BaseCoordinateChainLink):
     previous_link = ChainLink100K
     scale = Scale._50K
     alphabet = constants.UPPER_ALPHA
@@ -91,7 +90,7 @@ class ChainLink50K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink100K
 
 
-class ChainLink25K(BaseNomenclatureTitleChainLink):
+class ChainLink25K(BaseCoordinateChainLink):
     previous_link = ChainLink50K
     scale = Scale._25K
     alphabet = constants.LOWER_ALPHA
@@ -100,7 +99,7 @@ class ChainLink25K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink50K
 
 
-class ChainLink10K(BaseNomenclatureTitleChainLink):
+class ChainLink10K(BaseCoordinateChainLink):
     previous_link = ChainLink25K
     scale = Scale._10K
     parts = 2
@@ -109,8 +108,8 @@ class ChainLink10K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink25K
 
 
-class ChainLink5K(BaseNomenclatureTitleChainLink):
-    previous_link = ChainLink100K
+class ChainLink5K(BaseCoordinateChainLink):
+    previous_link = ChainLink10K
     scale = Scale._5K
     parts = 16
     alphabet = [str(i) for i in range(1, parts**2 + 1)]
@@ -119,7 +118,7 @@ class ChainLink5K(BaseNomenclatureTitleChainLink):
     outbound_class = ChainLink100K
 
 
-class ChainLink2K(BaseNomenclatureTitleChainLink):
+class ChainLink2K(BaseCoordinateChainLink):
     previous_link = ChainLink5K
     scale = Scale._2K
     alphabet = constants.LOWER_ALPHA_EXTENDED

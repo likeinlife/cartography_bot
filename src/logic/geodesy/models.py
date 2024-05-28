@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import textwrap
 
 from pydantic import BaseModel
@@ -10,7 +8,7 @@ class MicrometerInput(BaseModel):
     right_circle: float
 
     @classmethod
-    def from_str(cls, value: str) -> MicrometerInput:
+    def from_str(cls, value: str) -> "MicrometerInput":
         left_circle, right_circle = map(float, value.split(" "))
         return cls(left_circle=left_circle, right_circle=right_circle)
 

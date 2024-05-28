@@ -1,5 +1,5 @@
-from cartography.chain import coordinate_chain
-from cartography.chain.interfaces import ICoordinateChainLink
+from logic.cartography.chain import coordinate_chain
+from logic.cartography.chain.interfaces import ICoordinateChainLink
 
 table: dict[int, type[ICoordinateChainLink]] = {
     1: coordinate_chain.ChainLink1M,
