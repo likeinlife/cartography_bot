@@ -14,6 +14,9 @@ class CoordinatePair(BaseModel):
     def model_post_init(self, __context: Any) -> None:
         self.actions = CoordinatePairActions(self)
 
+    def to_str(self) -> str:
+        return self.actions.to_str()
+
     def __eq__(self, other: "CoordinatePair") -> bool:  # type: ignore
         return self.latitude == other.latitude and self.longitude == other.longitude
 
