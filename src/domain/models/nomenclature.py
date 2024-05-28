@@ -1,17 +1,6 @@
-from decimal import Decimal
-
 from pydantic import BaseModel
 
-
-class Coordinate(BaseModel):
-    degrees: Decimal
-    minutes: Decimal = Decimal(0)
-    seconds: Decimal = Decimal(0)
-
-
-class CoordinatePair(BaseModel):
-    latitude: Coordinate
-    longitude: Coordinate
+from .coordinate_pair import CoordinatePair
 
 
 class Nomenclature(BaseModel):
