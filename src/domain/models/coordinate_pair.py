@@ -16,3 +16,6 @@ class CoordinatePair(BaseModel):
 
     def __eq__(self, other: "CoordinatePair") -> bool:  # type: ignore
         return self.latitude == other.latitude and self.longitude == other.longitude
+
+    def __str__(self) -> str:
+        return self.actions.to_str()

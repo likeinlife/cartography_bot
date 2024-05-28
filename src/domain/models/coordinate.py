@@ -23,6 +23,10 @@ class Coordinate(BaseModel):
         minutes, remaining_seconds = divmod(remaining_seconds, 60)
         return cls(degrees=degrees, minutes=minutes, seconds=remaining_seconds)
 
+    @classmethod
+    def from_tuple(cls, degrees: int, minutes: int = 0, seconds: float | str = 0) -> "Coordinate":
+        return cls(degrees=Decimal(degrees), minutes=Decimal(minutes), seconds=Decimal(seconds))
+
     def to_seconds(self) -> Decimal:
         return self.degrees * 3600 + self.minutes * 60 + self.seconds
 
@@ -46,3 +50,6 @@ class Coordinate(BaseModel):
 
     def __eq__(self, other: "Coordinate") -> bool:  # type: ignore
         return self.actions.equal(other)
+
+    def __str__(self) -> str:
+        return self.actions.to_str()
