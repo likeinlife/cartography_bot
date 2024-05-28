@@ -1,11 +1,10 @@
 import string
 from typing import Any
 
-from domain.models import CoordinatePair, Nomenclature
-from misc import from_tuple
+from domain.models import Coordinate, CoordinatePair, Nomenclature
 
+from cartography.constants import FINISH_GEO_ZONE, INIT_GEO_ZONE
 from cartography.errors import PartNomenclatureError
-from cartography.math_actions import coordinate_actions
 from cartography.types import NomenclatureTitleFormatter
 
 
@@ -14,30 +13,32 @@ def get_1m_nomenclature(nomenclature_title: str) -> Nomenclature:
     first_part = nomenclature_title.split("-")
     alphabet = string.ascii_uppercase
 
+    latitude_step = 4
     for index, char in enumerate(alphabet):
         if char == first_part[0]:
-            lower_latitude = from_tuple(index * 4)
-            upper_latitude = from_tuple(4 * (index + 1))
+            lower_latitude = Coordinate.from_tuple(index * latitude_step)
+            upper_latitude = Coordinate.from_tuple(latitude_step * (index + 1))
             break
 
+    longitude_step = 6
     longitude_index = int(first_part[1])
-    for this_index in range(30, 61):
+    for this_index in range(INIT_GEO_ZONE, FINISH_GEO_ZONE):
         if this_index == longitude_index:
-            this_index -= 31
-            lower_longitude = from_tuple(this_index * 6)
-            upper_longitude = from_tuple(6 * (this_index + 1))
+            this_index -= INIT_GEO_ZONE + 1
+            lower_longitude = Coordinate.from_tuple(this_index * longitude_step)
+            upper_longitude = Coordinate.from_tuple(longitude_step * (this_index + 1))
             break
 
     lower_bound = CoordinatePair(latitude=lower_latitude, longitude=lower_longitude)
     upper_bound = CoordinatePair(latitude=upper_latitude, longitude=upper_longitude)
 
     outer_lower_bound = CoordinatePair(
-        latitude=from_tuple(0),
-        longitude=from_tuple(0),
+        latitude=Coordinate.from_tuple(0),
+        longitude=Coordinate.from_tuple(0),
     )
     outer_upper_bound = CoordinatePair(
-        latitude=from_tuple(0),
-        longitude=from_tuple(0),
+        latitude=Coordinate.from_tuple(0),
+        longitude=Coordinate.from_tuple(0),
     )
     return Nomenclature(
         lower_bound=lower_bound,
@@ -60,6 +61,7 @@ def get_nomenclature_by_parts(
 
     Args:
         needed_nomenclature_title: needed part. Example: `Б`, `2`, 'б'
+
     """
 
     def _is_needed_part(part: Any) -> bool:
@@ -70,25 +72,17 @@ def get_nomenclature_by_parts(
 
     initial_longitude = lower_longitude
 
-    latitude_delta = coordinate_actions.divide(
-        coordinate_actions.minus(
-            previous_nomenclature.upper_bound.latitude,
-            previous_nomenclature.lower_bound.latitude,
-        ),
-        parts_number,
-    )
-    longitude_delta = coordinate_actions.divide(
-        coordinate_actions.minus(
-            previous_nomenclature.upper_bound.longitude,
-            previous_nomenclature.lower_bound.longitude,
-        ),
-        parts_number,
-    )
+    latitude_delta = (
+        previous_nomenclature.upper_bound.latitude - previous_nomenclature.lower_bound.latitude
+    ) / parts_number
+    longitude_delta = (
+        previous_nomenclature.upper_bound.longitude - previous_nomenclature.lower_bound.longitude
+    ) / parts_number
 
     for iteration, part in enumerate(alphabet, start=1):
         if _is_needed_part(part):
-            lower_latitude = coordinate_actions.minus(upper_latitude, latitude_delta)
-            upper_longitude = coordinate_actions.plus(lower_longitude, longitude_delta)
+            lower_latitude = upper_latitude - latitude_delta
+            upper_longitude = lower_longitude + longitude_delta
             nomenclature_title = nomenclature_title_formatter(previous_nomenclature.title, needed_nomenclature_title)
             upper_bound = CoordinatePair(latitude=upper_latitude, longitude=upper_longitude)
             lower_bound = CoordinatePair(latitude=lower_latitude, longitude=lower_longitude)
@@ -102,9 +96,9 @@ def get_nomenclature_by_parts(
             )
 
         if iteration % (parts_number) == 0:
-            upper_latitude = coordinate_actions.minus(upper_latitude, latitude_delta)
+            upper_latitude = upper_latitude - latitude_delta
             lower_longitude = initial_longitude
         else:
-            lower_longitude = coordinate_actions.plus(lower_longitude, longitude_delta)
+            lower_longitude = lower_longitude + longitude_delta
 
     raise PartNomenclatureError(needed_nomenclature_title)
