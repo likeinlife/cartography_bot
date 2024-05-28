@@ -1,13 +1,4 @@
 import pytest
-from cartography.math_actions.coordinate_actions import (
-    between,
-    divide,
-    get_middle,
-    get_middle_list,
-    minus,
-    multiply,
-    plus,
-)
 from misc import from_tuple
 
 
@@ -27,7 +18,7 @@ from misc import from_tuple
     ],
 )
 def test_plus(first, second, expected):
-    assert plus(first, second) == expected
+    assert first + second == expected
 
 
 @pytest.mark.parametrize(
@@ -46,7 +37,7 @@ def test_plus(first, second, expected):
     ],
 )
 def test_minus(first, second, expected):
-    assert minus(first, second) == expected
+    assert first - second == expected
 
 
 @pytest.mark.parametrize(
@@ -65,7 +56,7 @@ def test_minus(first, second, expected):
     ],
 )
 def test_multiply(first, second, expected):
-    assert multiply(first, second) == expected
+    assert first * second == expected
 
 
 @pytest.mark.parametrize(
@@ -84,7 +75,7 @@ def test_multiply(first, second, expected):
     ],
 )
 def test_divide(first, second, expected):
-    assert divide(first, second) == expected
+    assert first / second == expected
 
 
 @pytest.mark.parametrize(
@@ -105,7 +96,7 @@ def test_divide(first, second, expected):
     ],
 )
 def test_between(left, this, right, expected):
-    assert between(left, this, right) == expected
+    assert this.actions.between(left, right) == expected
 
 
 @pytest.mark.parametrize(
@@ -119,7 +110,7 @@ def test_between(left, this, right, expected):
     ],
 )
 def test_get_middle(left, right, expected):
-    assert get_middle(left, right) == expected
+    assert left.actions.get_middle(right) == expected
 
 
 @pytest.mark.parametrize(
@@ -138,4 +129,4 @@ def test_get_middle(left, right, expected):
     ],
 )
 def test_get_middle_list(left, right, parts, expected):
-    assert get_middle_list(left, right, parts) == expected
+    assert left.actions.get_middle_list(right, parts) == expected

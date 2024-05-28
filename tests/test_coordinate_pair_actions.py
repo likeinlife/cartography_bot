@@ -1,5 +1,4 @@
 import pytest
-from cartography.math_actions.coordinate_pair_actions import get_delta
 from domain.models import CoordinatePair
 from misc import from_tuple
 
@@ -22,4 +21,4 @@ from misc import from_tuple
     ],
 )
 def test_get_delta(upper_bound, lower_bound, parts_number, expected):
-    assert get_delta(upper_bound, lower_bound, parts_number) == expected
+    assert lower_bound.actions.get_delta(upper_bound, parts_number) == expected

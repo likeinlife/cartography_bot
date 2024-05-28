@@ -3,7 +3,6 @@ from pathlib import Path
 from domain.models import Coordinate
 from PIL import Image, ImageDraw, ImageFont
 
-from cartography.math_actions import coordinate_actions
 from cartography.types import ImageColorType
 
 
@@ -51,14 +50,14 @@ def draw_labels(
         x = padding + column_label_number * x_delta
         y = img.size[1] - padding + bottom_label_offset
 
-        box = img_draw.textbbox((x, y), coordinate_actions.to_str(value), pil_font, "ms")
+        box = img_draw.textbbox((x, y), value.to_str(), pil_font, "ms")
 
         text_img = Image.new("RGBA", (box[2] - box[0], font_size + 1), (0, 0, 0, 0))
         text_draw = ImageDraw.Draw(text_img)
 
         text_x_size, _ = text_img.size
 
-        text_draw.text((0, 0), coordinate_actions.to_str(value), text_color, pil_font)
+        text_draw.text((0, 0), value.to_str(), text_color, pil_font)
         text_img = text_img.rotate(text_angle, expand=True)
 
         img.paste(text_img, (x - text_x_size // 4, y), text_img)
@@ -68,14 +67,14 @@ def draw_labels(
         x = img.size[0] - padding + right_label_offset
         y = padding + row_label_number * y_delta
 
-        box = img_draw.textbbox((x, y), coordinate_actions.to_str(value), pil_font, "ls")
+        box = img_draw.textbbox((x, y), value.to_str(), pil_font, "ls")
 
         text_img = Image.new("RGBA", (box[2] - box[0], font_size + 1), (0, 0, 0, 0))
         text_draw = ImageDraw.Draw(text_img)
 
         text_x_size, _ = text_img.size
 
-        text_draw.text((0, 0), coordinate_actions.to_str(value), text_color, pil_font)
+        text_draw.text((0, 0), value.to_str(), text_color, pil_font)
         text_img = text_img.rotate(text_angle, expand=True)
 
         img.paste(text_img, (x, y - text_x_size // 4), text_img)

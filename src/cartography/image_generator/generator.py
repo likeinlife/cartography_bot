@@ -5,7 +5,6 @@ from domain.models import CoordinatePair
 from PIL import Image
 
 from cartography.image_drawer import draw_labels, draw_table
-from cartography.math_actions import coordinate_actions
 from cartography.types import ImageColorType, ImageType
 
 from .interface import IImageGenerator
@@ -63,8 +62,8 @@ class ImageGenerator(IImageGenerator):
             padding=self.padding,
             text_color=self.text_color,
         )
-        x_values = coordinate_actions.get_middle_list(lower_bound.longitude, upper_bound.longitude, parts)
-        y_values = coordinate_actions.get_middle_list(lower_bound.latitude, upper_bound.latitude, parts)
+        x_values = lower_bound.longitude.actions.get_middle_list(upper_bound.longitude, parts)
+        y_values = lower_bound.latitude.actions.get_middle_list(upper_bound.latitude, parts)
         y_values.reverse()
 
         draw_labels(

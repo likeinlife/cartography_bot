@@ -3,8 +3,8 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from cartography.math_actions import coordinate_actions
 from misc import decorators
+
 from tg_bot.enums.commands import CartographyCommandsEnum
 from tg_bot.states import GetMiddle
 
@@ -58,6 +58,6 @@ async def handle_middle(message: Message, data: dict[str, str]):
     part_number = int(data[Data.part_number])
     first = misc.generate_coordinate_from_string(data[Data.first])
     second = misc.generate_coordinate_from_string(data[Data.second])
-    answer = coordinate_actions.get_middle_list(first, second, part_number)
-    answer_text = "\n".join([coordinate_actions.to_str(i) for i in answer])
+    answer = first.actions.get_middle_list(second, part_number)
+    answer_text = "\n".join([i.to_str() for i in answer])
     await message.answer(answer_text)
