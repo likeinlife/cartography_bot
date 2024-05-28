@@ -1,30 +1,45 @@
-from typing import Any
+from dataclasses import dataclass
 
-from errors import BaseMsgError
-
-
-class AdditionalInputMixin(BaseMsgError):
-    msg: str
-
-    def __init__(self, info: Any) -> None:
-        self.msg = self.msg + f": {info}"
+from domain.errors import BaseError
 
 
-class PartNomenclatureError(AdditionalInputMixin):
-    msg = "Некорректная часть номенклатуры"
+class CartographyError(BaseError):
+    @property
+    def msg(self) -> str:
+        return "Cartography error"
 
 
-class InvalidLatitudeOrLongitude(AdditionalInputMixin):
-    msg = "Некорректные координаты"
+@dataclass
+class PartNomenclatureError(CartographyError):
+    part: str
+
+    @property
+    def msg(self) -> str:
+        return f"Некорректная часть номенклатуры: {self.part}"
 
 
-class NoLatitudeCharError(AdditionalInputMixin):
-    msg = "Некорректная широта"
+@dataclass
+class NoLatitudeCharError(CartographyError):
+    latitude: str
+
+    @property
+    def msg(self) -> str:
+        return f"Некорректная широта: {self.latitude}"
 
 
-class NoLongitudeIndexError(AdditionalInputMixin):
-    msg = "Некорректная долгота"
+@dataclass
+class NoLongitudeIndexError(CartographyError):
+    longitude: str
+
+    @property
+    def msg(self) -> str:
+        return f"Некорректная долгота: {self.longitude}"
 
 
-class InvalidNomenclatureTitleError(AdditionalInputMixin):
-    msg = "Некорректная номенклатура"
+@dataclass
+class InvalidNomenclatureTitleError(CartographyError):
+    nomenclature: str
+
+    @property
+    def msg(self) -> str:
+        return f"Некорректная номенклатура: {self.nomenclature}"

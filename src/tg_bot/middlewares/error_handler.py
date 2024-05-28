@@ -3,7 +3,7 @@ from typing import Any, Awaitable, Callable, Dict
 import structlog
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
-from errors import BaseMsgError
+from domain.errors import BaseError
 
 from .mixins import MessageInfo, MessageInfoGetterMixin
 
@@ -23,12 +23,12 @@ class ErrorHandlerMiddleware(BaseMiddleware, MessageInfoGetterMixin):
         except Exception as e:
             error = e
         message_info = self._get_message_info(event)
-        if isinstance(error, BaseMsgError):
+        if isinstance(error, BaseError):
             await self._process_msg_error(error, event, message_info)
         else:
             await self._process_unexpected_error(error, event, message_info)
 
-    async def _process_msg_error(self, error: BaseMsgError, event: TelegramObject, message_info: MessageInfo):
+    async def _process_msg_error(self, error: BaseError, event: TelegramObject, message_info: MessageInfo):
         if not message_info.user:
             self.logger.error("No user info", error=error.msg)
             return
