@@ -1,11 +1,11 @@
 from io import BytesIO
 from pathlib import Path
 
+from domain.models import CoordinatePair
 from PIL import Image
 
 from cartography.image_drawer import draw_labels, draw_table
 from cartography.math_actions import coordinate_actions
-from cartography.models import CoordinatePair
 from cartography.types import ImageColorType, ImageType
 
 from .interface import IImageGenerator

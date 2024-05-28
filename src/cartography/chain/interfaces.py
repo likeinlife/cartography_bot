@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import abc
 
+from domain.models import CoordinatePair, Nomenclature
+
 from cartography.enums import Scale
-from cartography.models import CoordinatePair, Nomenclature
 from cartography.types import NomenclatureTitleDictType, NomenclatureTitleFormatter
 
 

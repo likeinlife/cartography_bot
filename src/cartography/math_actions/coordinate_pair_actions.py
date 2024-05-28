@@ -1,4 +1,4 @@
-from cartography.models import CoordinatePair
+from domain.models import CoordinatePair
 
 from .coordinate_actions import divide, minus
 from .coordinate_actions import to_str as coordinate_to_str

@@ -1,6 +1,6 @@
 from decimal import Decimal as _
 
-from cartography.models import Coordinate
+from domain.models import Coordinate
 
 
 def generate_roman_number(number: int) -> str:

@@ -1,4 +1,4 @@
-from cartography.models import CoordinatePair
+from domain.models import CoordinatePair
 from misc import from_tuple
 
 

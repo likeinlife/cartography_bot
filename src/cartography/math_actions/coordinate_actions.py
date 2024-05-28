@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from cartography.models import Coordinate
+from domain.models import Coordinate
 
 
 def _transform_to_coordinate(seconds: Decimal) -> Coordinate:

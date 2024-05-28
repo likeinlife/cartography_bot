@@ -1,11 +1,11 @@
 import string
 from typing import Any
 
+from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple
 
 from cartography.errors import PartNomenclatureError
 from cartography.math_actions import coordinate_actions
-from cartography.models import CoordinatePair, Nomenclature
 from cartography.types import NomenclatureTitleFormatter
 
 

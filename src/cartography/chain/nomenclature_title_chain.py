@@ -1,7 +1,8 @@
+from domain.models import Nomenclature
+
 from cartography import constants
 from cartography.calculations.nomenclature_title import get_1m_nomenclature, get_nomenclature_by_parts
 from cartography.enums import Scale
-from cartography.models import Nomenclature
 from cartography.types import NomenclatureTitleDictType
 
 from .interfaces import INomenclatureTitleChainLink

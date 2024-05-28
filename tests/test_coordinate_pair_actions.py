@@ -1,6 +1,6 @@
 import pytest
 from cartography.math_actions.coordinate_pair_actions import get_delta
-from cartography.models import CoordinatePair
+from domain.models import CoordinatePair
 from misc import from_tuple
 
 

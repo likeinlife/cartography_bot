@@ -1,7 +1,7 @@
 import pytest
 from cartography.enums import Scale
-from cartography.models import CoordinatePair, Nomenclature
 from cartography.scale_resolver import nomenclature_title_resolver
+from domain.models import CoordinatePair, Nomenclature
 from misc import from_tuple
 
 from .test_helper import generate_random_bound

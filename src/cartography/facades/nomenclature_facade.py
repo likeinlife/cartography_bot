@@ -1,11 +1,11 @@
 from typing import Callable
 
 from domain.facades import INomenclatureFacade
+from domain.models import CoordinatePair, Nomenclature
 
 from cartography.chain.interfaces import ICoordinateChainLink, INomenclatureTitleChainLink
 from cartography.enums import Scale
 from cartography.image_generator import IImageGenerator
-from cartography.models import CoordinatePair, Nomenclature
 from cartography.scale_resolver import (
     coordinate_chain_link_resolver,
     coordinate_resolver,

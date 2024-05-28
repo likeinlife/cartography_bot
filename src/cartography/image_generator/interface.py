@@ -1,6 +1,7 @@
 import abc
 
-from cartography.models import CoordinatePair
+from domain.models import CoordinatePair
+
 from cartography.types import ImageType
 
 

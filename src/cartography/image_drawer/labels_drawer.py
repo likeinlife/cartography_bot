@@ -1,9 +1,9 @@
 from pathlib import Path
 
+from domain.models import Coordinate
 from PIL import Image, ImageDraw, ImageFont
 
 from cartography.math_actions import coordinate_actions
-from cartography.models import Coordinate
 from cartography.types import ImageColorType
 
 
