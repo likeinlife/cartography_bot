@@ -5,6 +5,8 @@ from .coordinate_pair import CoordinatePair
 
 @dataclass
 class Nomenclature:
+    """Nomenclature for table generation."""
+
     title: str
     outer_lower_bound: CoordinatePair
     outer_upper_bound: CoordinatePair

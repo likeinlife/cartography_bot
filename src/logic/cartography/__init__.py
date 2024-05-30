@@ -5,8 +5,8 @@ Facades use cases:
 
     >>> images = NomenclatureFacade.generate_from_coordinates(
         coordinate_pair=CoordinatePair(
-            latitude=from_tuple(50, 54, 55),
-            longitude=from_tuple(67, 19, 48),
+            latitude=Coordinate.from_tuple(50, 54, 55),
+            longitude=Coordinate.from_tuple(67, 19, 48),
         ),
         needed_scale=10,
     )

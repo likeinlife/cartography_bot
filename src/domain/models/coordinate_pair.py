@@ -6,6 +6,8 @@ from .coordinate import Coordinate
 
 @dataclass
 class CoordinatePair:
+    """Pair of geographical coordinates."""
+
     latitude: Coordinate
     longitude: Coordinate
 

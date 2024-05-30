@@ -8,6 +8,8 @@ from .actions import CoordinateActions
 @total_ordering
 @dataclass
 class Coordinate:
+    """Represents a geographical coordinate."""
+
     degrees: Decimal
     minutes: Decimal = Decimal(0)
     seconds: Decimal = Decimal(0)
