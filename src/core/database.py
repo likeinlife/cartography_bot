@@ -1,6 +1,9 @@
-async def healthcheck(database_url: str) -> None:
-    from psycopg import AsyncConnection
+import sqlalchemy as sa
+from sqlalchemy.ext.asyncio import async_sessionmaker
+from sqlalchemy.ext.asyncio.session import AsyncSession
 
-    async with await AsyncConnection.connect(database_url) as conn:
-        async with conn.cursor() as cursor:
-            await cursor.execute("SELECT 1")
+
+async def healthcheck(sessionmaker: async_sessionmaker[AsyncSession]) -> None:
+
+    async with sessionmaker() as session:
+        await session.execute(sa.text("SELECT 2"))

@@ -1,13 +1,15 @@
 import asyncio
 
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+
 import core.logger_setup as logger_setup
-from tg_bot.main import run as run_bot
 from container import create_container
 from core.database import healthcheck
 from core.settings import Config
-from domain.analytics.service import IAnalyticsService
 from domain.analytics.repository import IAnalyticsRepository
+from domain.analytics.service import IAnalyticsService
 from logic.analytics.service import AnalyticsService
+from tg_bot.main import run as run_bot
 
 
 async def run() -> None:
@@ -19,7 +21,7 @@ async def run() -> None:
     if app_settings.analytics_enabled:
         if not app_settings.database_url:
             raise RuntimeError("DATABASE_URL must be set when ANALYTICS_ENABLED=True")
-        await healthcheck(app_settings.database_url)
+        await healthcheck(await container.get(async_sessionmaker[AsyncSession]))
         analytics_repository = await container.get(IAnalyticsRepository)
         analytics_service = AnalyticsService(
             analytics_repository=analytics_repository,
