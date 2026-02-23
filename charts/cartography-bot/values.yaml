@@ -36,6 +36,16 @@ tolerations: []
 
 affinity: {}
 
+migrations:
+  enabled: true
+  command:
+    - alembic
+    - -c
+    - alembic/alembic.ini
+    - upgrade
+    - head
+  resources: {}
+
 env:
   devMode: true
   loggingLevel: "DEBUG"

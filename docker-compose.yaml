@@ -1,4 +1,16 @@
 services:
+  migrations:
+    build: .
+    restart: "no"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://postgres:postgres@postgres:5432/cartography_bot}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["alembic", "-c", "alembic/alembic.ini", "upgrade", "head"]
+
   tg_bot:
     build: .
     restart: unless-stopped
@@ -7,6 +19,8 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://postgres:postgres@postgres:5432/cartography_bot}
     depends_on:
+      migrations:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
 
