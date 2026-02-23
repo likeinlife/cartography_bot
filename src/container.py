@@ -1,13 +1,7 @@
-import core.logger_setup as logger_setup
-from dependency_injector import providers
-from dependency_injector.containers import DeclarativeContainer
-from domain.analytics import IAnalyticsRepository, IAnalyticsService
 from dishka import Provider, Scope, make_async_container, provide
 from dishka.integrations.aiogram import AiogramProvider
 from core.settings import ImageConfig
 from domain.facades import INomenclatureFacade
-from logic.analytics import AnalyticsService
-from logic.analytics.repositories import PsycopgAnalyticsRepository
 from logic.cartography.facades import NomenclatureFacade
 from logic.cartography.image_generator import IImageGenerator, ImageGenerator
 
@@ -42,14 +36,4 @@ def create_container(image_settings: ImageConfig):
     return make_async_container(
         AppProvider(image_settings=image_settings),
         AiogramProvider(),
-    )
-
-    analytics_repository: providers.Singleton[IAnalyticsRepository] = providers.Singleton(
-        PsycopgAnalyticsRepository,
-        database_url=settings.database_url,
-    )
-    analytics_service: providers.Singleton[IAnalyticsService] = providers.Singleton(
-        AnalyticsService,
-        analytics_repository=analytics_repository,
-        source=settings.analytics_source,
     )

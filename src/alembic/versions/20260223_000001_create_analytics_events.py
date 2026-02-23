@@ -1,4 +1,5 @@
-"""create analytics events table
+"""
+create analytics events table
 
 Revision ID: 20260223_000001
 Revises:
@@ -47,7 +48,9 @@ def upgrade() -> None:
         ["callback_data", "created_at"],
         unique=False,
     )
-    op.create_index("ix_analytics_events_user_id_created_at", "analytics_events", ["user_id", "created_at"], unique=False)
+    op.create_index(
+        "ix_analytics_events_user_id_created_at", "analytics_events", ["user_id", "created_at"], unique=False
+    )
 
 
 def downgrade() -> None:

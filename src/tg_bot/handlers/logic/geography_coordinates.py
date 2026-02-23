@@ -31,7 +31,6 @@ async def by_coordinates_handler(message: Message, state: FSMContext):
 
 
 @router.message(ByCoordinatesImages.enter_first_coordinates)
-
 async def enter_latitude_handler(message: Message, state: FSMContext):
     match await validators.validate_degrees_min_sec(message):
         case Err(_):

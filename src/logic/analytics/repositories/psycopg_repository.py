@@ -1,15 +1,13 @@
+from psycopg import AsyncConnection
+
 from domain.analytics import AnalyticsEventCreate, IAnalyticsRepository
 
 
 class PsycopgAnalyticsRepository(IAnalyticsRepository):
-    def __init__(self, database_url: str | None):
+    def __init__(self, database_url: str):
         self.database_url = database_url
 
     async def save_event(self, event: AnalyticsEventCreate) -> None:
-        if not self.database_url:
-            raise RuntimeError("DATABASE_URL is not configured")
-        from psycopg import AsyncConnection
-
         query = """
         INSERT INTO analytics_events (
             source,

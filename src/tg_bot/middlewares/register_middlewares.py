@@ -13,7 +13,7 @@ def register_all_middlewares(
     dev_mode: bool,
     admin_id: int,
     analytics_enabled: bool,
-    analytics_service: IAnalyticsService,
+    analytics_service: IAnalyticsService | None,
 ) -> None:
     if dev_mode:
         dp.message.middleware(BlockNonAdminMiddleware(admin_id))
@@ -26,6 +26,6 @@ def register_all_middlewares(
     dp.message.middleware(ErrorHandlerMiddleware())
     dp.callback_query.middleware(ErrorHandlerMiddleware())
 
-    if analytics_enabled:
+    if analytics_enabled and analytics_service:
         dp.message.middleware(AnalyticsMiddleware(analytics_service))
         dp.callback_query.middleware(AnalyticsMiddleware(analytics_service))

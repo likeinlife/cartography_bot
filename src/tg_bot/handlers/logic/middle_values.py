@@ -49,9 +49,7 @@ async def middle_parts_coordinate_handler(message: Message, state: FSMContext):
     if message.text and message.text.isnumeric():
         parts = int(message.text)
     else:
-        await message.answer(
-            "Некорректный ввод. Ожидается целое число до 50."
-        )
+        await message.answer("Некорректный ввод. Ожидается целое число до 50.")
         return
     if parts > 50:
         return await message.answer(
