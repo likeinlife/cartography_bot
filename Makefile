@@ -8,4 +8,4 @@ down-docker:
 	docker compose down -v
 
 freeze:
-	uv export --no-hashes > requirements.txt
+	uv export --no-hashes -o requirements.txt --no-editable --no-emit-project > requirements.txt
