@@ -45,6 +45,7 @@ class ImageConfig(BaseSettings):
     font_path: Path = Field(app_settings.static_path / Path("font.otf"))
 
     @computed_field
+    @property
     def resolution(self) -> tuple[int, int]:
         return self.width, self.height
 

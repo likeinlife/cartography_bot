@@ -22,8 +22,7 @@ class ICoordinateChainLink(abc.ABC):
     def resolve(
         cls,
         coordinate_pair: CoordinatePair,
-    ) -> dict[Scale, Nomenclature]:
-        ...
+    ) -> dict[Scale, Nomenclature]: ...
 
 
 class INomenclatureTitleChainLink(abc.ABC):
@@ -42,5 +41,4 @@ class INomenclatureTitleChainLink(abc.ABC):
     def resolve(
         cls,
         nomenclature_dict: NomenclatureTitleDictType,
-    ) -> dict[Scale, Nomenclature]:
-        ...
+    ) -> dict[Scale, Nomenclature]: ...

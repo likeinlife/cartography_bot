@@ -1,10 +1,11 @@
-import misc
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-from misc import decorators
 
+import misc
+from misc import validators
+from src.misc.result import Err
 from tg_bot.enums.commands import CartographyCommandsEnum
 from tg_bot.states import GetMiddle
 
@@ -24,16 +25,20 @@ async def middle_get_handler(message: Message, state: FSMContext):
 
 
 @router.message(GetMiddle.enter_first_coordinates)
-@decorators.validate_degrees_min_sec
 async def middle_first_coordinate_handler(message: Message, state: FSMContext):
+    match await validators.validate_degrees_min_sec(message):
+        case Err(_):
+            return
     await state.update_data({Data.first: message.text})
     await message.answer("Напиши вторую координату (градусы, мин, сек)")
     await state.set_state(GetMiddle.enter_second_coordinates)
 
 
 @router.message(GetMiddle.enter_second_coordinates)
-@decorators.validate_degrees_min_sec
 async def middle_second_coordinate_handler(message: Message, state: FSMContext):
+    match await validators.validate_degrees_min_sec(message):
+        case Err(_):
+            return
     await state.update_data({Data.second: message.text})
     await message.answer("Напиши количество частей")
     await state.set_state(GetMiddle.enter_parts_number)
@@ -43,6 +48,11 @@ async def middle_second_coordinate_handler(message: Message, state: FSMContext):
 async def middle_parts_coordinate_handler(message: Message, state: FSMContext):
     if message.text and message.text.isnumeric():
         parts = int(message.text)
+    else:
+        await message.answer(
+            "Некорректный ввод. Ожидается целое число до 50."
+        )
+        return
     if parts > 50:
         return await message.answer(
             "Вы ввели слишком большое количество частей. Вряд ли оно вам надо.\nВведите другое число"
