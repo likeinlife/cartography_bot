@@ -2,7 +2,7 @@ import re
 
 from aiogram.types import Message
 
-from src.misc.result import Err, Ok, Result
+from misc.result import Err, Ok, Result
 
 coordinate_pattern = re.compile(r"([0-9]{1,3}) ?([0-9]{1,2})? ?([0-9]{1,2})?")
 

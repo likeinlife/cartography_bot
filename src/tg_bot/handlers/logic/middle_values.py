@@ -5,7 +5,7 @@ from aiogram.types import Message
 
 import misc
 from misc import validators
-from src.misc.result import Err
+from misc.result import Err
 from tg_bot.enums.commands import CartographyCommandsEnum
 from tg_bot.states import GetMiddle
 

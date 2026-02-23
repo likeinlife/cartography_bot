@@ -11,7 +11,7 @@ from domain.facades import INomenclatureFacade
 from domain.models import CoordinatePair
 from misc import validators
 
-from src.misc.result import Err
+from misc.result import Err
 from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByCoordinatesImages
 
