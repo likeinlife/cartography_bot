@@ -1,4 +1,5 @@
-from typing import Any, Awaitable, Callable, Dict
+import sys
+from typing import Any, Awaitable, Callable, Dict, Tuple
 
 import structlog
 from aiogram import BaseMiddleware
@@ -22,11 +23,12 @@ class ErrorHandlerMiddleware(BaseMiddleware, MessageInfoGetterMixin):
             return await handler(event, data)
         except Exception as e:
             error = e
+            exc_info: Tuple[type[BaseException], BaseException, Any] = sys.exc_info()
         message_info = self._get_message_info(event)
         if isinstance(error, BaseError):
             await self._process_msg_error(error, event, message_info)
         else:
-            await self._process_unexpected_error(error, event, message_info)
+            await self._process_unexpected_error(error, event, message_info, exc_info)
 
     async def _process_msg_error(self, error: BaseError, event: TelegramObject, message_info: MessageInfo):
         if not message_info.user:
@@ -36,10 +38,21 @@ class ErrorHandlerMiddleware(BaseMiddleware, MessageInfoGetterMixin):
         if isinstance(event, CallbackQuery | Message):
             await event.answer(error.msg)
 
-    async def _process_unexpected_error(self, error: Exception, event: TelegramObject, message_info: MessageInfo):
+    async def _process_unexpected_error(
+        self,
+        error: Exception,
+        event: TelegramObject,
+        message_info: MessageInfo,
+        exc_info: Tuple[type[BaseException], BaseException, Any],
+    ):
         if not message_info.user:
-            self.logger.error("No user info", error=error, exc_info=True)
+            self.logger.error("No user info", error=error, exc_info=exc_info)
             return
-        self.logger.error(error, username=message_info.user.username, chat_id=message_info.user.id, exc_info=True)
+        self.logger.error(
+            error,
+            username=message_info.user.username,
+            chat_id=message_info.user.id,
+            exc_info=exc_info,
+        )
         if isinstance(event, CallbackQuery | Message):
             await event.answer("Unexpected error")

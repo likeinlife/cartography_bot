@@ -4,36 +4,41 @@ import structlog
 
 
 def get_logging_settings(debug_mode: bool, logging_level: str) -> dict:
-    foreign_pre_chain = (
-        [
-            structlog.processors.TimeStamper(fmt="iso"),
-            structlog.stdlib.add_logger_name,
-            structlog.stdlib.add_log_level,
-            structlog.processors.CallsiteParameterAdder(
-                [
-                    structlog.processors.CallsiteParameter.FUNC_NAME,
-                    structlog.processors.CallsiteParameter.LINENO,
-                ],
-            ),
-            structlog.stdlib.PositionalArgumentsFormatter(),
-            structlog.processors.StackInfoRenderer(),
-            structlog.processors.format_exc_info,
-            structlog.processors.UnicodeDecoder(),
-        ],
+    traceback_processor = (
+        structlog.processors.format_exc_info if debug_mode else structlog.processors.dict_tracebacks
     )
+    foreign_pre_chain = [
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.processors.CallsiteParameterAdder(
+            [
+                structlog.processors.CallsiteParameter.FUNC_NAME,
+                structlog.processors.CallsiteParameter.LINENO,
+            ],
+        ),
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.StackInfoRenderer(),
+        traceback_processor,
+        structlog.processors.UnicodeDecoder(),
+    ]
     return {
         "version": 1,
         "disable_existing_loggers": True,
         "formatters": {
             "json_console": {
                 "()": structlog.stdlib.ProcessorFormatter,
-                "processor": structlog.processors.JSONRenderer(),
+                "processor": structlog.processors.JSONRenderer(indent=2, sort_keys=True),
                 "foreign_pre_chain": foreign_pre_chain,
+                "keep_exc_info": True,
+                "keep_stack_info": True,
             },
             "plain_console": {
                 "()": structlog.stdlib.ProcessorFormatter,
                 "processor": structlog.dev.ConsoleRenderer(colors=True),
                 "foreign_pre_chain": foreign_pre_chain,
+                "keep_exc_info": True,
+                "keep_stack_info": True,
             },
         },
         "handlers": {
@@ -53,6 +58,9 @@ def get_logging_settings(debug_mode: bool, logging_level: str) -> dict:
 
 
 def configure_logging(debug_mode: bool, logging_level: str):
+    traceback_processor = (
+        structlog.processors.format_exc_info if debug_mode else structlog.processors.dict_tracebacks
+    )
     structlog.configure(
         processors=[
             structlog.contextvars.merge_contextvars,
@@ -60,6 +68,7 @@ def configure_logging(debug_mode: bool, logging_level: str):
             structlog.processors.TimeStamper(fmt="iso"),
             structlog.stdlib.add_logger_name,
             structlog.stdlib.add_log_level,
+            traceback_processor,
             structlog.processors.CallsiteParameterAdder(
                 [
                     structlog.processors.CallsiteParameter.FUNC_NAME,
@@ -68,7 +77,6 @@ def configure_logging(debug_mode: bool, logging_level: str):
             ),
             structlog.stdlib.PositionalArgumentsFormatter(),
             structlog.processors.StackInfoRenderer(),
-            structlog.processors.format_exc_info,
             structlog.processors.UnicodeDecoder(),
             structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
         ],
