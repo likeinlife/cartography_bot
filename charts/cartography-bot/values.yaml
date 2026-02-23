@@ -1,0 +1,59 @@
+replicaCount: 1
+
+image:
+  repository: likeinlife/cartography_bot
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  devMode: true
+  loggingLevel: "DEBUG"
+  image:
+    height: 1200
+    width: 1200
+    padding: 150
+    textSizeCoefficient: 10
+    textAngle: 310
+    bottomLabelOffset: 0
+    rightLabelOffset: 3
+    backgroundColor: "white"
+    fillingColor: "gray"
+    textColor: "black"
+    inverseTextColor: "white"
+
+secret:
+  create: true
+  existingSecret: ""
+  botToken: ""
+  adminId: ""

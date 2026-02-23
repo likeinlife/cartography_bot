@@ -36,6 +36,26 @@ git clone git@github.com:likeinlife/cartography_bot.git
 1. `make run-docker` - запустить
 2. `make down-docker` - остановить
 
+## via Helm
+
+Чарт находится в `charts/cartography-bot`.
+
+Установка с созданием секрета внутри чарта:
+
+```shell
+helm upgrade --install cartography-bot ./charts/cartography-bot \
+  --set secret.botToken="<telegram-bot-token>" \
+  --set secret.adminId="<telegram-admin-id>"
+```
+
+Установка с уже существующим секретом (`BOT_TOKEN`, `ADMIN_ID`):
+
+```shell
+helm upgrade --install cartography-bot ./charts/cartography-bot \
+  --set secret.create=false \
+  --set secret.existingSecret="cartography-bot-secret"
+```
+
 # Env
 
 - BOT_TOKEN - bot token

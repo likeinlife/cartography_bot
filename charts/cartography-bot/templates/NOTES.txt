@@ -1,0 +1,12 @@
+1. Ensure bot credentials are configured:
+{{- if and .Values.secret.create (not .Values.secret.existingSecret) }}
+   - `secret.botToken`
+   - `secret.adminId`
+{{- else if .Values.secret.existingSecret }}
+   - existing secret: {{ .Values.secret.existingSecret }} with keys `BOT_TOKEN` and `ADMIN_ID`
+{{- else }}
+   - secret creation is disabled; provide credentials some other way.
+{{- end }}
+
+2. Check pod status:
+   kubectl get pods -l app.kubernetes.io/instance={{ .Release.Name }}

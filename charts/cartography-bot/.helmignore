@@ -1,0 +1,6 @@
+# Common VCS and editor artifacts
+.git/
+.gitignore
+.DS_Store
+*.swp
+*.tmp

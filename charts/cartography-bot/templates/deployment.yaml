@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cartography-bot.fullname" . }}
+  labels:
+    {{- include "cartography-bot.labels" . | nindent 4 }}
+{{- if and (not .Values.secret.create) (not .Values.secret.existingSecret) }}
+{{- fail "Set secret.existingSecret when secret.create=false" }}
+{{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cartography-bot.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cartography-bot.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "cartography-bot.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cartography-bot.secretName" . }}
+                  key: BOT_TOKEN
+            - name: ADMIN_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cartography-bot.secretName" . }}
+                  key: ADMIN_ID
+            - name: DEV_MODE
+              value: {{ ternary "True" "False" .Values.env.devMode | quote }}
+            - name: LOGGING_LEVEL
+              value: {{ .Values.env.loggingLevel | quote }}
+            - name: IMAGE_HEIGHT
+              value: {{ .Values.env.image.height | quote }}
+            - name: IMAGE_WIDTH
+              value: {{ .Values.env.image.width | quote }}
+            - name: IMAGE_PADDING
+              value: {{ .Values.env.image.padding | quote }}
+            - name: IMAGE_TEXT_SIZE_COEFFICIENT
+              value: {{ .Values.env.image.textSizeCoefficient | quote }}
+            - name: IMAGE_TEXT_ANGLE
+              value: {{ .Values.env.image.textAngle | quote }}
+            - name: IMAGE_BOTTOM_LABEL_OFFSET
+              value: {{ .Values.env.image.bottomLabelOffset | quote }}
+            - name: IMAGE_RIGHT_LABEL_OFFSET
+              value: {{ .Values.env.image.rightLabelOffset | quote }}
+            - name: IMAGE_BACKGROUND_COLOR
+              value: {{ .Values.env.image.backgroundColor | quote }}
+            - name: IMAGE_FILLING_COLOR
+              value: {{ .Values.env.image.fillingColor | quote }}
+            - name: IMAGE_TEXT_COLOR
+              value: {{ .Values.env.image.textColor | quote }}
+            - name: IMAGE_INVERSE_TEXT_COLOR
+              value: {{ .Values.env.image.inverseTextColor | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
