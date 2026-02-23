@@ -12,6 +12,9 @@ class Config(BaseSettings):
     bot_token: str = Field()
     admin_id: int = Field()
     dev_mode: bool = Field(True, description="True - admin only use ")
+    database_url: str | None = Field(None)
+    analytics_enabled: bool = Field(False)
+    analytics_source: str = Field("tg_bot")
 
     static_path: Path = Field(Path(__file__).parent.parent.parent / Path("static"))
 

@@ -2,8 +2,10 @@
 {{- if and .Values.secret.create (not .Values.secret.existingSecret) }}
    - `secret.botToken`
    - `secret.adminId`
+   - `secret.databaseUrl` (required only when analytics is enabled)
 {{- else if .Values.secret.existingSecret }}
-   - existing secret: {{ .Values.secret.existingSecret }} with keys `BOT_TOKEN` and `ADMIN_ID`
+   - existing secret: {{ .Values.secret.existingSecret }} with keys `BOT_TOKEN`, `ADMIN_ID`
+   - optional key: `DATABASE_URL` (needed when analytics enabled)
 {{- else }}
    - secret creation is disabled; provide credentials some other way.
 {{- end }}

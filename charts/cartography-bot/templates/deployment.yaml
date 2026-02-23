@@ -48,10 +48,20 @@ spec:
                 secretKeyRef:
                   name: {{ include "cartography-bot.secretName" . }}
                   key: ADMIN_ID
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cartography-bot.secretName" . }}
+                  key: DATABASE_URL
+                  optional: true
             - name: DEV_MODE
               value: {{ ternary "True" "False" .Values.env.devMode | quote }}
             - name: LOGGING_LEVEL
               value: {{ .Values.env.loggingLevel | quote }}
+            - name: ANALYTICS_ENABLED
+              value: {{ ternary "True" "False" .Values.env.analyticsEnabled | quote }}
+            - name: ANALYTICS_SOURCE
+              value: {{ .Values.env.analyticsSource | quote }}
             - name: IMAGE_HEIGHT
               value: {{ .Values.env.image.height | quote }}
             - name: IMAGE_WIDTH

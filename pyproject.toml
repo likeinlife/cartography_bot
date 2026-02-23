@@ -21,6 +21,9 @@ dependencies = [
     "pydantic-settings>=2.1.0,<3",
     "dependency-injector==4.48.3",
     "structlog>=24.1.0,<25",
+    "psycopg[binary]>=3.2.0,<4",
+    "sqlalchemy>=2.0.0,<3",
+    "alembic>=1.16.0,<2",
 ]
 
 [dependency-groups]

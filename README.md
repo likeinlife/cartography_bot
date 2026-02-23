@@ -24,6 +24,11 @@ git clone git@github.com:likeinlife/cartography_bot.git
 # Launch
 
 1. Создайте `.env` файл, ориентируясь на шаблон `sample.env`
+2. При включенной аналитике подготовьте PostgreSQL и примените миграции:
+
+```shell
+alembic upgrade head
+```
 
 ## via Python
 
@@ -61,6 +66,9 @@ helm upgrade --install cartography-bot ./charts/cartography-bot \
 - BOT_TOKEN - bot token
 - ADMIN_ID - admin telegram id
 - DEV_MODE (default=True) - бот отвечает только админу, включает dev-команды
+- DATABASE_URL - postgres DSN в формате `postgresql+psycopg://user:password@host:5432/dbname`
+- ANALYTICS_ENABLED (default=False) - включает сбор аналитики
+- ANALYTICS_SOURCE (default=tg_bot) - источник событий аналитики
 
 # Testing
 

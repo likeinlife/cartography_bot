@@ -1,7 +1,10 @@
 import core.logger_setup as logger_setup
 from dependency_injector import providers
 from dependency_injector.containers import DeclarativeContainer
+from domain.analytics import IAnalyticsRepository, IAnalyticsService
 from domain.facades import INomenclatureFacade
+from logic.analytics import AnalyticsService
+from logic.analytics.repositories import PsycopgAnalyticsRepository
 from logic.cartography.facades import NomenclatureFacade
 from logic.cartography.image_generator import IImageGenerator, ImageGenerator
 
@@ -33,4 +36,14 @@ class AppContainer(DeclarativeContainer):
 
     nomenclature_facade: providers.Singleton[INomenclatureFacade] = providers.Singleton(
         NomenclatureFacade, image_generator=image_generator
+    )
+
+    analytics_repository: providers.Singleton[IAnalyticsRepository] = providers.Singleton(
+        PsycopgAnalyticsRepository,
+        database_url=settings.database_url,
+    )
+    analytics_service: providers.Singleton[IAnalyticsService] = providers.Singleton(
+        AnalyticsService,
+        analytics_repository=analytics_repository,
+        source=settings.analytics_source,
     )
