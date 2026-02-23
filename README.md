@@ -38,8 +38,14 @@ alembic upgrade head
 
 ## via Docker
 
-1. `make run-docker` - запустить
-2. `make down-docker` - остановить
+1. `make run-docker` - запустить бота и PostgreSQL
+2. (опционально) применить миграции после старта контейнеров:
+
+```shell
+docker compose exec tg_bot alembic upgrade head
+```
+
+3. `make down-docker` - остановить
 
 ## via Helm
 
