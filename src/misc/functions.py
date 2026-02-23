@@ -8,8 +8,8 @@ def generate_roman_number(number: int) -> str:
     variants = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
     ten, ten_left = divmod(number, 10)
     if ten_left:
-        return f'{"X"*ten}{variants[ten_left-1]}'
-    return f'{"X"*ten}'
+        return f"{'X' * ten}{variants[ten_left - 1]}"
+    return f"{'X' * ten}"
 
 
 def from_tuple(degrees: int = 0, minutes: int = 0, seconds: int | float = 0) -> Coordinate:

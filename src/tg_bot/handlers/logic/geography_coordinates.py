@@ -6,12 +6,12 @@ from aiogram import Router, flags
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
-from container import AppContainer
-from dependency_injector.wiring import Provide, inject
+from dishka.integrations.aiogram import FromDishka
 from domain.facades import INomenclatureFacade
 from domain.models import CoordinatePair
-from misc import decorators
+from misc import validators
 
+from src.misc.result import Err
 from tg_bot.enums import CartographyCommandsEnum
 from tg_bot.states import ByCoordinatesImages
 
@@ -31,8 +31,11 @@ async def by_coordinates_handler(message: Message, state: FSMContext):
 
 
 @router.message(ByCoordinatesImages.enter_first_coordinates)
-@decorators.validate_degrees_min_sec
+
 async def enter_latitude_handler(message: Message, state: FSMContext):
+    match await validators.validate_degrees_min_sec(message):
+        case Err(_):
+            return
     await state.update_data({Data.latitude: message.text})
 
     await state.set_state(ByCoordinatesImages.enter_second_coordinates)
@@ -40,8 +43,10 @@ async def enter_latitude_handler(message: Message, state: FSMContext):
 
 
 @router.message(ByCoordinatesImages.enter_second_coordinates)
-@decorators.validate_degrees_min_sec
 async def enter_longitude_handler(message: Message, state: FSMContext):
+    match await validators.validate_degrees_min_sec(message):
+        case Err(_):
+            return
     await state.update_data({Data.longitude: message.text})
 
     await state.set_state(ByCoordinatesImages.enter_operations_number)
@@ -50,20 +55,23 @@ async def enter_longitude_handler(message: Message, state: FSMContext):
 
 @router.message(ByCoordinatesImages.enter_operations_number)
 @flags.chat_action("upload_document")
-@decorators.validate_operation_number
-async def enter_scale_number_handler(message: Message, state: FSMContext):
+async def enter_scale_number_handler(
+    message: Message, state: FSMContext, nomenclature_facade: FromDishka[INomenclatureFacade]
+):
+    match await validators.validate_operation_number(message):
+        case Err(_):
+            return
     data = await state.update_data({Data.scale_number: message.text})
 
     await state.clear()
     await message.answer("Генерирую ответ...")
-    await handle_nomenclature_handler(message, data)
+    await handle_nomenclature_handler(message, data, nomenclature_facade)
 
 
-@inject
 async def handle_nomenclature_handler(
     message: Message,
     data: dict[str, str],
-    nomenclature_facade: INomenclatureFacade = Provide[AppContainer.nomenclature_facade],
+    nomenclature_facade: INomenclatureFacade,
 ):
     def _divide_to_chunks(arr_range, arr_size):
         arr_range = iter(arr_range)
