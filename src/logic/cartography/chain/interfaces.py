@@ -1,6 +1,7 @@
 import abc
 
-from domain.models import CoordinatePair, Nomenclature
+from domain.models.coordinate_pair import CoordinatePair
+from domain.models.nomenclature import Nomenclature
 
 from logic.cartography.enums import Scale
 from logic.cartography.types import NomenclatureTitleDictType, NomenclatureTitleFormatter

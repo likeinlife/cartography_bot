@@ -1,10 +1,11 @@
 from io import BytesIO
 from pathlib import Path
 
-from domain.models import CoordinatePair
+from domain.models.coordinate_pair import CoordinatePair
 from PIL import Image
 
-from logic.cartography.image_drawer import draw_labels, draw_table
+from logic.cartography.image_drawer.labels_drawer import draw_labels
+from logic.cartography.image_drawer.table_drawer import draw_table
 from logic.cartography.types import ImageColorType, ImageType
 
 from .interface import IImageGenerator

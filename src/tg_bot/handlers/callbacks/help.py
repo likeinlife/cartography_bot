@@ -2,7 +2,7 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
 from tg_bot import strings
-from tg_bot.enums import HelpCallbackEnum
+from tg_bot.enums.callback import HelpCallbackEnum
 from tg_bot.keyboards import inline
 
 router = Router()

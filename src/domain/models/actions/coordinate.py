@@ -1,8 +1,8 @@
-import typing as tp
 from decimal import Decimal
+from typing import TYPE_CHECKING
 
-if tp.TYPE_CHECKING:
-    from domain.models import Coordinate
+if TYPE_CHECKING:
+    from domain.models.coordinate import Coordinate
 
 
 class CoordinateActions:

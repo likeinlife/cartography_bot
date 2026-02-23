@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from functools import total_ordering
 
-from .actions import CoordinateActions
+from .actions.coordinate import CoordinateActions
 
 
 @total_ordering

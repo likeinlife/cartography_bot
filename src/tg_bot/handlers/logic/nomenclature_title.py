@@ -5,7 +5,7 @@ from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from dishka.integrations.aiogram import FromDishka
 from domain.facades import INomenclatureFacade
 
-from tg_bot.enums import CartographyCommandsEnum
+from tg_bot.enums.commands import CartographyCommandsEnum
 from tg_bot.states import ByNomenclatureTitle
 
 router = Router()

@@ -1,4 +1,4 @@
-from tg_bot.enums import UtilCommandsEnum
+from tg_bot.enums.commands import UtilCommandsEnum
 from tg_bot.enums.commands import CartographyCommandsEnum, GeodesyCommandsEnum
 
 GREETING_MESSAGE = (

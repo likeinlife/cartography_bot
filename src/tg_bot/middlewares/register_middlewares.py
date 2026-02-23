@@ -1,6 +1,6 @@
 from aiogram import Dispatcher
 from aiogram.utils.chat_action import ChatActionMiddleware
-from domain.analytics import IAnalyticsService
+from domain.analytics.service import IAnalyticsService
 
 from .analytics import AnalyticsMiddleware
 from .error_handler import ErrorHandlerMiddleware

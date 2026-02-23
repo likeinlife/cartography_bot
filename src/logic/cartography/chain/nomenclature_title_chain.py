@@ -1,4 +1,4 @@
-from domain.models import Nomenclature
+from domain.models.nomenclature import Nomenclature
 
 from logic.cartography import constants
 from logic.cartography.calculations.nomenclature_title import get_1m_nomenclature, get_nomenclature_by_parts

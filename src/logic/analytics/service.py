@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 
-from domain.analytics import AnalyticsEventCreate, IAnalyticsRepository, IAnalyticsService
+from domain.analytics.service import IAnalyticsService
+from domain.analytics.models import AnalyticsEventCreate
+from domain.analytics.repository import IAnalyticsRepository
 
 
 class AnalyticsService(IAnalyticsService):

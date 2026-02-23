@@ -1,8 +1,13 @@
 from aiogram import Bot, Dispatcher
-from domain.analytics import IAnalyticsService
+from aiogram.client.default import DefaultBotProperties
+from domain.analytics.service import IAnalyticsService
 from dishka.integrations.aiogram import setup_dishka
 
-from . import commands, handlers, middlewares
+from . import commands
+
+from .handlers.register_handlers import register_all_handlers
+
+from .middlewares.register_middlewares import register_all_middlewares
 
 
 async def run(
@@ -13,12 +18,12 @@ async def run(
     analytics_enabled: bool,
     analytics_service: IAnalyticsService | None,
 ) -> None:
-    bot = Bot(bot_token, parse_mode="HTML")
+    bot = Bot(bot_token, default=DefaultBotProperties(parse_mode="HTML"))
     dp = Dispatcher()
 
     await commands.set_commands(bot=bot, dev_mode=dev_mode, admin_id=admin_id)
-    handlers.register_all_handlers(dp)
-    middlewares.register_all_middlewares(
+    register_all_handlers(dp)
+    register_all_middlewares(
         dp=dp,
         dev_mode=dev_mode,
         admin_id=admin_id,

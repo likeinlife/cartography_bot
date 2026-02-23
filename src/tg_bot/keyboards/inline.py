@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from tg_bot.enums import HelpCallbackEnum
+from tg_bot.enums.callback import HelpCallbackEnum
 
 
 def _get_help_buttons(pop: HelpCallbackEnum | None) -> dict[HelpCallbackEnum, str]:

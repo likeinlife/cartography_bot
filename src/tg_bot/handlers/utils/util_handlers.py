@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from tg_bot import strings
-from tg_bot.enums import UtilCommandsEnum
+from tg_bot.enums.commands import UtilCommandsEnum
 from tg_bot.keyboards import reply
 
 router = Router()

@@ -1,6 +1,6 @@
 import typing as tp
 
-from misc import generate_roman_number
+from misc.functions import generate_roman_number
 
 LOWER_ALPHA: tp.Final = ["а", "б", "в", "г"]
 LOWER_ALPHA_EXTENDED: tp.Final = ["а", "б", "в", "г", "д", "е", "ж", "з", "и"]

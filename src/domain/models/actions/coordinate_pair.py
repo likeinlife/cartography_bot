@@ -1,7 +1,8 @@
-import typing as tp
+from typing import TYPE_CHECKING
 
-if tp.TYPE_CHECKING:
-    from domain.models import CoordinatePair
+
+if TYPE_CHECKING:
+    from domain.models.coordinate_pair import CoordinatePair
 
 
 class CoordinatePairActions:

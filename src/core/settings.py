@@ -1,10 +1,11 @@
 import logging
 from pathlib import Path
 
-from logic.cartography.types import ImageColorType
-from misc.constants import Color
 from pydantic import Field, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from logic.cartography.types import ImageColorType
+from misc.constants import Color
 
 
 class Config(BaseSettings):
@@ -25,9 +26,6 @@ class Config(BaseSettings):
         return getattr(logging, self.logging_level)
 
 
-app_settings = Config()  # type: ignore
-
-
 class ImageConfig(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="IMAGE_")
 
@@ -45,12 +43,14 @@ class ImageConfig(BaseSettings):
     text_color: ImageColorType = Field(Color.BLACK)
     inverse_text_color: ImageColorType = Field(Color.WHITE)
 
-    font_path: Path = Field(app_settings.static_path / Path("font.otf"))
+    static_path: Path = Field(Path(__file__).parent.parent.parent / Path("static"))
+
+    @computed_field
+    @property
+    def font_path(self) -> Path:
+        return self.static_path / Path("font.otf")
 
     @computed_field
     @property
     def resolution(self) -> tuple[int, int]:
         return self.width, self.height
-
-
-image_settings = ImageConfig()  # type: ignore

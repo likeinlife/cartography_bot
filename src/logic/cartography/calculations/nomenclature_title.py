@@ -1,7 +1,9 @@
 import string
 from typing import Any
 
-from domain.models import Coordinate, CoordinatePair, Nomenclature
+from domain.models.coordinate import Coordinate
+from domain.models.coordinate_pair import CoordinatePair
+from domain.models.nomenclature import Nomenclature
 
 from logic.cartography.constants import FINISH_GEO_ZONE, INIT_GEO_ZONE
 from logic.cartography.errors import PartNomenclatureError

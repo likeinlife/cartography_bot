@@ -3,7 +3,7 @@ from typing import TypeAlias
 from aiogram import Bot
 from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefault
 
-from .enums import CartographyCommandsEnum, GeodesyCommandsEnum, UtilCommandsEnum
+from .enums.commands import CartographyCommandsEnum, GeodesyCommandsEnum, UtilCommandsEnum
 
 CommandHelpType: TypeAlias = list[tuple[str, str]]
 

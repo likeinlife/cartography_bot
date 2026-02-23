@@ -7,7 +7,7 @@ from aiogram.types import Message
 from logic.geodesy.micrometer import calculate_micrometer
 from logic.geodesy.models import MicrometerInput
 
-from tg_bot.enums import GeodesyCommandsEnum
+from tg_bot.enums.commands import GeodesyCommandsEnum
 from tg_bot.states import MicrometerState
 
 router = Router()

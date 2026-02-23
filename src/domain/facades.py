@@ -2,7 +2,7 @@ import abc
 
 from logic.cartography.types import ImageType
 
-from domain.models import CoordinatePair
+from domain.models.coordinate_pair import CoordinatePair
 
 
 class INomenclatureFacade(abc.ABC):

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from domain.models import Coordinate
+from domain.models.coordinate import Coordinate
 from PIL import Image, ImageDraw, ImageFont
 
 from logic.cartography.types import ImageColorType

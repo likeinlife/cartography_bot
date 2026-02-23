@@ -23,6 +23,7 @@ Use Python 3.10+ and follow Ruff configuration in `pyproject.toml`:
 - Max line length: `120`
 - Quote style: double quotes
 - Prefer absolute imports (parent relative imports are banned)
+- Never write anything in __init__.py
 
 Naming:
 - Files/modules/functions/variables: `snake_case`

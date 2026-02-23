@@ -1,6 +1,6 @@
 import abc
 
-from domain.models import CoordinatePair
+from domain.models.coordinate_pair import CoordinatePair
 
 from logic.cartography.types import ImageType
 

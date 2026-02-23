@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from .actions import CoordinatePairActions
+from .actions.coordinate_pair import CoordinatePairActions
 from .coordinate import Coordinate
 
 

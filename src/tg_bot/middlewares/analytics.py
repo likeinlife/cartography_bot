@@ -5,7 +5,7 @@ from typing import Any, Awaitable, Callable, Dict
 import structlog
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
-from domain.analytics import IAnalyticsService
+from domain.analytics.service import IAnalyticsService
 
 
 class AnalyticsMiddleware(BaseMiddleware):

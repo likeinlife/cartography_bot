@@ -8,11 +8,11 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InputMediaPhoto, Message
 from dishka.integrations.aiogram import FromDishka
 from domain.facades import INomenclatureFacade
-from domain.models import CoordinatePair
+from domain.models.coordinate_pair import CoordinatePair
 from misc import validators
 
 from misc.result import Err
-from tg_bot.enums import CartographyCommandsEnum
+from tg_bot.enums.commands import CartographyCommandsEnum
 from tg_bot.states import ByCoordinatesImages
 
 router = Router()

@@ -1,11 +1,12 @@
 from typing import Callable
 
 from domain.facades import INomenclatureFacade
-from domain.models import CoordinatePair, Nomenclature
+from domain.models.coordinate_pair import CoordinatePair
+from domain.models.nomenclature import Nomenclature
 
 from logic.cartography.chain.interfaces import ICoordinateChainLink, INomenclatureTitleChainLink
 from logic.cartography.enums import Scale
-from logic.cartography.image_generator import IImageGenerator
+from logic.cartography.image_generator.interface import IImageGenerator
 from logic.cartography.scale_resolver import (
     coordinate_chain_link_resolver,
     coordinate_resolver,

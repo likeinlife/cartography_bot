@@ -9,7 +9,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: ["alembic", "-c", "alembic/alembic.ini", "upgrade", "head"]
+    entrypoint: ["alembic", "-c", "alembic/alembic.ini", "upgrade", "head"]
 
   tg_bot:
     build: .

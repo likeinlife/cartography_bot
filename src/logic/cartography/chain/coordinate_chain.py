@@ -1,4 +1,5 @@
-from domain.models import CoordinatePair, Nomenclature
+from domain.models.coordinate_pair import CoordinatePair
+from domain.models.nomenclature import Nomenclature
 
 from logic.cartography import constants
 from logic.cartography.calculations.coordinates import get_1m_nomenclature, get_nomenclature_by_parts
