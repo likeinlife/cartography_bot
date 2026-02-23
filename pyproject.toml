@@ -1,35 +1,50 @@
-[tool.poetry]
+[project]
 name = "src"
 version = "0.1.0"
 description = "Telegram bot to solve cartography issues"
-authors = ["likeinlife <likeinlife48@yandex.ru>"]
+authors = [{ name = "likeinlife", email = "likeinlife48@yandex.ru" }]
+requires-python = ">=3.10,<4"
 readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "aiogram==3.4.1",
+    "tabulate>=0.9.0,<0.10",
+    "python-dotenv>=1.0.0,<2",
+    "pillow==12.1.1",
+    "pydantic-settings>=2.1.0,<3",
+    "dependency-injector==4.48.3",
+    "structlog>=24.1.0,<25",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-aiogram = "3.4.1"
-tabulate = "^0.9.0"
-python-dotenv = "^1.0.0"
-pillow = "^9.4.0"
-pydantic-settings = "^2.1.0"
-dependency-injector = "^4.41.0"
-structlog = "^24.1.0"
+[dependency-groups]
+dev = [
+    "mypy>=1.0.1,<2",
+    "ruff==0.15.2",
+    "pre-commit>=3.6.0,<4",
+    "types-pillow>=10.2.0.20240213,<11",
+]
+test = [
+    "pytest>=8.0.0,<9",
+    "coverage>=7.4.1,<8",
+    "pytest-cov>=4.1.0,<5",
+]
 
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.0.1"
-ruff = "^0.1.14"
-pre-commit = "^3.6.0"
-types-pillow = "^10.2.0.20240213"
+[tool.uv]
+default-groups = "all"
 
-
-[tool.poetry.group.test.dependencies]
-pytest = "^8.0.0"
-coverage = "^7.4.1"
-pytest-cov = "^4.1.0"
+[tool.uv.build-backend]
+module-root = ""
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
 
 [tool.mypy]
 plugins = ["pydantic.mypy"]

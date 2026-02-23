@@ -27,7 +27,7 @@ git clone git@github.com:likeinlife/cartography_bot.git
 
 ## via Python
 
-1. `poetry install` - установите все необходимые зависимости с помощью poetry
+1. `uv sync` - установите все необходимые зависимости с помощью poetry
 2. `poetry shell` - при необходимости, активируйте виртуальное окружение
 3. `make run-python` - запустите проект.
 
