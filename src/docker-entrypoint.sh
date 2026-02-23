@@ -1,9 +1,13 @@
 #!/bin/sh
 
 if [ "$DEV_MODE" = "False" ]; then
-      echo "RELEASE MODE"
+  echo "RELEASE MODE"
 else
-      echo "DEBUG MODE"
+  echo "DEBUG MODE"
 fi
 
-python main.py
+if [ "$#" -gt 0 ]; then
+  exec "$@"
+fi
+
+exec python main.py
