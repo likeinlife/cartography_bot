@@ -46,7 +46,7 @@ def draw_labels(
     pil_font = ImageFont.truetype(str(font_path), font_size)
 
     # print x values
-    for column_label_number, value in zip(range(parts + 1), x_values):
+    for column_label_number, value in zip(range(parts + 1), x_values, strict=True):
         x = padding + column_label_number * x_delta
         y = img.size[1] - padding + bottom_label_offset
 
@@ -63,7 +63,7 @@ def draw_labels(
         img.paste(text_img, (x - text_x_size // 4, y), text_img)
 
     # print y values
-    for row_label_number, value in zip(range(parts + 1), y_values):
+    for row_label_number, value in zip(range(parts + 1), y_values, strict=True):
         x = img.size[0] - padding + right_label_offset
         y = padding + row_label_number * y_delta
 

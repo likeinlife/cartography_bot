@@ -1,7 +1,7 @@
 from aiogram import Dispatcher
 
-from . import help
+from . import help as help_
 
 
 def register_callback_handlers(dp: Dispatcher) -> None:
-    dp.include_routers(help.router)
+    dp.include_routers(help_.router)
